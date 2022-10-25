@@ -1,5 +1,6 @@
 import { Box, Typography, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import calculatePointer from "../../utils/calculatePointer";
 
 type Props = {
   subject: string;
@@ -13,19 +14,7 @@ const Pointer300 = ({ subject }: Props) => {
   const [ese, setEse] = useState(0);
 
   useEffect(() => {
-    const cal = ise + ia + ese / 2;
-    let theoryG;
-
-    if (cal >= 80) theoryG = 10;
-    else if (cal >= 70) theoryG = 9;
-    else if (cal >= 60) theoryG = 8;
-    else if (cal >= 55) theoryG = 7;
-    else if (cal >= 50) theoryG = 6;
-    else if (cal >= 45) theoryG = 5;
-    else if (cal >= 40) theoryG = 4;
-    else theoryG = 0;
-
-    setRes(theoryG);
+    setRes(calculatePointer(ise + ia + ese / 2, 100));
   }, [ise, ia, ese]);
 
   return (
