@@ -4,14 +4,19 @@ import calculatePointer from "../../utils/calculatePointer";
 
 type Props = {
   subject: string;
+  onUpdateCallback(cg: number): void;
 };
 
-const Pointer300 = ({ subject }: Props) => {
+const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   const [res, setRes] = useState(0);
 
   const [ise, setIse] = useState(0);
   const [ia, setIa] = useState(0);
   const [ese, setEse] = useState(0);
+
+  useEffect(() => {
+    onUpdateCallback(res * 3);
+  }, [res]);
 
   useEffect(() => {
     setRes(calculatePointer(ise + ia + ese / 2, 100));
@@ -24,21 +29,21 @@ const Pointer300 = ({ subject }: Props) => {
       </Typography>
       <TextField
         label="ISE"
-        value={ise}
+        value={ise.toString()}
         onChange={(e) => setIse(Number(e.target.value))}
         type="number"
         sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="IA"
-        value={ia}
+        value={ia.toString()}
         onChange={(e) => setIa(Number(e.target.value))}
         type="number"
         sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="ESE"
-        value={ese}
+        value={ese.toString()}
         onChange={(e) => setEse(Number(e.target.value))}
         type="number"
         sx={{ mr: 2, mb: 2 }}

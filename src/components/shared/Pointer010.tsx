@@ -4,13 +4,18 @@ import calculatePointer from "../../utils/calculatePointer";
 
 type Props = {
   subject: string;
+  onUpdateCallback(cg: number): void;
 };
 
-const Pointer010 = ({ subject }: Props) => {
+const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const [res, setRes] = useState(0);
 
   const [tw, setTw] = useState(0);
   const [practical, setPractical] = useState(0);
+
+  useEffect(() => {
+    onUpdateCallback(res * 1);
+  }, [res]);
 
   useEffect(() => {
     setRes(calculatePointer(tw + practical, 50));
@@ -23,14 +28,14 @@ const Pointer010 = ({ subject }: Props) => {
       </Typography>
       <TextField
         label="TW"
-        value={tw}
+        value={tw.toString()}
         onChange={(e) => setTw(Number(e.target.value))}
         type="number"
         sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="practical/oral"
-        value={practical}
+        value={practical.toString()}
         onChange={(e) => setPractical(Number(e.target.value))}
         type="number"
         sx={{ mr: 2, mb: 2 }}
