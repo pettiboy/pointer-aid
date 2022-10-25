@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Pointer300 = ({ subject }: Props) => {
-  const [res, setRes] = useState<Pointer300ResponseType>(0);
+  const [res, setRes] = useState(0);
 
   const [ise, setIse] = useState(0);
   const [ia, setIa] = useState(0);
@@ -19,35 +19,36 @@ const Pointer300 = ({ subject }: Props) => {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Typography sx={{ mb: 3 }}>{subject}</Typography>
+      <Typography sx={{ mb: 3 }} variant="h4">
+        {subject}
+      </Typography>
       <TextField
         label="ISE"
         value={ise}
         onChange={(e) => setIse(Number(e.target.value))}
         type="number"
+        sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="IA"
         value={ia}
         onChange={(e) => setIa(Number(e.target.value))}
         type="number"
+        sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="ESE"
         value={ese}
         onChange={(e) => setEse(Number(e.target.value))}
         type="number"
+        sx={{ mr: 2, mb: 2 }}
       />
 
       <Box>
-        <Typography sx={{ my: 2 }}>Theory</Typography>
         <Typography>Grade Pointer (G): {res}</Typography>
-        <Typography>Credits (C): {3}</Typography>
       </Box>
     </Box>
   );
 };
 
 export default Pointer300;
-
-export type Pointer300ResponseType = number;

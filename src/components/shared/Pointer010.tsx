@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Pointer010 = ({ subject }: Props) => {
-  const [res, setRes] = useState<Pointer010ResponseType>(0);
+  const [res, setRes] = useState(0);
 
   const [tw, setTw] = useState(0);
   const [practical, setPractical] = useState(0);
@@ -18,29 +18,29 @@ const Pointer010 = ({ subject }: Props) => {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Typography sx={{ mb: 3 }}>{subject}</Typography>
+      <Typography sx={{ mb: 3 }} variant="h4">
+        {subject}
+      </Typography>
       <TextField
         label="TW"
         value={tw}
         onChange={(e) => setTw(Number(e.target.value))}
         type="number"
+        sx={{ mr: 2, mb: 2 }}
       />
       <TextField
         label="practical/oral"
         value={practical}
         onChange={(e) => setPractical(Number(e.target.value))}
         type="number"
+        sx={{ mr: 2, mb: 2 }}
       />
 
       <Box>
-        <Typography sx={{ my: 2 }}>Theory</Typography>
         <Typography>Grade Pointer (G): {res}</Typography>
-        <Typography>Credits (C): {2}</Typography>
       </Box>
     </Box>
   );
 };
 
 export default Pointer010;
-
-export type Pointer010ResponseType = number;
