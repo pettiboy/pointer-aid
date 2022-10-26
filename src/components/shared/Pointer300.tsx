@@ -14,6 +14,7 @@ import { Slider } from "@mui/material";
 import pointerToMarks from "../../utils/pointerToMarks";
 import pointerToMarksIseFixed from "../../utils/pointerToMarksIseFixed";
 import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
+import round from "../../utils/round";
 
 type Props = {
   subject: string;
@@ -39,17 +40,17 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(ise + ia + ese / 2, 100));
+    setRes(round(calculatePointer(ise + ia + ese / 2, 100)));
   }, [ise, ia, ese]);
 
   const onChangeIseMarks = (e: OnChangeEvent) => {
-    setIse(Number(e.target.value));
+    setIse(round(Number(e.target.value)));
   };
   const onChangeIaMarks = (e: OnChangeEvent) => {
-    setIa(Number(e.target.value));
+    setIa(round(Number(e.target.value)));
   };
   const onChangeEseMarks = (e: OnChangeEvent) => {
-    setEse(Number(e.target.value));
+    setEse(round(Number(e.target.value)));
   };
 
   const onChangeFixIse = (_e: OnChangeEvent, checked: boolean) => {
@@ -81,20 +82,20 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
 
   const updateMarks = (pointer: number) => {
     const marks = pointerToMarks(pointer);
-    setEse(marks.ese);
-    setIa(marks.ia);
-    setIse(marks.ise);
+    setEse(round(marks.ese));
+    setIa(round(marks.ia));
+    setIse(round(marks.ise));
   };
 
   const updateMarksIseFixed = (pointer: number) => {
     const marks = pointerToMarksIseFixed(pointer, ise);
-    setEse(marks.ese);
-    setIa(marks.ia);
+    setEse(round(marks.ese));
+    setIa(round(marks.ia));
   };
 
   const updateMarksIseIaFixed = (pointer: number) => {
     const marks = pointerToMarksIseIaFixed(pointer, ise, ia);
-    setEse(marks.ese);
+    setEse(round(marks.ese));
   };
 
   return (
