@@ -4,11 +4,14 @@ import {
   TextField,
   Switch,
   FormControlLabel,
+  Grid,
+  Paper,
+  SxProps,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
-import calculateMarks from "../../utils/calculateMarks";
+import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 
 type Props = {
   subject: string;
@@ -26,6 +29,10 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   const [fixIa, setFixIa] = useState(false);
 
   useEffect(() => {
+    updateMarksGivenPointer(res);
+  }, []);
+
+  useEffect(() => {
     onUpdateCallback(res * 3);
   }, [res]);
 
@@ -33,18 +40,49 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
     setRes(calculatePointer(ise + ia + ese / 2, 100));
   }, [ise, ia, ese]);
 
-  const handleMarksChange = (pointer: number) => {
-    if (fixIse === true && fixIa === true) updateMarksIseIaFixed(pointer);
-    else if (fixIse === true) updateMarksIseFixed(pointer);
-    else updateMarks(pointer);
+  const onChangeIseMarks = (e: OnChangeEvent) => {
+    setIse(Number(e.target.value));
+  };
+  const onChangeIaMarks = (e: OnChangeEvent) => {
+    setIa(Number(e.target.value));
+  };
+  const onChangeEseMarks = (e: OnChangeEvent) => {
+    setEse(Number(e.target.value));
+  };
+
+  const onChangeFixIse = (_e: OnChangeEvent, checked: boolean) => {
+    if (checked === false) setFixIa(false);
+    setFixIse(checked);
+  };
+  const onChangeFixIa = (_e: OnChangeEvent, checked: boolean) => {
+    if (checked === true) setFixIse(true);
+    setFixIa(checked);
+  };
+
+  const onChangeSlider = (
+    _e: Event,
+    value: number | number[],
+    _activeThumb: number
+  ) => {
+    updateMarksGivenPointer(value as number);
+  };
+
+  const updateMarksGivenPointer = (pointer: number) => {
+    if (fixIse === true && fixIa === true) {
+      updateMarksIseIaFixed(pointer);
+    } else if (fixIse === true) {
+      updateMarksIseFixed(pointer);
+    } else {
+      updateMarks(pointer);
+    }
   };
 
   const updateMarks = (pointer: number) => {
-    let totalReq = calculateMarks(pointer, 100);
+    let totalReq = calculateMarksGivenPointer(pointer, 100);
 
-    let eseMarksLimit = calculateMarks(pointer, 50);
-    let iaMarksLimit = calculateMarks(pointer, 20);
-    let iseMarksLimit = calculateMarks(pointer, 30);
+    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
+    let iaMarksLimit = calculateMarksGivenPointer(pointer, 20);
+    let iseMarksLimit = calculateMarksGivenPointer(pointer, 30);
 
     let updateEse = 0;
     let updateIa = 0;
@@ -84,9 +122,9 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   const updateMarksIseFixed = (pointer: number) => {
-    let totalReq = calculateMarks(pointer, 100) - ise;
-    let eseMarksLimit = calculateMarks(pointer, 50);
-    let iaMarksLimit = calculateMarks(pointer, 20);
+    let totalReq = calculateMarksGivenPointer(pointer, 100) - ise;
+    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
+    let iaMarksLimit = calculateMarksGivenPointer(pointer, 20);
 
     let updateEse = 0;
     let updateIa = 0;
@@ -131,8 +169,8 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   const updateMarksIseIaFixed = (pointer: number) => {
-    let totalReq = calculateMarks(pointer, 100) - ise - ia;
-    let eseMarksLimit = calculateMarks(pointer, 50);
+    let totalReq = calculateMarksGivenPointer(pointer, 100) - ise - ia;
+    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
 
     let updateEse = 0;
 
@@ -161,74 +199,67 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   return (
-    <Box sx={{ mt: 4 }}>
+    <Paper sx={{ p: 3 }}>
       <Typography sx={{ mb: 3 }} variant="h4">
         {subject}
       </Typography>
-      <TextField
-        label="ISE"
-        value={ise.toString()}
-        onChange={(e) => setIse(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={fixIse}
-            onChange={(_e, checked) => {
-              if (checked === false) setFixIa(false);
-              setFixIse(checked);
-            }}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={gridItemStyle}>
+          <TextField
+            label="ISE"
+            helperText="max marks - 30"
+            value={ise.toString()}
+            onChange={onChangeIseMarks}
+            type="number"
           />
-        }
-        label="Fix ISE marks"
-      />
-
-      <TextField
-        label="IA"
-        value={ia.toString()}
-        onChange={(e) => setIa(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={fixIa}
-            onChange={(_e, checked) => {
-              if (checked === true) setFixIse(true);
-              setFixIa(checked);
-            }}
+          <FormControlLabel
+            control={<Switch checked={fixIse} onChange={onChangeFixIse} />}
+            label="Fix ISE marks"
           />
-        }
-        label="Fix IA marks"
-      />
+        </Grid>
 
-      <TextField
-        label="ESE"
-        value={ese.toString()}
-        onChange={(e) => setEse(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
+        <Grid item xs={12} md={6} sx={gridItemStyle}>
+          <TextField
+            label="IA"
+            helperText="max marks - 20"
+            value={ia.toString()}
+            onChange={onChangeIaMarks}
+            type="number"
+          />
+          <FormControlLabel
+            control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
+            label="Fix IA marks"
+          />
+        </Grid>
 
-      <Box>
-        <Typography>Grade Pointer (G): {res}</Typography>
-        <Slider
-          sx={{ width: "80vw" }}
-          min={4}
-          step={1}
-          max={10}
-          value={res}
-          onChange={(e, num) => {
-            handleMarksChange(Number(num));
-          }}
-          defaultValue={9}
-        />
-      </Box>
-    </Box>
+        <Grid item xs={12} md={6} sx={gridItemStyle}>
+          <TextField
+            label="ESE"
+            helperText="max marks - 100"
+            value={ese.toString()}
+            onChange={onChangeEseMarks}
+            type="number"
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Box>
+            <Typography>Grade Pointer (G): {res}</Typography>
+            <Slider
+              min={4}
+              step={1}
+              max={10}
+              value={res}
+              onChange={onChangeSlider}
+              defaultValue={9}
+            />
+          </Box>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
+
+const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };
 
 export default Pointer300;

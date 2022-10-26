@@ -1,8 +1,8 @@
 import { Box, Typography, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
-import calculateMarks from '../../utils/calculateMarks'
-import {Slider} from '@mui/material'
+import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
+import { Slider } from "@mui/material";
 
 type Props = {
   subject: string;
@@ -23,11 +23,11 @@ const Pointer011 = ({ subject, onUpdateCallback }: Props) => {
     setRes(calculatePointer(tw + practical, 75));
   }, [tw, practical]);
 
-  const handleMarksChange=(num:number)=>{
-    const temp=calculateMarks(num,75);
-    const newValue=temp-tw
-    setPractical(newValue)
-  }
+  const handleMarksChange = (num: number) => {
+    const temp = calculateMarksGivenPointer(num, 75);
+    const newValue = temp - tw;
+    setPractical(newValue);
+  };
 
   return (
     <Box sx={{ mt: 4 }}>
@@ -52,16 +52,16 @@ const Pointer011 = ({ subject, onUpdateCallback }: Props) => {
       <Box>
         <Typography>Grade Pointer (G): {res}</Typography>
         <Slider
-					sx={{ width: "80vw" }}
-					min={4}
-					step={1}
-					max={10}
-					value={res}
-					onChange={(e, num) => {
-						handleMarksChange(Number(num));
-					}}
-					defaultValue={9}
-				/>
+          sx={{ width: "80vw" }}
+          min={4}
+          step={1}
+          max={10}
+          value={res}
+          onChange={(e, num) => {
+            handleMarksChange(Number(num));
+          }}
+          defaultValue={9}
+        />
       </Box>
     </Box>
   );

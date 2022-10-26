@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import sumObject from "../../../../../utils/sumObject";
 import Pointer010 from "../../../../shared/Pointer010";
@@ -33,74 +33,84 @@ const KjsceItSem3Calculator = (props: Props) => {
 
   return (
     <Box sx={{ p: 5 }}>
-      {/* 301 */}
-      <Pointer301
-        subject="Discrete and Applied Mathematics"
-        onUpdateCallback={(th, tw) => {
-          handleInputChange("DAMTH", th);
-          handleInputChange("DAMTW", tw);
-        }}
-      />
+      <Grid container spacing={6}>
+        {/* 301 */}
+        {/* <Pointer301
+          subject="Discrete and Applied Mathematics"
+          onUpdateCallback={(th, tw) => {
+            handleInputChange("DAMTH", th);
+            handleInputChange("DAMTW", tw);
+          }}
+        /> */}
 
-      {/* 300 */}
-      <Pointer300
-        subject="Data Structures"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DS", cg);
-        }}
-      />
-      <Pointer300
-        subject="Database Management Systems"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DMS", cg);
-        }}
-      />
-      <Pointer300
-        subject="Digital Systems"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DiS", cg);
-        }}
-      />
-      <Pointer300
-        subject="Data Communication and Networking"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DCN", cg);
-        }}
-      />
+        {/* 300 */}
+        <Grid item xs={12} md={6} lg={6} xl={4}>
+          <Pointer300
+            subject="Data Structures"
+            onUpdateCallback={(cg) => {
+              handleInputChange("DS", cg);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={4}>
+          <Pointer300
+            subject="Database Management Systems"
+            onUpdateCallback={(cg) => {
+              handleInputChange("DMS", cg);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={4}>
+          <Pointer300
+            subject="Digital Systems"
+            onUpdateCallback={(cg) => {
+              handleInputChange("DiS", cg);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} xl={4}>
+          <Pointer300
+            subject="Data Communication and Networking"
+            onUpdateCallback={(cg) => {
+              handleInputChange("DCN", cg);
+            }}
+          />
+        </Grid>
 
-      {/* 011 */}
-      <Pointer011
-        subject="Progamming Laboratory"
-        onUpdateCallback={(cg) => {
-          handleInputChange("PL", cg);
-        }}
-      />
+        {/* 011 */}
+        {/* <Pointer011
+          subject="Progamming Laboratory"
+          onUpdateCallback={(cg) => {
+            handleInputChange("PL", cg);
+          }}
+        /> */}
 
-      {/* 010 */}
-      <Pointer010
-        subject="Data Structures Laboratory"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DSL", cg);
-        }}
-      />
-      <Pointer010
-        subject="Database Management Systems Laboratory"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DMSL", cg);
-        }}
-      />
-      <Pointer010
-        subject="Digital Systems Laboratory"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DiSL", cg);
-        }}
-      />
-      <Pointer010
-        subject="Data Communication and Networking Laboratory"
-        onUpdateCallback={(cg) => {
-          handleInputChange("DCNL", cg);
-        }}
-      />
+        {/* 010 */}
+        {/* <Pointer010
+          subject="Data Structures Laboratory"
+          onUpdateCallback={(cg) => {
+            handleInputChange("DSL", cg);
+          }}
+        />
+        <Pointer010
+          subject="Database Management Systems Laboratory"
+          onUpdateCallback={(cg) => {
+            handleInputChange("DMSL", cg);
+          }}
+        />
+        <Pointer010
+          subject="Digital Systems Laboratory"
+          onUpdateCallback={(cg) => {
+            handleInputChange("DiSL", cg);
+          }}
+        />
+        <Pointer010
+          subject="Data Communication and Networking Laboratory"
+          onUpdateCallback={(cg) => {
+            handleInputChange("DCNL", cg);
+          }}
+        /> */}
+      </Grid>
 
       <Box sx={{ mb: 10 }}></Box>
 
