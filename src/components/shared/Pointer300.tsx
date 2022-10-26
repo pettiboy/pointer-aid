@@ -1,4 +1,10 @@
-import { Box, Typography, TextField } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Switch,
+  FormControlLabel,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
@@ -16,6 +22,9 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   const [ia, setIa] = useState(0);
   const [ese, setEse] = useState(0);
 
+  const [fixIse, setFixIse] = useState(false);
+  const [fixIa, setFixIa] = useState(false);
+
   useEffect(() => {
     onUpdateCallback(res * 3);
   }, [res]);
@@ -24,10 +33,10 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
     setRes(calculatePointer(ise + ia + ese / 2, 100));
   }, [ise, ia, ese]);
 
-  const handleMarksChange = (num: number) => {
-    updateMarks(num);
-    // updateMarksIseFixed(num);
-    // updateMarksIseIaFixed(num);
+  const handleMarksChange = (pointer: number) => {
+    if (fixIse === true && fixIa === true) updateMarksIseIaFixed(pointer);
+    else if (fixIse === true) updateMarksIseFixed(pointer);
+    else updateMarks(pointer);
   };
 
   const updateMarks = (pointer: number) => {
@@ -163,6 +172,19 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
         type="number"
         sx={{ mr: 2, mb: 2 }}
       />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={fixIse}
+            onChange={(_e, checked) => {
+              if (checked === false) setFixIa(false);
+              setFixIse(checked);
+            }}
+          />
+        }
+        label="Fix ISE marks"
+      />
+
       <TextField
         label="IA"
         value={ia.toString()}
@@ -170,6 +192,19 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
         type="number"
         sx={{ mr: 2, mb: 2 }}
       />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={fixIa}
+            onChange={(_e, checked) => {
+              if (checked === true) setFixIse(true);
+              setFixIa(checked);
+            }}
+          />
+        }
+        label="Fix IA marks"
+      />
+
       <TextField
         label="ESE"
         value={ese.toString()}
