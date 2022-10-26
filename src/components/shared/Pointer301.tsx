@@ -16,8 +16,6 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
 	const [ia, setIa] = useState(0);
 	const [ese, setEse] = useState(0);
 	const [tw, setTw] = useState(0);
-	const [desPtrTH, setdesPtrTH] = useState<number>(0);
-	const [desPtrTW, setdesPtrTW] = useState<number>(0);
 
 	useEffect(() => {
 		// * 1 is just for readability purpose
@@ -32,30 +30,31 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
 		setTermWorkRes(calculatePointer(tw, 25));
 	}, [tw]);
 
-	useEffect(() => {
-		let temp = 0;
-		if (desPtrTH === 10) temp = 80;
-		else if (desPtrTH === 9) temp = 70;
-		else if (desPtrTH === 8) temp = 60;
-		else if (desPtrTH === 7) temp = 55;
-		else if (desPtrTH === 6) temp = 50;
-		else if (desPtrTH === 5) temp = 45;
-		else if (desPtrTH === 4) temp = 40;
-		const newValue = (temp - (ise + ia)) * 2;
-		setEse(newValue);
-	}, [desPtrTH, ia, ise]);
+  const handleTheoryMarksChange=(num:number)=>{
 
-	useEffect(() => {
-		let temp = 0;
-		if (desPtrTW === 10) temp = 20;
-		else if (desPtrTW === 9) temp = 17.5;
-		else if (desPtrTW === 8) temp = 15;
-		else if (desPtrTW === 7) temp = 13.75;
-		else if (desPtrTW === 6) temp = 12.5;
-		else if (desPtrTW === 5) temp = 11.25;
-		else if (desPtrTW === 4) temp = 10;
-		setTw(temp);
-	}, [desPtrTW]);
+    let temp = 0;
+		if (num === 10) temp = 80;
+		else if (num === 9) temp = 70;
+		else if (num === 8) temp = 60;
+		else if (num === 7) temp = 55;
+		else if (num === 6) temp = 50;
+		else if (num === 5) temp = 45;
+		else if (num === 4) temp = 40;
+		const newValue = (temp - (ise + ia)) * 2;
+    setEse(newValue)
+  }
+
+  const handleTWMarksChange=(num:number)=>{
+    let temp=0;
+    if (num === 10) temp = 20;
+		else if (num === 9) temp = 17.5;
+		else if (num === 8) temp = 15;
+		else if (num === 7) temp = 13.75;
+		else if (num === 6) temp = 12.5;
+		else if (num === 5) temp = 11.25;
+		else if (num === 4) temp = 10;
+    setTw(temp)
+  }
 
 	return (
 		<Box sx={{ mt: 4 }}>
@@ -101,9 +100,9 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
 					min={4}
 					step={1}
 					max={10}
-					value={desPtrTH}
+					value={theoryRes}
 					onChange={(e, num) => {
-						setdesPtrTH(Number(num));
+            handleTheoryMarksChange(Number(num))
 					}}
 					defaultValue={9}
 				/>
@@ -118,9 +117,9 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
 					min={4}
 					step={1}
 					max={10}
-					value={desPtrTW}
+					value={termWorkRes}
 					onChange={(e, num) => {
-						setdesPtrTW(Number(num));
+            handleTWMarksChange(Number(num))
 					}}
 					defaultValue={9}
 				/>
