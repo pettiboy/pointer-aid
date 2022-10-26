@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
+import sumObject from "../../../../../utils/sumObject";
 import Pointer010 from "../../../../shared/Pointer010";
 import Pointer011 from "../../../../shared/Pointer011";
 import Pointer300 from "../../../../shared/Pointer300";
@@ -11,54 +12,22 @@ type Props = {};
 const KjsceItSem3Calculator = (props: Props) => {
   const [sgpi, setSgpi] = useState(0);
 
-  // 301
-  const [cgSub1Th, setCgSub1Th] = useState(0);
-  const [cgSub1Tw, setCgSub1Tw] = useState(0);
-
-  // 300
-  const [cgSub2, setCgSub2] = useState(0);
-  const [cgSub3, setCgSub3] = useState(0);
-  const [cgSub4, setCgSub4] = useState(0);
-  const [cgSub5, setCgSub5] = useState(0);
-
-  // 011
-  const [cgSub6, setCgSub6] = useState(0);
-
-  // 010
-  const [cgSub7, setCgSub7] = useState(0);
-  const [cgSub8, setCgSub8] = useState(0);
-  const [cgSub9, setCgSub9] = useState(0);
-  const [cgSub10, setCgSub10] = useState(0);
+  const [cgs, setCgs] = useState<StringNumberObject>({});
 
   useEffect(() => {
-    const avg =
-      (cgSub1Th +
-        cgSub1Tw +
-        cgSub2 +
-        cgSub3 +
-        cgSub4 +
-        cgSub5 +
-        cgSub6 +
-        cgSub7 +
-        cgSub8 +
-        cgSub9 +
-        cgSub10) /
-      27;
+    const avg = sumObject(cgs) / (Object.keys(cgs).length || 1);
     const pointer = Math.round((avg + Number.EPSILON) * 100) / 100;
     setSgpi(pointer);
-  }, [
-    cgSub1Th,
-    cgSub1Tw,
-    cgSub2,
-    cgSub3,
-    cgSub4,
-    cgSub5,
-    cgSub6,
-    cgSub7,
-    cgSub8,
-    cgSub9,
-    cgSub10,
-  ]);
+  }, [cgs]);
+
+  const handleInputChange = (name: string, value: number) => {
+    setCgs((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
 
   return (
     <Box sx={{ p: 5 }}>
@@ -66,8 +35,8 @@ const KjsceItSem3Calculator = (props: Props) => {
       <Pointer301
         subject="Discrete and Applied Mathematics"
         onUpdateCallback={(th, tw) => {
-          setCgSub1Th(th);
-          setCgSub1Tw(tw);
+          handleInputChange("DAMTH", th);
+          handleInputChange("DAMTW", tw);
         }}
       />
 
@@ -75,25 +44,25 @@ const KjsceItSem3Calculator = (props: Props) => {
       <Pointer300
         subject="Data Structures"
         onUpdateCallback={(cg) => {
-          setCgSub2(cg);
+          handleInputChange("DS", cg);
         }}
       />
       <Pointer300
         subject="Database Management Systems"
         onUpdateCallback={(cg) => {
-          setCgSub3(cg);
+          handleInputChange("DMS", cg);
         }}
       />
       <Pointer300
         subject="Digital Systems"
         onUpdateCallback={(cg) => {
-          setCgSub4(cg);
+          handleInputChange("DiS", cg);
         }}
       />
       <Pointer300
         subject="Data Communication and Networking"
         onUpdateCallback={(cg) => {
-          setCgSub5(cg);
+          handleInputChange("DCN", cg);
         }}
       />
 
@@ -101,7 +70,7 @@ const KjsceItSem3Calculator = (props: Props) => {
       <Pointer011
         subject="Progamming Laboratory"
         onUpdateCallback={(cg) => {
-          setCgSub6(cg);
+          handleInputChange("PL", cg);
         }}
       />
 
@@ -109,25 +78,25 @@ const KjsceItSem3Calculator = (props: Props) => {
       <Pointer010
         subject="Data Structures Laboratory"
         onUpdateCallback={(cg) => {
-          setCgSub7(cg);
+          handleInputChange("DSL", cg);
         }}
       />
       <Pointer010
         subject="Database Management Systems Laboratory"
         onUpdateCallback={(cg) => {
-          setCgSub8(cg);
+          handleInputChange("DMSL", cg);
         }}
       />
       <Pointer010
         subject="Digital Systems Laboratory"
         onUpdateCallback={(cg) => {
-          setCgSub9(cg);
+          handleInputChange("DiSL", cg);
         }}
       />
       <Pointer010
         subject="Data Communication and Networking Laboratory"
         onUpdateCallback={(cg) => {
-          setCgSub10(cg);
+          handleInputChange("DCNL", cg);
         }}
       />
 
