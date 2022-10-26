@@ -14,8 +14,10 @@ const KjsceItSem3Calculator = (props: Props) => {
 
   const [cgs, setCgs] = useState<StringNumberObject>({});
 
+  const totalCredits = 22;
+
   useEffect(() => {
-    const avg = sumObject(cgs) / (Object.keys(cgs).length || 1);
+    const avg = sumObject(cgs) / totalCredits;
     const pointer = Math.round((avg + Number.EPSILON) * 100) / 100;
     setSgpi(pointer);
   }, [cgs]);
