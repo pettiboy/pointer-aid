@@ -11,7 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
-import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
+import pointerToMarks from "../../utils/pointerToMarks";
+import pointerToMarksIseFixed from "../../utils/pointerToMarksIseFixed";
+import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 
 type Props = {
   subject: string;
@@ -78,124 +80,21 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   const updateMarks = (pointer: number) => {
-    let totalReq = calculateMarksGivenPointer(pointer, 100);
-
-    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
-    let iaMarksLimit = calculateMarksGivenPointer(pointer, 20);
-    let iseMarksLimit = calculateMarksGivenPointer(pointer, 30);
-
-    let updateEse = 0;
-    let updateIa = 0;
-    let updateIse = 0;
-
-    if (totalReq > eseMarksLimit) {
-      // set ese to max limit
-      updateEse += eseMarksLimit * 2;
-
-      // pass on req to lower exams
-      totalReq = totalReq - eseMarksLimit;
-
-      if (totalReq > iaMarksLimit) {
-        // set ia to max limit
-        updateIa += iaMarksLimit;
-        // pass on req to lower exams
-        totalReq = totalReq - iaMarksLimit;
-
-        if (totalReq > iseMarksLimit) {
-          updateIse += iseMarksLimit;
-        } else {
-          updateIse += totalReq;
-        }
-      } else {
-        updateIa += totalReq;
-        updateIse += 0;
-      }
-    } else {
-      updateEse += totalReq * 2;
-      updateIa += 0;
-      updateIse += 0;
-    }
-
-    setEse(updateEse);
-    setIa(updateIa);
-    setIse(updateIse);
+    const marks = pointerToMarks(pointer);
+    setEse(marks.ese);
+    setIa(marks.ia);
+    setIse(marks.ise);
   };
 
   const updateMarksIseFixed = (pointer: number) => {
-    let totalReq = calculateMarksGivenPointer(pointer, 100) - ise;
-    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
-    let iaMarksLimit = calculateMarksGivenPointer(pointer, 20);
-
-    let updateEse = 0;
-    let updateIa = 0;
-
-    let count = 0;
-
-    while (totalReq > 0 && count < 5) {
-      if (totalReq > eseMarksLimit) {
-        // set updateEse to max limit
-        updateEse += eseMarksLimit * 2;
-
-        // pass on req to lower exams
-        totalReq = totalReq - eseMarksLimit;
-
-        if (totalReq > iaMarksLimit) {
-          // set ia to existing limit
-          updateIa += iaMarksLimit;
-
-          // pass on req to next iteration with higher limits
-          totalReq = totalReq - iaMarksLimit;
-
-          // maximise limits
-          eseMarksLimit = Math.abs(50 - updateEse / 2);
-          iaMarksLimit = Math.abs(20 - updateIa);
-        } else {
-          updateIa += totalReq;
-
-          break;
-        }
-      } else {
-        updateEse += totalReq * 2;
-        updateIa += 0;
-
-        break;
-      }
-
-      count++;
-    }
-
-    setEse(updateEse);
-    setIa(updateIa);
+    const marks = pointerToMarksIseFixed(pointer, ise);
+    setEse(marks.ese);
+    setIa(marks.ia);
   };
 
   const updateMarksIseIaFixed = (pointer: number) => {
-    let totalReq = calculateMarksGivenPointer(pointer, 100) - ise - ia;
-    let eseMarksLimit = calculateMarksGivenPointer(pointer, 50);
-
-    let updateEse = 0;
-
-    let count = 0;
-
-    while (totalReq > 0 && count < 5) {
-      if (totalReq > eseMarksLimit) {
-        // set updateEse to existing limit
-        updateEse += eseMarksLimit * 2;
-
-        // pass on req to next iteration with higher limits
-        totalReq = totalReq - eseMarksLimit;
-
-        // maximise limits
-        eseMarksLimit = Math.abs(50 - updateEse / 2);
-      } else {
-        updateEse += totalReq * 2;
-
-        break;
-      }
-
-      count++;
-    }
-
-    setEse(updateEse);
+    const marks = pointerToMarksIseIaFixed(pointer, ise, ia);
+    setEse(marks.ese);
   };
 
   return (
