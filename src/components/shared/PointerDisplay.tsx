@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 type Props = {
   pointer: number;
