@@ -1,123 +1,209 @@
-import { Box, Typography, TextField } from "@mui/material";
+import {
+	Box,
+	Typography,
+	TextField,
+	Paper,
+	Grid,
+	SxProps,
+	Switch,
+	FormControlLabel,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
+import round from "../../utils/round";
+import pointerToMarks from "../../utils/pointerToMarks";
+import pointerToMarksIseFixed from "../../utils/pointerToMarksIseFixed";
+import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 
 type Props = {
-  subject: string;
-  onUpdateCallback(th: number, tw: number): void;
+	subject: string;
+	onUpdateCallback(th: number, tw: number): void;
 };
 
 const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
-  const [theoryRes, setTheoryRes] = useState(0);
-  const [termWorkRes, setTermWorkRes] = useState(0);
+	const [theoryRes, setTheoryRes] = useState(0);
+	const [termWorkRes, setTermWorkRes] = useState(0);
 
-  const [ise, setIse] = useState(0);
-  const [ia, setIa] = useState(0);
-  const [ese, setEse] = useState(0);
-  const [tw, setTw] = useState(0);
+	const [ise, setIse] = useState(0);
+	const [ia, setIa] = useState(0);
+	const [ese, setEse] = useState(0);
+	const [tw, setTw] = useState(0);
 
-  useEffect(() => {
-    // * 1 is just for readability purpose
-    onUpdateCallback(theoryRes * 3, termWorkRes * 1);
-  }, [theoryRes, termWorkRes]);
+	const [fixIse, setFixIse] = useState(false);
+	const [fixIa, setFixIa] = useState(false);
 
-  useEffect(() => {
-    setTheoryRes(calculatePointer(ise + ia + ese / 2, 100));
-  }, [ise, ia, ese]);
+	useEffect(() => {
+		// * 1 is just for readability purpose
+		onUpdateCallback(theoryRes * 3, termWorkRes * 1);
+	}, [theoryRes, termWorkRes]);
 
-  useEffect(() => {
-    setTermWorkRes(calculatePointer(tw, 25));
-  }, [tw]);
+	useEffect(() => {
+		setTheoryRes(round(calculatePointer(ise + ia + ese / 2, 100)));
+	}, [ise, ia, ese]);
 
-  const handleTheoryMarksChange = (num: number) => {
-    let temp = calculateMarksGivenPointer(num, 100);
-    const newValue = (temp - (ise + ia)) * 2;
-    setEse(newValue);
-  };
+	useEffect(() => {
+		setTermWorkRes(calculatePointer(tw, 25));
+	}, [tw]);
 
-  const handleTWMarksChange = (num: number) => {
-    let temp = calculateMarksGivenPointer(num, 25);
+	const handleTWMarksChange = (num: number) => {
+		let temp = round(calculateMarksGivenPointer(num, 25));
 
-    setTw(temp);
-  };
+		setTw(temp);
+	};
 
-  return (
-    <Box sx={{ mt: 4 }}>
-      <Typography sx={{ mb: 3 }} variant="h4">
-        {subject}
-      </Typography>
-      <TextField
-        label="ISE"
-        value={ise.toString()}
-        onChange={(e) => setIse(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
-      <TextField
-        label="IA"
-        value={ia.toString()}
-        onChange={(e) => setIa(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
-      <TextField
-        label="ESE"
-        value={ese.toString()}
-        onChange={(e) => setEse(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
-      <TextField
-        label="TW"
-        value={tw.toString()}
-        onChange={(e) => setTw(Number(e.target.value))}
-        type="number"
-        sx={{ mr: 2, mb: 2 }}
-      />
+	const onChangeIseMarks = (e: OnChangeEvent) => {
+		setIse(round(Number(e.target.value)));
+	};
+	const onChangeIaMarks = (e: OnChangeEvent) => {
+		setIa(round(Number(e.target.value)));
+	};
+	const onChangeEseMarks = (e: OnChangeEvent) => {
+		setEse(round(Number(e.target.value)));
+	};
 
-      <Box>
-        <Typography variant="h5" sx={{ my: 2 }}>
-          Theory
-        </Typography>
-        <Typography>Grade Pointer (G): {theoryRes}</Typography>
-        <Slider
-          sx={{ width: "80vw" }}
-          min={4}
-          step={1}
-          max={10}
-          value={theoryRes}
-          onChange={(e, num) => {
-            handleTheoryMarksChange(Number(num));
-          }}
-          defaultValue={9}
-        />
-      </Box>
-      <Box>
-        <Typography variant="h5" sx={{ my: 2 }}>
-          Term Work
-        </Typography>
-        <Typography>Grade Pointer (G): {termWorkRes}</Typography>
-        <Slider
-          sx={{ width: "80vw" }}
-          min={4}
-          step={1}
-          max={10}
-          value={termWorkRes}
-          onChange={(e, num) => {
-            handleTWMarksChange(Number(num));
-          }}
-          defaultValue={9}
-        />
-      </Box>
-    </Box>
-  );
+	const onChangeFixIse = (_e: OnChangeEvent, checked: boolean) => {
+		if (checked === false) setFixIa(false);
+		setFixIse(checked);
+	};
+	const onChangeFixIa = (_e: OnChangeEvent, checked: boolean) => {
+		if (checked === true) setFixIse(true);
+		setFixIa(checked);
+	};
+
+	const onChangeSlider = (
+		_e: Event,
+		value: number | number[],
+		_activeThumb: number
+	) => {
+		updateMarksGivenPointer(value as number);
+	};
+
+	const updateMarksGivenPointer = (pointer: number) => {
+		if (fixIse === true && fixIa === true) {
+			updateMarksIseIaFixed(pointer);
+		} else if (fixIse === true) {
+			updateMarksIseFixed(pointer);
+		} else {
+			updateMarks(pointer);
+		}
+	};
+
+	const updateMarks = (pointer: number) => {
+		const marks = pointerToMarks(pointer);
+		setEse(round(marks.ese));
+		setIa(round(marks.ia));
+		setIse(round(marks.ise));
+	};
+
+	const updateMarksIseFixed = (pointer: number) => {
+		const marks = pointerToMarksIseFixed(pointer, ise);
+		setEse(round(marks.ese));
+		setIa(round(marks.ia));
+	};
+
+	const updateMarksIseIaFixed = (pointer: number) => {
+		const marks = pointerToMarksIseIaFixed(pointer, ise, ia);
+		setEse(round(marks.ese));
+	};
+
+	return (
+		<Paper sx={{ p: 3 }}>
+			<Typography sx={{ mb: 3 }} variant="h4">
+				{subject}
+			</Typography>
+			<Grid container spacing={2}>
+				<Grid item xs={12} md={6} sx={gridItemStyle}>
+					<TextField
+						label="ISE"
+						helperText="max marks - 30"
+						value={ise.toString()}
+						onChange={onChangeIseMarks}
+						type="number"
+					/>
+					<FormControlLabel
+						control={<Switch checked={fixIse} onChange={onChangeFixIse} />}
+						label="Fix ISE marks"
+					/>
+				</Grid>
+
+				<Grid item xs={12} md={6} sx={gridItemStyle}>
+					<TextField
+						label="IA"
+						helperText="max marks - 20"
+						value={ia.toString()}
+						onChange={onChangeIaMarks}
+						type="number"
+					/>
+					<FormControlLabel
+						control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
+						label="Fix IA marks"
+					/>
+				</Grid>
+
+				<Grid item xs={12} md={6} sx={gridItemStyle}>
+					<TextField
+						label="ESE"
+						helperText="max marks - 100"
+						value={ese.toString()}
+						onChange={onChangeEseMarks}
+						type="number"
+					/>
+				</Grid>
+				<Grid item xs={12} md={6} sx={gridItemStyle}>
+					<TextField
+						label="TW"
+						value={tw.toString()}
+						onChange={(e) => setTw(Number(e.target.value))}
+						type="number"
+						sx={{ mr: 2, mb: 2 }}
+					/>
+				</Grid>
+				<Grid item xs={6}>
+					<Box>
+						<Typography variant="h5" sx={{ my: 2 }}>
+							Theory
+						</Typography>
+						<Typography>Grade Pointer (G): {theoryRes}</Typography>
+						<Slider
+							min={4}
+							step={1}
+							max={10}
+							value={theoryRes}
+							onChange={onChangeSlider}
+							defaultValue={9}
+						/>
+					</Box>
+				</Grid>
+				<Grid item xs={6}>
+
+					<Box>
+						<Typography variant="h5" sx={{ my: 2 }}>
+							Term Work
+						</Typography>
+						<Typography>Grade Pointer (G): {termWorkRes}</Typography>
+						<Slider
+							min={4}
+							step={1}
+							max={10}
+							value={termWorkRes}
+							onChange={(e, num) => {
+								handleTWMarksChange(Number(num));
+							}}
+							defaultValue={9}
+						/>
+					</Box>
+</Grid>
+			</Grid>
+		</Paper>
+	);
 };
 
 export default Pointer301;
+const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };
 
 export interface Pointer301ResponseType {
-  tw: number;
-  theory: number;
+	tw: number;
+	theory: number;
 }
