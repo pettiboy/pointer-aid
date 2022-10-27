@@ -1,1 +1,3 @@
 # Pointer Calculator
+
+## Developer Setup
