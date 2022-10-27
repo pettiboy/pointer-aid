@@ -80,38 +80,40 @@ const KjsceItSem3Calculator = (props: Props) => {
 				</Grid>
 
 				{/* 011 */}
-				{/* <Pointer011
-          subject="Progamming Laboratory"
-          onUpdateCallback={(cg) => {
-            handleInputChange("PL", cg);
-          }}
-        /> */}
+				<Grid item xs={12} md={6} lg={6} xl={4}>
+					<Pointer011
+						subject="Progamming Laboratory"
+						onUpdateCallback={(cg) => {
+							handleInputChange("PL", cg);
+						}}
+					/>
+				</Grid>
 
 				{/* 010 */}
-				{/* <Pointer010
-          subject="Data Structures Laboratory"
-          onUpdateCallback={(cg) => {
-            handleInputChange("DSL", cg);
-          }}
-        />
-        <Pointer010
-          subject="Database Management Systems Laboratory"
-          onUpdateCallback={(cg) => {
-            handleInputChange("DMSL", cg);
-          }}
-        />
-        <Pointer010
-          subject="Digital Systems Laboratory"
-          onUpdateCallback={(cg) => {
-            handleInputChange("DiSL", cg);
-          }}
-        />
-        <Pointer010
-          subject="Data Communication and Networking Laboratory"
-          onUpdateCallback={(cg) => {
-            handleInputChange("DCNL", cg);
-          }}
-        /> */}
+				<Grid item xs={12} md={6} lg={6} xl={4}>
+					<Pointer010
+						subject="Database Management Systems Laboratory"
+						onUpdateCallback={(cg) => {
+							handleInputChange("DMSL", cg);
+						}}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6} lg={6} xl={4}>
+					<Pointer010
+						subject="Digital Systems Laboratory"
+						onUpdateCallback={(cg) => {
+							handleInputChange("DiSL", cg);
+						}}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6} lg={6} xl={4}>
+					<Pointer010
+						subject="Data Communication and Networking Laboratory"
+						onUpdateCallback={(cg) => {
+							handleInputChange("DCNL", cg);
+						}}
+					/>
+				</Grid>
 			</Grid>
 
 			<Box sx={{ mb: 10 }}></Box>
