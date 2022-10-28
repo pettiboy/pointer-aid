@@ -10,7 +10,7 @@ export default (pointer: number, ise: number) => {
 
   let count = 0;
 
-  while (totalReq > 0 && count < 5) {
+  while (totalReq > 0 && count < 2) {
     if (totalReq > eseMarksLimit) {
       // set updateEse to max limit
       updateEse += eseMarksLimit * 2;
