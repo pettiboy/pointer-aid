@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 
 type Props = {};
 
-const KjsceItSem3Screen = (props: Props) => {
+const KjsceItScreen = (props: Props) => {
   return (
     <div>
+      <h3>Choose Semester</h3>
       <ul>
         <li>
-          <Link to="/kjsce/it/sem3/calculator">Calculator</Link>
+          <Link to="/kjsce/it/sem3">Sem 3</Link>
         </li>
       </ul>
     </div>
   );
 };
 
-export default KjsceItSem3Screen;
+export default KjsceItScreen;
