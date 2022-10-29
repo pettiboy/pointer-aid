@@ -28,7 +28,7 @@ const Pointer020 = (props: Props) => {
   };
 
   useEffect(() => {
-    // onUpdateCallback(res*2)
+    // onUpdateCallback(res*3)
   }, [res]);
 
   const onChangeSlider = (
@@ -49,7 +49,7 @@ const Pointer020 = (props: Props) => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
-            label="Term Work"
+            label="Term work"
             helperText="max marks - 50"
             value={tw.toString()}
             onChange={onChangeTWMarks}
