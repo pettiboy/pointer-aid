@@ -3,18 +3,22 @@ import KjsceScreen from "../components/kjsce/KjsceScreen";
 
 // IT - sem 3
 import KjsceItSem3Screen from "../components/kjsce/it/sem3/KjsceItSem3Screen";
-import KjsceItSem3Calculator from "../components/kjsce/it/sem3/calculator/KjsceItSem3Calculator";
 
 // comps - sem 5
 import KjsceCompsSem5Screen from "../components/kjsce/comps/sem5/KjsceCompsSem5Screen";
-import KjsceCompsSem5Calculator from "../components/kjsce/comps/sem5/calculator/KjsceCompsSem5Calculator";
 import KjsceItScreen from "../components/kjsce/it/KjsceItScreen";
 import KjsceCompsScreen from "../components/kjsce/comps/KjsceCompsScreen";
+import Calculator from "../screens/Calculator/Calculator";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <KjsceScreen />,
+  },
+
+  {
+    path: "/:college/:branch/:semester/calculator",
+    element: <Calculator />,
   },
 
   // college
@@ -33,10 +37,6 @@ const router = createBrowserRouter([
     path: "/kjsce/it/sem3",
     element: <KjsceItSem3Screen />,
   },
-  {
-    path: "/kjsce/it/sem3/calculator",
-    element: <KjsceItSem3Calculator />,
-  },
 
   // COMPS
   {
@@ -47,10 +47,6 @@ const router = createBrowserRouter([
   {
     path: "/kjsce/comps/sem5",
     element: <KjsceCompsSem5Screen />,
-  },
-  {
-    path: "/kjsce/comps/sem5/calculator",
-    element: <KjsceCompsSem5Calculator />,
   },
 ]);
 
