@@ -17,7 +17,7 @@ const Calculator = (_props: Props) => {
 
   const [cgs, setCgs] = useState<StringNumberObject>({});
 
-  const totalCredits = 22;
+  const [totalCredits, setTotalCredits] = useState<number>();
 
   useEffect(() => {
     const givenKey = `${college}_${branch}_${semester}`;
@@ -27,10 +27,29 @@ const Calculator = (_props: Props) => {
   }, [college, branch, semester]);
 
   useEffect(() => {
-    const avg = sumObject(cgs) / totalCredits;
+    if (!key) return;
+
+    const avg = sumObject(cgs) / getTotalCredits(calculatorStructure[key]);
     const pointer = Math.round((avg + Number.EPSILON) * 100) / 100;
     setSgpi(pointer);
-  }, [cgs]);
+  }, [cgs, key]);
+
+  const getTotalCredits = (data: PointerCalculatorStructureType[]) => {
+    if (totalCredits) {
+      return totalCredits;
+    } else {
+      const numberString = data.reduce(
+        (total, obj) => obj.creditDistribution + total,
+        ""
+      );
+      const credits = numberString
+        .split("")
+        .reduce((prev, curr) => prev + parseInt(curr), 0);
+
+      setTotalCredits(credits);
+      return credits;
+    }
+  };
 
   const handleInputChange = (name: string, value: number) => {
     setCgs((prev) => {
@@ -47,7 +66,7 @@ const Calculator = (_props: Props) => {
         <>
           <Grid container spacing={6}>
             {calculatorStructure[key].map((subject) => (
-              <Grid item xs={12} md={6} lg={6} xl={4}>
+              <Grid key={subject.subjectCode} item xs={12} md={6} lg={6} xl={4}>
                 <PointerCalculator
                   subjectName={subject.subjectName}
                   subjectCode={subject.subjectCode}
