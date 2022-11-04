@@ -71,6 +71,7 @@ const Calculator = (_props: Props) => {
                   subjectName={subject.subjectName}
                   subjectCode={subject.subjectCode}
                   creditDistribution={subject.creditDistribution}
+                  maxMarks={subject.maxMarks}
                   handleInputChange={handleInputChange}
                 />
               </Grid>

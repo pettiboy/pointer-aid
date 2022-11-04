@@ -11,6 +11,7 @@ declare global {
     subjectName: string;
     subjectCode: string;
     creditDistribution: string;
+    maxMarks?: 50 | 75;
   };
 }
 
