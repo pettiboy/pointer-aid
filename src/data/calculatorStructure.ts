@@ -58,6 +58,72 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
   ],
+
+  kjsce_comps_sem5: [
+    // 300
+    {
+      subjectName: "Software Engineering",
+      subjectCode: "SE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Computer Networks",
+      subjectCode: "CN",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Operating System",
+      subjectCode: "OS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-I",
+      subjectCode: "DEI",
+      creditDistribution: "300",
+    },
+
+    // 010
+    {
+      subjectName: "Software Engineering Lab",
+      subjectCode: "SEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Computer Networks Lab",
+      subjectCode: "CNL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Operating System Lab",
+      subjectCode: "OSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Departmental Elective-I Lab",
+      subjectCode: "DEIL",
+      creditDistribution: "010",
+    },
+
+    // 200
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+
+    // 110
+    {
+      subjectName: "Full Stack Development Lab",
+      subjectCode: "FSDL",
+      creditDistribution: "110",
+      maxMarks: 50,
+    },
+  ],
 };
 
 export default calculatorStructure;
