@@ -1,7 +1,12 @@
 import Pointer010 from "../Pointer010";
 import Pointer011 from "../Pointer011";
+import Pointer012 from "../Pointer012";
+import Pointer020 from "../Pointer020";
+import Pointer030 from "../Pointer030";
+import Pointer102 from "../Pointer102";
 import Pointer110_50 from "../Pointer110_50";
 import Pointer110_75 from "../Pointer110_75";
+import Pointer200 from "../Pointer200";
 import Pointer300 from "../Pointer300";
 import Pointer301 from "../Pointer301";
 
@@ -21,17 +26,38 @@ const PointerCalculator = ({
     <div>
       {
         {
-          "301": (
-            <Pointer301
+          "010": (
+            <Pointer010
               subject={subjectName}
-              onUpdateCallback={(th, tw) => {
-                handleInputChange(subjectCode + "TH", th);
-                handleInputChange(subjectCode + "TW", tw);
-              }}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
           ),
-          "300": (
-            <Pointer300
+          "011": (
+            <Pointer011
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
+          "012": (
+            <Pointer012
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
+          "020": (
+            <Pointer020
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
+          "030": (
+            <Pointer030
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
+          "102": (
+            <Pointer102
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
@@ -48,16 +74,25 @@ const PointerCalculator = ({
                 onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
               />
             ),
-          "011": (
-            <Pointer011
+          "200": (
+            <Pointer200
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
           ),
-          "010": (
-            <Pointer010
+          "300": (
+            <Pointer300
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
+          "301": (
+            <Pointer301
+              subject={subjectName}
+              onUpdateCallback={(th, tw) => {
+                handleInputChange(subjectCode + "TH", th);
+                handleInputChange(subjectCode + "TW", tw);
+              }}
             />
           ),
         }[creditDistribution]

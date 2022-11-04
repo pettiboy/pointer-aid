@@ -13,11 +13,10 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import calculatePointer from "../../utils/calculatePointer";
 type Props = {
   subject: string;
-  // onUpdateCallback(cg: number): void;
+  onUpdateCallback(cg: number): void;
 };
 
-const Pointer020 = (props: Props) => {
-  const { subject } = props;
+const Pointer030 = ({ subject, onUpdateCallback }: Props) => {
   const [tw, setTW] = useState<Number>(0);
   const [res, setRes] = useState(4);
 
@@ -28,7 +27,7 @@ const Pointer020 = (props: Props) => {
   };
 
   useEffect(() => {
-    // onUpdateCallback(res*3)
+    onUpdateCallback(res * 3);
   }, [res]);
 
   const onChangeSlider = (
@@ -74,6 +73,6 @@ const Pointer020 = (props: Props) => {
   );
 };
 
-export default Pointer020;
+export default Pointer030;
 
 const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };

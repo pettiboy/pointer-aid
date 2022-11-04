@@ -11,13 +11,13 @@ import {
 import round from "../../utils/round";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import calculatePointer from "../../utils/calculatePointer";
+
 type Props = {
   subject: string;
-  // onUpdateCallback(cg: number): void;
+  onUpdateCallback(cg: number): void;
 };
 
-const Pointer020 = (props: Props) => {
-  const { subject } = props;
+const Pointer020 = ({ subject, onUpdateCallback }: Props) => {
   const [tw, setTW] = useState<Number>(0);
   const [res, setRes] = useState(4);
 
@@ -28,7 +28,7 @@ const Pointer020 = (props: Props) => {
   };
 
   useEffect(() => {
-    // onUpdateCallback(res*2)
+    onUpdateCallback(res * 2);
   }, [res]);
 
   const onChangeSlider = (
