@@ -1,4 +1,6 @@
 declare global {
+  type StatusType = "loading" | "loaded" | "no_data" | "error";
+
   interface StringNumberObject {
     [key: string]: number;
   }
