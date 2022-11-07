@@ -1,5 +1,5 @@
-import { Box, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, CircularProgress, Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PointerCalculator from "../../components/shared/PointerCalculator/PointerCalculator";
 import PointerDisplay from "../../components/shared/PointerDisplay";
@@ -12,6 +12,7 @@ const Calculator = (_props: Props) => {
   const { college, branch, semester } = useParams();
 
   const [key, setKey] = useState<string>();
+  const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
   const [sgpi, setSgpi] = useState(0);
 
@@ -20,9 +21,15 @@ const Calculator = (_props: Props) => {
   const [totalCredits, setTotalCredits] = useState<number>();
 
   useEffect(() => {
+    setLoadingStatus("loading");
+
     const givenKey = `${college}_${branch}_${semester}`;
+
     if (givenKey in calculatorStructure) {
+      setLoadingStatus("loaded");
       setKey(givenKey);
+    } else {
+      setLoadingStatus("no_data");
     }
   }, [college, branch, semester]);
 
@@ -62,7 +69,7 @@ const Calculator = (_props: Props) => {
 
   return (
     <Box sx={{ p: 5 }}>
-      {key ? (
+      {loadingStatus === "loaded" && key && (
         <>
           <Grid container spacing={6}>
             {calculatorStructure[key].map((subject) => (
@@ -82,8 +89,16 @@ const Calculator = (_props: Props) => {
 
           <PointerDisplay pointer={sgpi} />
         </>
-      ) : (
-        <h2>No calculator for available yet</h2>
+      )}
+      {loadingStatus === "no_data" && (
+        <Box className="h-85 flex-center">
+          <h1>No calculator available yet</h1>
+        </Box>
+      )}
+      {loadingStatus === "loading" && (
+        <Box className="h-85 flex-center">
+          <CircularProgress size={50} />
+        </Box>
       )}
     </Box>
   );
