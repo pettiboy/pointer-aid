@@ -58,6 +58,138 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
   ],
+  kjsce_it_sem4: [
+    {
+      subjectName: "Probability, Statistics and Optimization Techniques",
+      subjectCode: "PSOT",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Information Theory and Coding",
+      subjectCode: "ITC",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Analysis of Algorithms",
+      subjectCode: "AOA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Advanced Databases",
+      subjectCode: "AD",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Competitive Programming Laboratory",
+      subjectCode: "CPL",
+      creditDistribution: "012",
+    },
+    {
+      subjectName: "Web Programming  I Laboratory",
+      subjectCode: "WPL",
+      creditDistribution: "012",
+    },
+    {
+      subjectName: "Analysis of Algorithms Laboratory",
+      subjectCode: "AOAL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Advanced Databases Laboratory",
+      subjectCode: "ADL",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_comps_sem3: [
+    {
+      subjectName: "Integral Transform and Vector Calculus",
+      subjectCode: "ITVC",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Data Structures",
+      subjectCode: "DS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Computrer Organization and Architecture",
+      subjectCode: "COA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Object Oriented Programming Methodology",
+      subjectCode: "OOPM",
+      creditDistribution: "102",
+    },
+    {
+      subjectName: "Discrete Mathematics",
+      subjectCode: "DM",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Digital Design Laboratory",
+      subjectCode: "DDL",
+      creditDistribution: "110",
+      maxMarks: 75,
+    },
+    {
+      subjectName: "Data Structures Laboratory",
+      subjectCode: "DSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Computer Organization & Architecture Laboratory",
+      subjectCode: "COAL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Object Oriented Programming Methodology Laboratory",
+      subjectCode: "OOPML",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_comps_sem4: [
+    {
+      subjectName: "Probability, Statistics and Optimization Techniques",
+      subjectCode: "PSOT",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Analysis of Algorithms",
+      subjectCode: "AOA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Relational Database Management Systems",
+      subjectCode: "RDBMS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Theory of Automata with Compiler Design",
+      subjectCode: "TACD",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Web Programming Laboratory",
+      subjectCode: "WPL",
+      creditDistribution: "020",
+    },
+    {
+      subjectName: "Analysis of Algorithms Laboratory ",
+      subjectCode: "AOAL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Relational Database Management Systems Laboratory ",
+      subjectCode: "RDBMSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Mini Project ",
+      subjectCode: "MP",
+      creditDistribution: "030",
+    },
+  ],
 
   kjsce_comps_sem5: [
     // 300
