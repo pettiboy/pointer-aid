@@ -19,7 +19,6 @@ const Calculator = (_props: Props) => {
   const [cgs, setCgs] = useState<StringNumberObject>({});
 
   const [totalCredits, setTotalCredits] = useState<number>();
-  console.log(totalCredits)
 
   useEffect(() => {
     setLoadingStatus("loading");

@@ -25,8 +25,8 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const [fixIse, setFixIse] = useState(false);
   const [fixIA, setFixIA] = useState(false);
 
-  const [Ise, setIse] = useState(0);
-  const [Ia, setIa] = useState(0);
+  const [ise, setIse] = useState(0);
+  const [ia, setIa] = useState(0);
 
   useEffect(() => {
     updateMarksGivenPointer(res);
@@ -37,16 +37,14 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(Ise + Ia, 50));
-  }, [Ise, Ia]);
-
-  
+    setRes(calculatePointer(ise + ia, 50));
+  }, [ise, ia]);
 
   const updateMarksGivenPointer = (num: number) => {
     if (fixIse) {
-      setIa(round(calculateMarksGivenPointer(num,50))-Ise);
+      setIa(round(calculateMarksGivenPointer(num, 50)) - ise);
     } else if (fixIA) {
-      setIse(round(calculateMarksGivenPointer(num,50))-Ia);
+      setIse(round(calculateMarksGivenPointer(num, 50)) - ia);
     } else {
       setIa(round(calculateMarksGivenPointer(num, 20)));
       setIse(round(calculateMarksGivenPointer(num, 30)));
@@ -72,7 +70,7 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
           <Grid item xs={12} md={6} sx={gridItemStyle}>
             <TextField
               label="ISE"
-              value={Ise.toString()}
+              value={ise.toString()}
               onChange={(e) => setIse(Number(e.target.value))}
               type="number"
               sx={{ mr: 2, mb: 2 }}
@@ -84,8 +82,8 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
           </Grid>
           <Grid item xs={12} md={6} sx={gridItemStyle}>
             <TextField
-              label="Ia"
-              value={Ia.toString()}
+              label="IA"
+              value={ia.toString()}
               onChange={(e) => setIa(Number(e.target.value))}
               type="number"
               sx={{ mr: 2, mb: 2 }}

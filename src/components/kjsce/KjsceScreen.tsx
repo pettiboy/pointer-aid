@@ -59,9 +59,9 @@ const KjsceScreen = (props: Props) => {
 
   const getAllBranches = () => {
     if (allBranches.length < 1) {
-      const branches = Object.keys(calculatorStructure).map((key) =>
-        key.split("_")[1].toUpperCase()
-      );
+      const branches = Object.keys(calculatorStructure)
+        .map((key) => key.split("_")[1].toUpperCase())
+        .filter((v, i, a) => a.indexOf(v) === i); // ensure unique values
       return branches;
     } else {
       return allBranches;
@@ -86,7 +86,7 @@ const KjsceScreen = (props: Props) => {
   const getAllSemesters = (branch: string) => {
     const semesters: string[] = [];
     Object.keys(calculatorStructure).map((key) =>
-      key.split("_").map((val) => {
+      key.split("_").forEach((val) => {
         if (val === branch.toLowerCase()) {
           const semValStr = key.split("_")[2].toUpperCase();
 
