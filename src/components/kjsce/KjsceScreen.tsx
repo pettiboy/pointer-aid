@@ -199,7 +199,6 @@ const KjsceScreen = (props: Props) => {
               }
               onClick={onPressOpenCalculator}
               variant="contained"
-              color="success"
               size="large"
               fullWidth
             >

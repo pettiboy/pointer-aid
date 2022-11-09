@@ -160,7 +160,6 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
             value={tw.toString()}
             onChange={(e) => setTw(Number(e.target.value))}
             type="number"
-            sx={{ mr: 2, mb: 2 }}
           />
         </Grid>
         <Grid item xs={6}>

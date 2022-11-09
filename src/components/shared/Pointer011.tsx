@@ -61,54 +61,50 @@ const Pointer011 = ({ subject, onUpdateCallback }: Props) => {
 
   return (
     <Paper sx={{ p: 3 }}>
-      <Box sx={{ mt: 4 }}>
-        <Typography sx={{ mb: 3 }} variant="h4">
-          {subject}
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} sx={gridItemStyle}>
-            <TextField
-              label="TW"
-              value={tw.toString()}
-              onChange={(e) => setTw(Number(e.target.value))}
-              type="number"
-              sx={{ mr: 2, mb: 2 }}
-            />
-            <FormControlLabel
-              control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-              label="Fix TW marks"
-            />
-          </Grid>
-          <Grid item xs={12} md={6} sx={gridItemStyle}>
-            <TextField
-              label="practical/oral"
-              value={practical.toString()}
-              onChange={(e) => setPractical(Number(e.target.value))}
-              type="number"
-              sx={{ mr: 2, mb: 2 }}
-            />
-            <FormControlLabel
-              control={<Switch checked={fixPrac} onChange={onChangeFixPrac} />}
-              label="Fix Practical marks"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Box>
-              <Typography>Grade Pointer (G): {res}</Typography>
-              <Slider
-                min={4}
-                step={1}
-                max={10}
-                value={res}
-                onChange={(e, num) => {
-                  updateMarksGivenPointer(Number(num));
-                }}
-                defaultValue={9}
-              />
-            </Box>
-          </Grid>
+      <Typography sx={{ mb: 3 }} variant="h4">
+        {subject}
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={gridItemStyle}>
+          <TextField
+            label="TW"
+            value={tw.toString()}
+            onChange={(e) => setTw(Number(e.target.value))}
+            type="number"
+          />
+          <FormControlLabel
+            control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
+            label="Fix TW marks"
+          />
         </Grid>
-      </Box>
+        <Grid item xs={12} md={6} sx={gridItemStyle}>
+          <TextField
+            label="practical/oral"
+            value={practical.toString()}
+            onChange={(e) => setPractical(Number(e.target.value))}
+            type="number"
+          />
+          <FormControlLabel
+            control={<Switch checked={fixPrac} onChange={onChangeFixPrac} />}
+            label="Fix Practical marks"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Box>
+            <Typography>Grade Pointer (G): {res}</Typography>
+            <Slider
+              min={4}
+              step={1}
+              max={10}
+              value={res}
+              onChange={(e, num) => {
+                updateMarksGivenPointer(Number(num));
+              }}
+              defaultValue={9}
+            />
+          </Box>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

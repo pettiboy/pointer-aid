@@ -71,6 +71,7 @@ const Calculator = (_props: Props) => {
     <Box sx={{ p: 5 }}>
       {loadingStatus === "loaded" && key && (
         <>
+          <Box sx={{ mb: 7 }}></Box> {/* offset navbar */}
           <Grid container spacing={6}>
             {calculatorStructure[key].map((subject) => (
               <Grid key={subject.subjectCode} item xs={12} md={6} lg={6} xl={4}>
@@ -84,9 +85,7 @@ const Calculator = (_props: Props) => {
               </Grid>
             ))}
           </Grid>
-
-          <Box sx={{ mb: 10 }}></Box>
-
+          <Box sx={{ mb: 10 }}></Box> {/* offset pointer display */}
           <PointerDisplay pointer={sgpi} />
         </>
       )}
