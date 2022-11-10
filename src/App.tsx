@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { useState, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
-import Appbar from "./components/kjsce/shared/Appbar/Appbar";
+import Appbar from "./components/shared/Appbar/Appbar";
 import ColorModeContext from "./context/ColorModeContext";
 import router from "./router";
 import { getDesignTokens } from "./theme";

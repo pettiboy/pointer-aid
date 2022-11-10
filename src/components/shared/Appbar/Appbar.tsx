@@ -6,9 +6,10 @@ import {
   Typography,
   IconButton,
   useTheme,
+  Box,
 } from "@mui/material";
 import { useContext } from "react";
-import ColorModeContext from "../../../../context/ColorModeContext";
+import ColorModeContext from "../../../context/ColorModeContext";
 
 type Props = {};
 
@@ -23,22 +24,35 @@ const Appbar = (props: Props) => {
       sx={{
         width: "100%",
         zIndex: "1400",
+        bgcolor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
       }}
     >
       <Toolbar>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{
-            cursor: "pointer",
-          }}
+        <Box
+          sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
           onClick={() => {
             window.location.href = "/";
           }}
         >
-          Pointer Calculator
-        </Typography>
+          <img
+            src={
+              process.env.PUBLIC_URL + "/favicons/android-chrome-512x512.png"
+            }
+            alt=""
+            width={30}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              ml: 2,
+            }}
+          >
+            Pointer Calculator
+          </Typography>
+        </Box>
         <IconButton
           sx={{ ml: "auto" }}
           onClick={colorMode.toggleColorMode}
