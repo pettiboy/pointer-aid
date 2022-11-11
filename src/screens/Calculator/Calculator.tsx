@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Unstable_Grid2 as Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PointerCalculator from "../../components/shared/PointerCalculator/PointerCalculator";
@@ -72,9 +72,15 @@ const Calculator = (_props: Props) => {
       {loadingStatus === "loaded" && key && (
         <>
           <Box sx={{ mb: 7 }}></Box> {/* offset navbar */}
-          <Grid container spacing={6}>
+          <Grid
+            container
+            spacing={6}
+            style={{
+              alignItems: "stretch",
+            }}
+          >
             {calculatorStructure[key].map((subject) => (
-              <Grid key={subject.subjectCode} item xs={12} md={6} lg={6} xl={4}>
+              <Grid key={subject.subjectCode} xs={12} md={6} lg={6} xl={4}>
                 <PointerCalculator
                   subjectName={subject.subjectName}
                   subjectCode={subject.subjectCode}

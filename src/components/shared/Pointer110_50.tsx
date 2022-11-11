@@ -5,8 +5,6 @@ import {
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -56,7 +54,7 @@ const Pointer110_50 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
+    <Paper sx={{ p: 3, height: "100%" }}>
       <Typography sx={{ mb: 3 }} variant="h4">
         {subject}
       </Typography>

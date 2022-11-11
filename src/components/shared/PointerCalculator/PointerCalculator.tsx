@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import Pointer010 from "../Pointer010";
 import Pointer011 from "../Pointer011";
 import Pointer012 from "../Pointer012";
@@ -23,7 +24,7 @@ const PointerCalculator = ({
   handleInputChange,
 }: Props) => {
   return (
-    <div>
+    <Box sx={{ height: "100%" }}>
       {
         {
           "010": (
@@ -97,7 +98,7 @@ const PointerCalculator = ({
           ),
         }[creditDistribution]
       }
-    </div>
+    </Box>
   );
 };
 
