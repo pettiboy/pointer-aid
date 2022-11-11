@@ -1,4 +1,9 @@
+import { kjsce_all_sem1, kjsce_all_sem2 } from "./shared";
+
 const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
+  // IT
+  kjsce_it_sem1: kjsce_all_sem1,
+  kjsce_it_sem2: kjsce_all_sem2,
   kjsce_it_sem3: [
     // 301
     {
@@ -100,6 +105,10 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
   ],
+
+  // COMPS
+  kjsce_comps_sem1: kjsce_all_sem1,
+  kjsce_comps_sem2: kjsce_all_sem2,
   kjsce_comps_sem3: [
     {
       subjectName: "Integral Transform and Vector Calculus",
@@ -190,7 +199,6 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "030",
     },
   ],
-
   kjsce_comps_sem5: [
     // 300
     {
