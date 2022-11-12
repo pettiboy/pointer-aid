@@ -1,4 +1,5 @@
 const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
+  // IT
   kjsce_it_sem3: [
     // 301
     {
@@ -100,6 +101,69 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
   ],
+  kjsce_it_sem5: [
+    // 301
+    {
+      subjectName: "Theory Of Computation",
+      subjectCode: "TOC",
+      creditDistribution: "301",
+    },
+
+    // 300
+    {
+      subjectName: "Operation System",
+      subjectCode: "OS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Information and Nework Security",
+      subjectCode: "INS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Department Elective - I",
+      subjectCode: "DEI",
+      creditDistribution: "300",
+    },
+
+    // 020
+    {
+      subjectName: "Web Programming - II Lab",
+      subjectCode: "WPIIL",
+      creditDistribution: "020",
+    },
+
+    // 010
+    {
+      subjectName: "Operating System Lab",
+      subjectCode: "OSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Information and Nework Security Lab",
+      subjectCode: "INSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Department Elective - I Lab",
+      subjectCode: "DEIL",
+      creditDistribution: "010",
+    },
+
+    // 200
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+  ],
+
+  // COMPS
   kjsce_comps_sem3: [
     {
       subjectName: "Integral Transform and Vector Calculus",
@@ -190,7 +254,6 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "030",
     },
   ],
-
   kjsce_comps_sem5: [
     // 300
     {
