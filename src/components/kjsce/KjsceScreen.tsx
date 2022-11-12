@@ -118,106 +118,107 @@ const KjsceScreen = (props: Props) => {
   };
 
   return (
-    <Box>
-      <Box
-        sx={{
-          height: "88vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          px: 2,
-        }}
-      >
-        <Box sx={{ minWidth: "50vw" }}>
-          <Grid container spacing={2}>
-            {/* branch */}
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                fullWidth
-                open={openBranches}
-                value={selectedBranch}
-                autoSelect
-                onChange={onChangeBranch}
-                onOpen={onOpenBranch}
-                onClose={onCloseBranch}
-                options={allBranches}
-                loading={branchLoadingStatus === "loading"}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Branch"
-                    InputProps={{
-                      ...params.InputProps,
-                      endAdornment: (
-                        <React.Fragment>
-                          {branchLoadingStatus === "loading" ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : null}
-                          {params.InputProps.endAdornment}
-                        </React.Fragment>
-                      ),
-                      style: { textTransform: "uppercase" },
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-
-            {/* semester */}
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                fullWidth
-                open={openSemesters}
-                value={selectedSemester}
-                autoSelect
-                onChange={onChangeSemester}
-                onOpen={onOpenSemester}
-                onClose={onCloseSemester}
-                options={allSemesters}
-                loading={semesterLoadingStatus === "loading"}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Semester"
-                    InputProps={{
-                      ...params.InputProps,
-                      endAdornment: (
-                        <React.Fragment>
-                          {semesterLoadingStatus === "loading" ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : null}
-                          {params.InputProps.endAdornment}
-                        </React.Fragment>
-                      ),
-                      style: { textTransform: "uppercase" },
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-
-            {/* button */}
-            <Grid item xs={12}>
-              <Button
-                disabled={
-                  selectedBranch.length === 0 || selectedSemester.length === 0
-                }
-                onClick={onPressOpenCalculator}
-                variant="contained"
-                size="large"
-                fullWidth
-              >
-                Open
-              </Button>
-            </Grid>
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        px: 2,
+      }}
+    >
+      <Box sx={{ minWidth: "50vw" }}>
+        <Grid container spacing={2}>
+          {/* branch */}
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              fullWidth
+              open={openBranches}
+              value={selectedBranch}
+              autoSelect
+              onChange={onChangeBranch}
+              onOpen={onOpenBranch}
+              onClose={onCloseBranch}
+              options={allBranches}
+              loading={branchLoadingStatus === "loading"}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Branch"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {branchLoadingStatus === "loading" ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                    style: { textTransform: "uppercase" },
+                  }}
+                />
+              )}
+            />
           </Grid>
-        </Box>
+
+          {/* semester */}
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              fullWidth
+              open={openSemesters}
+              value={selectedSemester}
+              autoSelect
+              onChange={onChangeSemester}
+              onOpen={onOpenSemester}
+              onClose={onCloseSemester}
+              options={allSemesters}
+              loading={semesterLoadingStatus === "loading"}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Semester"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {semesterLoadingStatus === "loading" ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                    style: { textTransform: "uppercase" },
+                  }}
+                />
+              )}
+            />
+          </Grid>
+
+          {/* button */}
+          <Grid item xs={12}>
+            <Button
+              disabled={
+                selectedBranch.length === 0 || selectedSemester.length === 0
+              }
+              onClick={onPressOpenCalculator}
+              variant="contained"
+              size="large"
+              fullWidth
+            >
+              Open
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
+
       {!isKeyboardOpen && (
         <Credits
           styles={{
             textAlign: "center",
-            px: 3,
+            p: 3,
+            position: "absolute",
+            bottom: "0",
           }}
         />
       )}
