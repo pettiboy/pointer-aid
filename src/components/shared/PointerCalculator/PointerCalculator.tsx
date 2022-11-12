@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import Pointer010 from "../Pointer010";
 import Pointer011 from "../Pointer011";
 import Pointer012 from "../Pointer012";
-import Pointer020 from "../Pointer020";
+import Pointer020_50 from "../Pointer020_50";
+import Pointer020_75 from "../Pointer020_75";
 import Pointer030 from "../Pointer030";
 import Pointer102 from "../Pointer102";
 import Pointer110_50 from "../Pointer110_50";
@@ -43,14 +44,21 @@ const PointerCalculator = ({
             <Pointer012
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              maxMarks={maxMarks}
             />
           ),
-          "020": (
-            <Pointer020
-              subject={subjectName}
-              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
-            />
-          ),
+          "020":
+            maxMarks === 75 ? (
+              <Pointer020_75
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              />
+            ) : (
+              <Pointer020_50
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              />
+            ),
           "030": (
             <Pointer030
               subject={subjectName}
