@@ -1,4 +1,4 @@
-export const kjsce_all_sem1: PointerCalculatorStructureType[] = [
+export const kjsce_groupc_sem1: PointerCalculatorStructureType[] = [
   // 301
   {
     subjectName: "Applied Mathematics I",
@@ -27,7 +27,7 @@ export const kjsce_all_sem1: PointerCalculatorStructureType[] = [
 
   // 012
   {
-    subjectName: "Programming in C ",
+    subjectName: "Programming in C",
     subjectCode: "PIC",
     creditDistribution: "012",
     maxMarks: 75,
@@ -59,7 +59,7 @@ export const kjsce_all_sem1: PointerCalculatorStructureType[] = [
   },
 ];
 
-export const kjsce_all_sem2: PointerCalculatorStructureType[] = [
+export const kjsce_groupc_sem2: PointerCalculatorStructureType[] = [
   // 301
   {
     subjectName: "Applied Mathematics II",
@@ -101,6 +101,7 @@ export const kjsce_all_sem2: PointerCalculatorStructureType[] = [
     subjectName: "Python Programming",
     subjectCode: "PP",
     creditDistribution: "020",
+    maxMarks: 75,
   },
   {
     subjectName: "Communication Skills",

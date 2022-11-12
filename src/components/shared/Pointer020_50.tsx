@@ -17,28 +17,40 @@ type Props = {
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer020 = ({ subject, onUpdateCallback }: Props) => {
-  const [tw, setTW] = useState<Number>(0);
+const Pointer020_50 = ({ subject, onUpdateCallback }: Props) => {
+  const [tw, setTW] = useState<number>(0);
   const [res, setRes] = useState(4);
 
-  const onChangeTWMarks = (e: OnChangeEvent) => {
-    setRes(round(calculatePointer(Number(e.target.value), 50)));
+  const totalMarks = 50;
 
-    setTW(round(Number(e.target.value)));
-  };
+  useEffect(() => {
+    updateMarksGivenPointer(res);
+  }, []);
 
   useEffect(() => {
     onUpdateCallback(res * 2);
   }, [res]);
+
+  useEffect(() => {
+    setRes(calculatePointer(tw, totalMarks));
+  }, [tw]);
+
+  const updateMarksGivenPointer = (num: number) => {
+    setTW(round(calculateMarksGivenPointer(Number(num), totalMarks)));
+  };
+
+  const onChangeTWMarks = (e: OnChangeEvent) => {
+    setRes(round(calculatePointer(Number(e.target.value), totalMarks)));
+
+    setTW(round(Number(e.target.value)));
+  };
 
   const onChangeSlider = (
     _e: Event,
     value: number | number[],
     _activeThumb: number
   ) => {
-    setTW(round(calculateMarksGivenPointer(Number(value), 50)));
-
-    setRes(Number(value));
+    updateMarksGivenPointer(Number(value));
   };
 
   return (
@@ -74,6 +86,6 @@ const Pointer020 = ({ subject, onUpdateCallback }: Props) => {
   );
 };
 
-export default Pointer020;
+export default Pointer020_50;
 
 const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };

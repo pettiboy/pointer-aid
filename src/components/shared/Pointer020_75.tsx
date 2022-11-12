@@ -19,7 +19,7 @@ type Props = {
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
+const Pointer020_75 = ({ subject, onUpdateCallback }: Props) => {
   const [res, setRes] = useState(4);
 
   const [fixTw, setFixTw] = useState(false);
@@ -29,7 +29,7 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const [practical, setPractical] = useState(0);
 
   const twMaxMarks = 25;
-  const practicalMaxMarks = 25;
+  const practicalMaxMarks = 50;
   const totalMarks = twMaxMarks + practicalMaxMarks;
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   }, []);
 
   useEffect(() => {
-    onUpdateCallback(res * 1);
+    onUpdateCallback(res * 2);
   }, [res]);
 
   useEffect(() => {
@@ -67,13 +67,6 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const onChangeFixPrac = (_e: OnChangeEvent, checked: boolean) => {
     if (checked === true) setFixTw(false);
     setFixPrac(checked);
-  };
-  const onChangeSlider = (
-    _e: Event,
-    value: number | number[],
-    _activeThumb: number
-  ) => {
-    updateMarksGivenPointer(Number(value));
   };
 
   return (
@@ -116,7 +109,9 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
               step={1}
               max={10}
               value={res}
-              onChange={onChangeSlider}
+              onChange={(_e, num) => {
+                updateMarksGivenPointer(Number(num));
+              }}
               defaultValue={9}
             />
           </Box>
@@ -126,6 +121,6 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   );
 };
 
-export default Pointer010;
+export default Pointer020_75;
 
 const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };
