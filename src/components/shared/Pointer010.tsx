@@ -28,6 +28,10 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const [tw, setTw] = useState(0);
   const [practical, setPractical] = useState(0);
 
+  const twMaxMarks = 25;
+  const practicalMaxMarks = 25;
+  const totalMarks = twMaxMarks + practicalMaxMarks;
+
   useEffect(() => {
     updateMarksGivenPointer(res);
   }, []);
@@ -37,11 +41,11 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(tw + practical, 50));
+    setRes(calculatePointer(tw + practical, totalMarks));
   }, [tw, practical]);
 
   const pointerToMarksFixed = (pointer: number, fixVal: number) => {
-    const totalReq = calculateMarksGivenPointer(pointer, 50) - fixVal;
+    const totalReq = calculateMarksGivenPointer(pointer, totalMarks) - fixVal;
     return round(totalReq);
   };
 
@@ -51,8 +55,8 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
     } else if (fixPrac) {
       setTw(pointerToMarksFixed(num, practical));
     } else {
-      setPractical(round(calculateMarksGivenPointer(num, 25)));
-      setTw(round(calculateMarksGivenPointer(num, 25)));
+      setPractical(round(calculateMarksGivenPointer(num, practicalMaxMarks)));
+      setTw(round(calculateMarksGivenPointer(num, twMaxMarks)));
     }
   };
 
@@ -74,11 +78,10 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="TW"
+            helperText={`max marks - ${twMaxMarks}`}
             value={tw.toString()}
             onChange={(e) => setTw(Number(e.target.value))}
             type="number"
-            helperText="max marks - 25"
-
           />
           <FormControlLabel
             control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
@@ -88,11 +91,10 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="practical/oral"
+            helperText={`max marks - ${practicalMaxMarks}`}
             value={practical.toString()}
             onChange={(e) => setPractical(Number(e.target.value))}
             type="number"
-            helperText="max marks - 25"
-
           />
           <FormControlLabel
             control={<Switch checked={fixPrac} onChange={onChangeFixPrac} />}
