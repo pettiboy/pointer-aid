@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@types/gtag.js": "^0.0.12",
     "eslint-config-prettier": "^8.5.0",
     "gh-pages": "^4.0.0",
     "prettier": "^2.7.1"
