@@ -10,6 +10,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import calculatorStructure from "../../data/calculatorStructure";
 import { useNavigate } from "react-router-dom";
+import Credits from "../shared/Credits/Credits";
 
 type Props = {};
 
@@ -207,6 +208,15 @@ const KjsceScreen = (props: Props) => {
           </Grid>
         </Grid>
       </Box>
+
+      <Credits
+        styles={{
+          textAlign: "center",
+          p: 3,
+          position: "absolute",
+          bottom: "0",
+        }}
+      />
     </Box>
   );
 };

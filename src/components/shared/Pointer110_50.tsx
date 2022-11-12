@@ -66,6 +66,7 @@ const Pointer110_50 = ({ subject, onUpdateCallback }: Props) => {
             value={tw === 0 ? "" : tw.toString()}
             onChange={onChangeTwMarks}
             type="number"
+            fullWidth
           />
         </Grid>
         <Grid item xs={12}>
