@@ -77,6 +77,8 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
             value={tw.toString()}
             onChange={(e) => setTw(Number(e.target.value))}
             type="number"
+            helperText="max marks - 25"
+
           />
           <FormControlLabel
             control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
@@ -89,6 +91,8 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
             value={practical.toString()}
             onChange={(e) => setPractical(Number(e.target.value))}
             type="number"
+            helperText="max marks - 25"
+
           />
           <FormControlLabel
             control={<Switch checked={fixPrac} onChange={onChangeFixPrac} />}
