@@ -208,7 +208,15 @@ const KjsceScreen = (props: Props) => {
           </Grid>
         </Grid>
       </Box>
-      <Credits styles={{textAlign:"center",p:2,position:"absolute",bottom:"0" }}/>
+
+      <Credits
+        styles={{
+          textAlign: "center",
+          p: 3,
+          position: "absolute",
+          bottom: "0",
+        }}
+      />
     </Box>
   );
 };

@@ -1,17 +1,34 @@
-import React from "react";
-import { Link, SxProps, Typography } from "@mui/material";
+import { Link, SxProps, Typography, useTheme } from "@mui/material";
 
 type Props = {
-  styles?:SxProps
+  styles?: SxProps;
 };
 
-const Credits = (props: Props) => {
-  const {styles}=props;
+const Credits = ({ styles }: Props) => {
+  const theme = useTheme();
+
   return (
     <Typography sx={styles} variant="h6">
-      Made with <span style={{ fontSize: "150%", color: "red" }}>&hearts;</span>{" "}
-      by <Link href="https://github.com/pettiboy">Hussain Pettiwala</Link> and{" "}
-      <Link href="https://github.com/Arya-A-Nair">Arya Nair</Link>
+      Made with{" "}
+      <span style={{ fontSize: "150%", color: theme.palette.primary.main }}>
+        &hearts;
+      </span>{" "}
+      by{" "}
+      <Link
+        href="https://pettiboy.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Hussain Pettiwala
+      </Link>{" "}
+      and{" "}
+      <Link
+        href="https://github.com/Arya-A-Nair"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Arya Nair
+      </Link>
     </Typography>
   );
 };

@@ -92,7 +92,7 @@ const Calculator = (_props: Props) => {
               </Grid>
             ))}
           </Grid>
-          <Credits styles={{textAlign:"center",mb:10 }}/>
+          <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
           <PointerDisplay pointer={sgpi} />
         </>
       )}
