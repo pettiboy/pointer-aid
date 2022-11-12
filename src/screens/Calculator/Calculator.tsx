@@ -1,6 +1,7 @@
 import { Box, CircularProgress, Unstable_Grid2 as Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Credits from "../../components/shared/Credits/Credits";
 import PointerCalculator from "../../components/shared/PointerCalculator/PointerCalculator";
 import PointerDisplay from "../../components/shared/PointerDisplay";
 import calculatorStructure from "../../data/calculatorStructure";
@@ -91,7 +92,7 @@ const Calculator = (_props: Props) => {
               </Grid>
             ))}
           </Grid>
-          <Box sx={{ mb: 10 }}></Box> {/* offset pointer display */}
+          <Credits styles={{textAlign:"center",mb:10 }}/>
           <PointerDisplay pointer={sgpi} />
         </>
       )}
