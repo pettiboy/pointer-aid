@@ -157,6 +157,7 @@ const Pointer301 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="TW"
+            helperText="max marks - 25"
             value={tw.toString()}
             onChange={(e) => setTw(Number(e.target.value))}
             type="number"

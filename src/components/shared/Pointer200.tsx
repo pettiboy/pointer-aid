@@ -28,6 +28,10 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   const [ise, setIse] = useState(0);
   const [ia, setIa] = useState(0);
 
+  const iseMaxMarks = 30;
+  const iaMaxMarks = 20;
+  const totalMarks = iseMaxMarks + iaMaxMarks;
+
   useEffect(() => {
     updateMarksGivenPointer(res);
   }, []);
@@ -37,17 +41,17 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(ise + ia, 50));
+    setRes(calculatePointer(ise + ia, totalMarks));
   }, [ise, ia]);
 
   const updateMarksGivenPointer = (num: number) => {
     if (fixIse) {
-      setIa(round(calculateMarksGivenPointer(num, 50)) - ise);
+      setIa(round(calculateMarksGivenPointer(num, totalMarks)) - ise);
     } else if (fixIA) {
-      setIse(round(calculateMarksGivenPointer(num, 50)) - ia);
+      setIse(round(calculateMarksGivenPointer(num, totalMarks)) - ia);
     } else {
-      setIa(round(calculateMarksGivenPointer(num, 20)));
-      setIse(round(calculateMarksGivenPointer(num, 30)));
+      setIa(round(calculateMarksGivenPointer(num, iaMaxMarks)));
+      setIse(round(calculateMarksGivenPointer(num, iseMaxMarks)));
     }
   };
 
@@ -69,6 +73,7 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="ISE"
+            helperText={`max marks - ${iseMaxMarks}`}
             value={ise.toString()}
             onChange={(e) => setIse(Number(e.target.value))}
             type="number"
@@ -81,6 +86,7 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="IA"
+            helperText={`max marks - ${iaMaxMarks}`}
             value={ia.toString()}
             onChange={(e) => setIa(Number(e.target.value))}
             type="number"

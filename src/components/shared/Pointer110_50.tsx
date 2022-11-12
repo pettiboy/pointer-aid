@@ -22,8 +22,8 @@ const Pointer110_50 = ({ subject, onUpdateCallback }: Props) => {
 
   const [tw, setTw] = useState(0);
 
-  const totalMaxMarks = 50;
   const twMaxMarks = 50;
+  const totalMaxMarks = twMaxMarks;
 
   useEffect(() => {
     updateMarksGivenPointer(res);
@@ -62,6 +62,7 @@ const Pointer110_50 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} sx={gridItemStyle}>
           <TextField
             label="TW"
+            helperText={`max marks - ${twMaxMarks}`}
             value={tw === 0 ? "" : tw.toString()}
             onChange={onChangeTwMarks}
             type="number"

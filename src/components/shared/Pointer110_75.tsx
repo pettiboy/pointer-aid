@@ -27,9 +27,9 @@ const Pointer110_75 = ({ subject, onUpdateCallback }: Props) => {
   const [tw, setTw] = useState(0);
   const [practical, setPractical] = useState(0);
 
-  const totalMaxMarks = 75;
   const twMaxMarks = 50;
   const oralMaxMarks = 25;
+  const totalMaxMarks = twMaxMarks + oralMaxMarks;
 
   useEffect(() => {
     updateMarksGivenPointer(res);
@@ -89,6 +89,7 @@ const Pointer110_75 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="TW"
+            helperText={`max marks - ${twMaxMarks}`}
             value={tw === 0 ? "" : tw.toString()}
             onChange={onChangeTwMarks}
             type="number"
@@ -101,6 +102,7 @@ const Pointer110_75 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="practical/oral"
+            helperText={`max marks - ${oralMaxMarks}`}
             value={practical === 0 ? "" : practical.toString()}
             onChange={onChangePracticalMarks}
             type="number"
