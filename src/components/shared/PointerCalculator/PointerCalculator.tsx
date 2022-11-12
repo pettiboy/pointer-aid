@@ -43,6 +43,7 @@ const PointerCalculator = ({
             <Pointer012
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              maxMarks={maxMarks}
             />
           ),
           "020": (

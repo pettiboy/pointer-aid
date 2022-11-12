@@ -30,6 +30,7 @@ export const kjsce_all_sem1: PointerCalculatorStructureType[] = [
     subjectName: "Programming in C ",
     subjectCode: "PIC",
     creditDistribution: "012",
+    maxMarks: 75,
   },
 
   // 010
