@@ -1,4 +1,4 @@
-# Pointer Calculator
+# Pointer Aid
 
 ## Developer Setup
 

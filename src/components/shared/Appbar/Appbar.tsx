@@ -50,7 +50,7 @@ const Appbar = (props: Props) => {
               ml: 2,
             }}
           >
-            Pointer Calculator
+            Pointer Aid
           </Typography>
         </Box>
         <IconButton
