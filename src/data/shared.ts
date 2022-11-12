@@ -56,6 +56,7 @@ export const kjsce_groupc_sem1: PointerCalculatorStructureType[] = [
     subjectName: "Workshop I",
     subjectCode: "WSI",
     creditDistribution: "020",
+    maxMarks: 50,
   },
 ];
 
@@ -96,6 +97,7 @@ export const kjsce_groupc_sem2: PointerCalculatorStructureType[] = [
     subjectName: "Engineering Exploration",
     subjectCode: "EE",
     creditDistribution: "020",
+    maxMarks: 50,
   },
   {
     subjectName: "Python Programming",
@@ -107,10 +109,12 @@ export const kjsce_groupc_sem2: PointerCalculatorStructureType[] = [
     subjectName: "Communication Skills",
     subjectCode: "CS",
     creditDistribution: "020",
+    maxMarks: 50,
   },
   {
     subjectName: "Workshop II",
     subjectCode: "WSII",
     creditDistribution: "020",
+    maxMarks: 50,
   },
 ];

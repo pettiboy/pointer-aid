@@ -17,9 +17,10 @@ import round from "../../utils/round";
 type Props = {
   subject: string;
   onUpdateCallback(cg: number): void;
+  maxMarks?: PointerCalculatorStructureType["maxMarks"];
 };
 
-const Pointer020_75 = ({ subject, onUpdateCallback }: Props) => {
+const Pointer020_75 = ({ subject, onUpdateCallback, maxMarks }: Props) => {
   const [res, setRes] = useState(4);
 
   const [fixTw, setFixTw] = useState(false);
@@ -28,7 +29,7 @@ const Pointer020_75 = ({ subject, onUpdateCallback }: Props) => {
   const [tw, setTw] = useState(0);
   const [practical, setPractical] = useState(0);
 
-  const twMaxMarks = 25;
+  const twMaxMarks = maxMarks === 100 ? 50 : 25;
   const practicalMaxMarks = 50;
   const totalMarks = twMaxMarks + practicalMaxMarks;
 

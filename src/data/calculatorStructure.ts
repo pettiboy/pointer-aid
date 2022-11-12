@@ -135,6 +135,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectName: "Web Programming - II Lab",
       subjectCode: "WPIIL",
       creditDistribution: "020",
+      maxMarks: 100,
     },
 
     // 010
@@ -243,6 +244,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectName: "Web Programming Laboratory",
       subjectCode: "WPL",
       creditDistribution: "020",
+      maxMarks: 100,
     },
     {
       subjectName: "Analysis of Algorithms Laboratory ",
