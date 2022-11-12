@@ -1,4 +1,3 @@
-import { createBrowserRouter } from "react-router-dom";
 import KjsceScreen from "../components/kjsce/KjsceScreen";
 
 // IT - sem 3
@@ -10,7 +9,7 @@ import KjsceItScreen from "../components/kjsce/it/KjsceItScreen";
 import KjsceCompsScreen from "../components/kjsce/comps/KjsceCompsScreen";
 import Calculator from "../screens/Calculator/Calculator";
 
-const router = createBrowserRouter([
+const router = [
   {
     path: "/",
     element: <KjsceScreen />,
@@ -48,6 +47,6 @@ const router = createBrowserRouter([
     path: "/kjsce/comps/sem5",
     element: <KjsceCompsSem5Screen />,
   },
-]);
+];
 
 export default router;

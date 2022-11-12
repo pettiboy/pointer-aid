@@ -1,3 +1,6 @@
+import { Key } from "react";
+import { Path } from "react-router-dom";
+
 declare global {
   type StatusType = "loading" | "loaded" | "no_data" | "error";
 
@@ -15,6 +18,11 @@ declare global {
     creditDistribution: string;
     maxMarks?: 50 | 75 | 100;
   };
+
+  interface RouterLocation extends Path {
+    state: unknown;
+    key: Key;
+  }
 }
 
 export {};
