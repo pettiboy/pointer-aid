@@ -21,7 +21,7 @@ type Props = {
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
+const Pointer102 = ({ subject, onUpdateCallback }: Props) => {
   const [res, setRes] = useState(4);
 
   const [ise, setIse] = useState(0);
@@ -162,4 +162,4 @@ const Pointer300 = ({ subject, onUpdateCallback }: Props) => {
 
 const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };
 
-export default Pointer300;
+export default Pointer102;

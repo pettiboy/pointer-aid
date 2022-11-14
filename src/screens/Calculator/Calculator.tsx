@@ -1,13 +1,13 @@
 import { Box, CircularProgress, Unstable_Grid2 as Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Credits from "../../components/shared/Credits/Credits";
-import PointerCalculator from "../../components/shared/PointerCalculator/PointerCalculator";
-import PointerDisplay from "../../components/shared/PointerDisplay";
 import calculatorStructure from "../../data/calculatorStructure";
 import sumObject from "../../utils/sumObject";
 import { Helmet } from "react-helmet-async";
 import { romanize } from "../../utils/romanize";
+import Credits from "../../components/Credits/Credits";
+import PointerCalculator from "../../components/PointerCalculator/PointerCalculator";
+import PointerDisplay from "../../components/PointerDisplay/PointerDisplay";
 
 type Props = {};
 
