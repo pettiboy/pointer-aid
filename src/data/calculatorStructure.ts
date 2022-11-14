@@ -1,4 +1,4 @@
-import { kjsce_groupc_sem1, kjsce_groupc_sem2 } from "./shared";
+import { kjsce_groupc_sem1, kjsce_groupc_sem2, kjsce_groupp_sem1 } from "./shared";
 
 const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   // IT
@@ -327,6 +327,19 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       maxMarks: 50,
     },
   ],
+
+  //EXTC
+  kjsce_extc_sem1:kjsce_groupp_sem1,
+  kjsce_extc_sem2:kjsce_groupc_sem2,
+
+  //EXCP
+  kjsce_excp_sem1:kjsce_groupp_sem1,
+  kjsce_excp_sem2:kjsce_groupc_sem2,
+
+  //MECH 
+  kjsce_mech_sem1:kjsce_groupp_sem1,
+  kjsce_mech_sem2:kjsce_groupc_sem2,
+
 };
 
 export default calculatorStructure;
