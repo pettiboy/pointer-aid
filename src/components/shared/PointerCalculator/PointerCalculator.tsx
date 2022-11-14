@@ -93,6 +93,7 @@ const PointerCalculator = ({
           "300": (
             <Pointer300
               subject={subjectName}
+              subjectCode={subjectCode}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
           ),

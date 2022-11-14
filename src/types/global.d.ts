@@ -19,6 +19,15 @@ declare global {
     maxMarks?: 50 | 75 | 100;
   };
 
+  interface Pointer300LocalStorageType {
+    ise: number;
+    ia: number;
+    ese: number;
+    fixIse: boolean;
+    fixIa: boolean;
+    fallback?: boolean;
+  }
+
   interface RouterLocation extends Path {
     state: unknown;
     key: Key;
