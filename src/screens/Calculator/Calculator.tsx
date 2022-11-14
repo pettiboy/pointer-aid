@@ -1,10 +1,13 @@
 import { Box, CircularProgress, Unstable_Grid2 as Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Credits from "../../components/shared/Credits/Credits";
 import PointerCalculator from "../../components/shared/PointerCalculator/PointerCalculator";
 import PointerDisplay from "../../components/shared/PointerDisplay";
 import calculatorStructure from "../../data/calculatorStructure";
 import sumObject from "../../utils/sumObject";
+import { Helmet } from "react-helmet-async";
+import { romanize } from "../../utils/romanize";
 
 type Props = {};
 
@@ -71,6 +74,13 @@ const Calculator = (_props: Props) => {
     <Box sx={{ p: 5 }}>
       {loadingStatus === "loaded" && key && (
         <>
+          <Helmet>
+            <title>
+              {college?.toUpperCase()} {branch?.toUpperCase()} SEM-
+              {romanize(parseInt(semester?.slice(3) || "1"))} Calculator |
+              Pointer Aid
+            </title>
+          </Helmet>
           <Box sx={{ mb: 7 }}></Box> {/* offset navbar */}
           <Grid
             container
@@ -91,7 +101,7 @@ const Calculator = (_props: Props) => {
               </Grid>
             ))}
           </Grid>
-          <Box sx={{ mb: 10 }}></Box> {/* offset pointer display */}
+          <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
           <PointerDisplay pointer={sgpi} />
         </>
       )}

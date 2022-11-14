@@ -68,6 +68,7 @@ const Pointer011 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="TW"
+            helperText="max marks - 50"
             value={tw.toString()}
             onChange={(e) => setTw(Number(e.target.value))}
             type="number"
@@ -80,6 +81,7 @@ const Pointer011 = ({ subject, onUpdateCallback }: Props) => {
         <Grid item xs={12} md={6} sx={gridItemStyle}>
           <TextField
             label="practical/oral"
+            helperText="max marks - 25"
             value={practical.toString()}
             onChange={(e) => setPractical(Number(e.target.value))}
             type="number"

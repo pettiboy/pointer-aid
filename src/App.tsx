@@ -5,13 +5,16 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { useState, useMemo } from "react";
-import { RouterProvider } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Appbar from "./components/shared/Appbar/Appbar";
 import ColorModeContext from "./context/ColorModeContext";
+import { useTracking } from "./hooks/useTracking";
 import router from "./router";
 import { getDesignTokens } from "./theme";
 
 function App() {
+  useTracking();
+
   const defaultMode: PaletteMode =
     (localStorage.getItem("themePreference") as PaletteMode) || "dark";
   const [mode, setMode] = useState(defaultMode);
@@ -41,7 +44,11 @@ function App() {
 
         <Appbar />
 
-        <RouterProvider router={router} />
+        <Routes>
+          {router.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

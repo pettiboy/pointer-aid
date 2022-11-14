@@ -1,5 +1,5 @@
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import {
   AppBar,
   Toolbar,
@@ -10,13 +10,19 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import ColorModeContext from "../../../context/ColorModeContext";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Appbar = (props: Props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const colorMode = useContext(ColorModeContext);
+
+  const onClick = () => {
+    navigate("/");
+  };
 
   return (
     <AppBar
@@ -31,9 +37,7 @@ const Appbar = (props: Props) => {
       <Toolbar>
         <Box
           sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-          onClick={() => {
-            window.location.href = "/";
-          }}
+          onClick={onClick}
         >
           <img
             src={
@@ -50,7 +54,7 @@ const Appbar = (props: Props) => {
               ml: 2,
             }}
           >
-            Pointer Calculator
+            Pointer Aid
           </Typography>
         </Box>
         <IconButton
@@ -58,11 +62,7 @@ const Appbar = (props: Props) => {
           onClick={colorMode.toggleColorMode}
           color="inherit"
         >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
+          {theme.palette.mode === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
       </Toolbar>
     </AppBar>

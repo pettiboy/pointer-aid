@@ -10,11 +10,15 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import calculatorStructure from "../../data/calculatorStructure";
 import { useNavigate } from "react-router-dom";
+import Credits from "../shared/Credits/Credits";
+import useDetectKeyboardOpen from "use-detect-keyboard-open";
 
 type Props = {};
 
 const KjsceScreen = (props: Props) => {
   let navigate = useNavigate();
+
+  const isKeyboardOpen = useDetectKeyboardOpen();
 
   const [openBranches, setOpenBranches] = useState(false);
   const [allBranches, setAllBranches] = useState<string[]>([]);
@@ -207,6 +211,17 @@ const KjsceScreen = (props: Props) => {
           </Grid>
         </Grid>
       </Box>
+
+      {!isKeyboardOpen && (
+        <Credits
+          styles={{
+            textAlign: "center",
+            p: 3,
+            position: "absolute",
+            bottom: "0",
+          }}
+        />
+      )}
     </Box>
   );
 };
