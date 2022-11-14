@@ -1,4 +1,8 @@
-import { kjsce_groupc_sem1, kjsce_groupc_sem2, kjsce_groupp_sem1 } from "./shared";
+import {
+  kjsce_groupc_sem1,
+  kjsce_groupc_sem2,
+  kjsce_groupp_sem1,
+} from "./shared";
 
 const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   // IT
@@ -329,17 +333,118 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   ],
 
   //EXTC
-  kjsce_extc_sem1:kjsce_groupp_sem1,
-  kjsce_extc_sem2:kjsce_groupc_sem2,
+  kjsce_extc_sem1: kjsce_groupp_sem1,
+  kjsce_extc_sem2: kjsce_groupc_sem2,
 
   //EXCP
-  kjsce_excp_sem1:kjsce_groupp_sem1,
-  kjsce_excp_sem2:kjsce_groupc_sem2,
+  kjsce_excp_sem1: kjsce_groupp_sem1,
+  kjsce_excp_sem2: kjsce_groupc_sem2,
 
-  //MECH 
-  kjsce_mech_sem1:kjsce_groupp_sem1,
-  kjsce_mech_sem2:kjsce_groupc_sem2,
+  //MECH
+  kjsce_mech_sem1: kjsce_groupp_sem1,
+  kjsce_mech_sem2: kjsce_groupc_sem2,
 
+  //ETRX
+  kjsce_etrx_sem3: [
+    {
+      subjectName: "Mathematics for Electronics Engineering-I",
+      subjectCode: "DAM",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Electrical Networks",
+      subjectCode: "EN",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Basic of Electronics Circuit",
+      subjectCode: "BEC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Digital Electronics",
+      subjectCode: "DE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Signals and Systems",
+      subjectCode: "SAS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Programming Laboratory",
+      subjectCode: "PL",
+      creditDistribution: "011",
+      //used 011 instead of 020 to match the 50+25 marks pattern
+    },
+    {
+      subjectName: "Basic of Electronics Circuits Laboratory",
+      subjectCode: "BECL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Digital Electronics Laboratory",
+      subjectCode: "DEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Signals and Systems Laboratory",
+      subjectCode: "SASL",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_etrx_sem4: [
+    {
+      subjectName: "Mathematics for Electronics Engineering-II",
+      subjectCode: "MEE",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Analog Electronics Circuits",
+      subjectCode: "AEC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Control System Engineering ",
+      subjectCode: "CSE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Analog and Digital Communication",
+      subjectCode: "ADC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Microcontroller and Applications",
+      subjectCode: "MAC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Designing with Programmable Logic Lab Course",
+      subjectCode: "DEPLL",
+      creditDistribution: "011",
+    },
+    {
+      subjectName: "Analog Electronics Circuits Laboratory",
+      subjectCode: "AECL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Control System Engineering Laboratory",
+      subjectCode: "CSEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Analog and Digital Communication Laboratory",
+      subjectCode: "ADCL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Microcontroller and Applications Laboratory",
+      subjectCode: "MAL",
+      creditDistribution: "010",
+    },
+  ],
 };
 
 export default calculatorStructure;
