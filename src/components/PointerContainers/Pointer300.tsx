@@ -30,7 +30,7 @@ const fallbackDefaultValues: Pointer300LocalStorageType = {
   ia: 0,
   ese: 0,
   fixIa: false,
-  fixIse: true,
+  fixIse: false,
   fallback: true,
 };
 

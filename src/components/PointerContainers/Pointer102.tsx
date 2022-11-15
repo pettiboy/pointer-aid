@@ -15,21 +15,53 @@ import pointerToMarks from "../../utils/pointerToMarks";
 import pointerToMarksIseFixed from "../../utils/pointerToMarksIseFixed";
 import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 import round from "../../utils/round";
+import {useParams} from 'react-router-dom'
+import asyncLocalStorage from '../../utils/asyncLocalStorage'
 
 type Props = {
   subject: string;
+  subjectCode:string;
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer102 = ({ subject, onUpdateCallback }: Props) => {
+const fallbackDefaultValues: Pointer102LocalStorageType = {
+  ise: 0,
+  ia: 0,
+  ese: 0,
+  fixIa: false,
+  fixIse: false,
+  fallback: true,
+};
+
+const Pointer102 = ({ subjectCode,subject, onUpdateCallback }: Props) => {
+
+
+  const { college, branch, semester } = useParams();
+  const defaultValues: Pointer102LocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
   const [res, setRes] = useState(4);
 
-  const [ise, setIse] = useState(0);
-  const [ia, setIa] = useState(0);
-  const [ese, setEse] = useState(0);
+  const [ise, setIse] = useState(defaultValues.ise);
+  const [ia, setIa] = useState(defaultValues.ia);
+  const [ese, setEse] = useState(defaultValues.ese);
 
-  const [fixIse, setFixIse] = useState(false);
-  const [fixIa, setFixIa] = useState(false);
+  const [fixIse, setFixIse] = useState(defaultValues.fixIse);
+  const [fixIa, setFixIa] = useState(defaultValues.fixIa);
+
+  useEffect(() => {
+    asyncLocalStorage.setItem(
+      `${college}_${branch}_${semester}_${subjectCode}`,
+      JSON.stringify({
+        ise,
+        ia,
+        ese,
+        fixIa,
+        fixIse,
+      })
+    );
+  }, [ise, ia, ese, fixIa, fixIse]);
 
   useEffect(() => {
     updateMarksGivenPointer(res);

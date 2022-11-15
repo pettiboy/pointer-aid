@@ -11,20 +11,46 @@ import calculatePointer from "../../utils/calculatePointer";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import { Slider } from "@mui/material";
 import round from "../../utils/round";
+import {useParams} from 'react-router-dom'
+import asyncLocalStorage from '../../utils/asyncLocalStorage'
 
 type Props = {
   subject: string;
+  subjectCode:string;
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer110_50 = ({ subject, onUpdateCallback }: Props) => {
+
+
+const fallbackDefaultValues: Pointer110_50LocalStorageType = {
+  tw: 0,
+};
+
+
+const Pointer110_50 = ({subjectCode, subject, onUpdateCallback }: Props) => {
+
+
+  const { college, branch, semester } = useParams();
+  const defaultValues: Pointer110_50LocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
+
   const [res, setRes] = useState(4);
 
-  const [tw, setTw] = useState(0);
+  const [tw, setTw] = useState(defaultValues.tw);
 
   const twMaxMarks = 50;
   const totalMaxMarks = twMaxMarks;
 
+  useEffect(() => {
+    asyncLocalStorage.setItem(
+      `${college}_${branch}_${semester}_${subjectCode}`,
+      JSON.stringify({
+        tw
+      })
+    );
+  }, [tw]);
   useEffect(() => {
     updateMarksGivenPointer(res);
   }, []);

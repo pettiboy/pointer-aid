@@ -13,23 +13,60 @@ import calculatePointer from "../../utils/calculatePointer";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import { Slider } from "@mui/material";
 import round from "../../utils/round";
+import {useParams} from 'react-router-dom'
+import asyncLocalStorage from "../../utils/asyncLocalStorage";
 
 type Props = {
   subject: string;
+  subjectCode:string;
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer110_75 = ({ subject, onUpdateCallback }: Props) => {
+
+
+
+const fallbackDefaultValues: Pointer110_75LocalStorageType = {
+  tw:0,
+  practical:0,
+  fixTw:false,
+  fixPrac:false
+};
+
+
+
+const Pointer110_75 = ({subjectCode, subject, onUpdateCallback }: Props) => {
+
+
+  const { college, branch, semester } = useParams();
+  const defaultValues: Pointer110_75LocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
+
+
   const [res, setRes] = useState(4);
 
-  const [fixTw, setFixTw] = useState(false);
-  const [fixPrac, setFixPrac] = useState(false);
-  const [tw, setTw] = useState(0);
-  const [practical, setPractical] = useState(0);
+  const [fixTw, setFixTw] = useState(defaultValues.fixTw);
+  const [fixPrac, setFixPrac] = useState(defaultValues.fixPrac);
+  const [tw, setTw] = useState(defaultValues.tw);
+  const [practical, setPractical] = useState(defaultValues.practical);
 
   const twMaxMarks = 50;
   const oralMaxMarks = 25;
   const totalMaxMarks = twMaxMarks + oralMaxMarks;
+
+
+  useEffect(() => {
+    asyncLocalStorage.setItem(
+      `${college}_${branch}_${semester}_${subjectCode}`,
+      JSON.stringify({
+        tw,
+        practical,
+        fixTw,
+        fixPrac,
+      })
+    );
+  }, [tw,practical,fixTw,fixPrac]);
 
   useEffect(() => {
     updateMarksGivenPointer(res);
@@ -79,6 +116,8 @@ const Pointer110_75 = ({ subject, onUpdateCallback }: Props) => {
   ) => {
     updateMarksGivenPointer(value as number);
   };
+
+
 
   return (
     <Paper sx={{ p: 3, height: "100%" }}>

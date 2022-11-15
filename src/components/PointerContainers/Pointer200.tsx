@@ -13,24 +13,54 @@ import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
+import {useParams} from "react-router-dom"
+import asyncLocalStorage from '../../utils/asyncLocalStorage'
 
 type Props = {
   subject: string;
+  subjectCode:string;
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
+const fallbackDefaultValues: Pointer200LocalStorageType = {
+  ise: 0,
+  ia: 0,
+  fixIa: false,
+  fixIse: false,
+};
+
+
+const Pointer200 = ({subjectCode, subject, onUpdateCallback }: Props) => {
+
+  const { college, branch, semester } = useParams();
+  const defaultValues: Pointer200LocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
   const [res, setRes] = useState(4);
 
-  const [fixIse, setFixIse] = useState(false);
-  const [fixIA, setFixIA] = useState(false);
+  const [fixIse, setFixIse] = useState(defaultValues.fixIse);
+  const [fixIA, setFixIA] = useState(defaultValues.fixIa);
 
-  const [ise, setIse] = useState(0);
-  const [ia, setIa] = useState(0);
+  const [ise, setIse] = useState(defaultValues.ise);
+  const [ia, setIa] = useState(defaultValues.ia);
 
   const iseMaxMarks = 30;
   const iaMaxMarks = 20;
   const totalMarks = iseMaxMarks + iaMaxMarks;
+
+
+  useEffect(() => {
+    asyncLocalStorage.setItem(
+      `${college}_${branch}_${semester}_${subjectCode}`,
+      JSON.stringify({
+        ise,
+        ia,
+        fixIA,
+        fixIse,
+      })
+    );
+  }, [ise, ia, fixIA, fixIse]);
 
   useEffect(() => {
     updateMarksGivenPointer(res);
@@ -116,6 +146,6 @@ const Pointer010 = ({ subject, onUpdateCallback }: Props) => {
   );
 };
 
-export default Pointer010;
+export default Pointer200;
 
 const gridItemStyle: SxProps = { display: "flex", flexDirection: "column" };
