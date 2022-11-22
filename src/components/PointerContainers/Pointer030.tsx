@@ -7,24 +7,62 @@ import {
   SxProps,
   Box,
   Slider,
+  CircularProgress,
 } from "@mui/material";
 import round from "../../utils/round";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import calculatePointer from "../../utils/calculatePointer";
+import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { useParams } from "react-router-dom";
+
 type Props = {
   subject: string;
+  subjectCode: string;
+
   onUpdateCallback(cg: number): void;
 };
 
-const Pointer030 = ({ subject, onUpdateCallback }: Props) => {
-  const [tw, setTW] = useState<Number>(0);
+const fallbackDefaultValues: Pointer030LocalStorageType = {
+  tw: 0,
+  fallback: false,
+};
+
+const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
+  const { college, branch, semester } = useParams();
+
+  const defaultValues: Pointer030LocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
+  const [loading, setLoading] = useState(true);
+
+  const [tw, setTW] = useState<Number>(defaultValues.tw);
   const [res, setRes] = useState(4);
 
   const onChangeTWMarks = (e: OnChangeEvent) => {
     setRes(round(calculatePointer(Number(e.target.value), 50)));
-
     setTW(round(Number(e.target.value)));
   };
+
+  useEffect(() => {
+    setRes(round(calculatePointer(Number(tw), 50)));
+  }, [tw]);
+  useEffect(() => {
+    setLoading(true);
+    if (defaultValues.fallback) {
+      setTW(round(calculateMarksGivenPointer(Number(res), 50)));
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    asyncLocalStorage.setItem(
+      `${college}_${branch}_${semester}_${subjectCode}`,
+      JSON.stringify({
+        tw,
+      })
+    );
+  }, [tw]);
 
   useEffect(() => {
     onUpdateCallback(res * 3);
@@ -41,34 +79,42 @@ const Pointer030 = ({ subject, onUpdateCallback }: Props) => {
   };
 
   return (
-    <Paper sx={{ p: 3, height: "100%" }}>
-      <Typography sx={{ mb: 3 }} variant="h4">
-        {subject}
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="Term work"
-            helperText="max marks - 50"
-            value={tw.toString()}
-            onChange={onChangeTWMarks}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Box>
-            <Typography>Grade Pointer (G): {res}</Typography>
-            <Slider
-              min={4}
-              step={1}
-              max={10}
-              value={res}
-              onChange={onChangeSlider}
-              defaultValue={9}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+    <Paper className="pointer-paper-container">
+      {!loading ? (
+        <Box>
+          <Typography sx={{ mb: 3 }} variant="h4">
+            {subject}
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="Term work"
+                helperText="max marks - 50"
+                value={tw.toString()}
+                onChange={onChangeTWMarks}
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <Typography>Grade Pointer (G): {res}</Typography>
+                <Slider
+                  min={4}
+                  step={1}
+                  max={10}
+                  value={res}
+                  onChange={onChangeSlider}
+                  defaultValue={9}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        <Box className="center-loader">
+          <CircularProgress />
+        </Box>
+      )}
     </Paper>
   );
 };

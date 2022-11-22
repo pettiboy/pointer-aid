@@ -7,44 +7,39 @@ import {
   SxProps,
   FormControlLabel,
   Switch,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import { Slider } from "@mui/material";
 import round from "../../utils/round";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 
 type Props = {
   subject: string;
-  subjectCode:string;
+  subjectCode: string;
   onUpdateCallback(cg: number): void;
 };
 
-
-
-
 const fallbackDefaultValues: Pointer110_75LocalStorageType = {
-  tw:0,
-  practical:0,
-  fixTw:false,
-  fixPrac:false
+  tw: 0,
+  practical: 0,
+  fixTw: false,
+  fixPrac: false,
+  fallback: true,
 };
 
-
-
-const Pointer110_75 = ({subjectCode, subject, onUpdateCallback }: Props) => {
-
-
+const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer110_75LocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
 
-
   const [res, setRes] = useState(4);
+  const [loading, setLoading] = useState(true);
 
   const [fixTw, setFixTw] = useState(defaultValues.fixTw);
   const [fixPrac, setFixPrac] = useState(defaultValues.fixPrac);
@@ -54,7 +49,6 @@ const Pointer110_75 = ({subjectCode, subject, onUpdateCallback }: Props) => {
   const twMaxMarks = 50;
   const oralMaxMarks = 25;
   const totalMaxMarks = twMaxMarks + oralMaxMarks;
-
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -66,10 +60,14 @@ const Pointer110_75 = ({subjectCode, subject, onUpdateCallback }: Props) => {
         fixPrac,
       })
     );
-  }, [tw,practical,fixTw,fixPrac]);
+  }, [tw, practical, fixTw, fixPrac]);
 
   useEffect(() => {
-    updateMarksGivenPointer(res);
+    setLoading(true);
+    if (defaultValues.fallback) {
+      updateMarksGivenPointer(res);
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -117,54 +115,62 @@ const Pointer110_75 = ({subjectCode, subject, onUpdateCallback }: Props) => {
     updateMarksGivenPointer(value as number);
   };
 
-
-
   return (
-    <Paper sx={{ p: 3, height: "100%" }}>
-      <Typography sx={{ mb: 3 }} variant="h4">
-        {subject}
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="TW"
-            helperText={`max marks - ${twMaxMarks}`}
-            value={tw === 0 ? "" : tw.toString()}
-            onChange={onChangeTwMarks}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-            label="Fix TW marks"
-          />
-        </Grid>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="practical/oral"
-            helperText={`max marks - ${oralMaxMarks}`}
-            value={practical === 0 ? "" : practical.toString()}
-            onChange={onChangePracticalMarks}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixPrac} onChange={onChangeFixPrac} />}
-            label="Fix Practical marks"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Box>
-            <Typography>Grade Pointer (G): {res}</Typography>
-            <Slider
-              min={4}
-              step={1}
-              max={10}
-              value={res}
-              onChange={onChangeSlider}
-              defaultValue={9}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+    <Paper className="pointer-paper-container">
+      {!loading ? (
+        <Box>
+          <Typography sx={{ mb: 3 }} variant="h4">
+            {subject}
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="TW"
+                helperText={`max marks - ${twMaxMarks}`}
+                value={tw === 0 ? "" : tw.toString()}
+                onChange={onChangeTwMarks}
+                type="number"
+              />
+              <FormControlLabel
+                control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
+                label="Fix TW marks"
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="practical/oral"
+                helperText={`max marks - ${oralMaxMarks}`}
+                value={practical === 0 ? "" : practical.toString()}
+                onChange={onChangePracticalMarks}
+                type="number"
+              />
+              <FormControlLabel
+                control={
+                  <Switch checked={fixPrac} onChange={onChangeFixPrac} />
+                }
+                label="Fix Practical marks"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <Typography>Grade Pointer (G): {res}</Typography>
+                <Slider
+                  min={4}
+                  step={1}
+                  max={10}
+                  value={res}
+                  onChange={onChangeSlider}
+                  defaultValue={9}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        <Box className="center-loader">
+          <CircularProgress />
+        </Box>
+      )}
     </Paper>
   );
 };

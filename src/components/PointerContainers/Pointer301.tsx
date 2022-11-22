@@ -7,6 +7,7 @@ import {
   SxProps,
   Switch,
   FormControlLabel,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -18,8 +19,6 @@ import pointerToMarksIseFixed from "../../utils/pointerToMarksIseFixed";
 import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
-
-
 
 type Props = {
   subject: string;
@@ -34,11 +33,10 @@ const fallbackDefaultValues: Pointer301LocalStorageType = {
   fixIa: false,
   fixIse: false,
   fallback: true,
-  tw:0,
+  tw: 0,
 };
 
-
-const Pointer301 = ({ subjectCode ,subject, onUpdateCallback }: Props) => {
+const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer301LocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
@@ -46,7 +44,7 @@ const Pointer301 = ({ subjectCode ,subject, onUpdateCallback }: Props) => {
   );
   const [theoryRes, setTheoryRes] = useState(4);
   const [termWorkRes, setTermWorkRes] = useState(4);
-
+  const [loading, setLoading] = useState(true);
 
   const [ise, setIse] = useState(defaultValues.ise);
   const [ia, setIa] = useState(defaultValues.ia);
@@ -55,7 +53,6 @@ const Pointer301 = ({ subjectCode ,subject, onUpdateCallback }: Props) => {
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
   const [fixIa, setFixIa] = useState(defaultValues.fixIa);
-
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -66,14 +63,18 @@ const Pointer301 = ({ subjectCode ,subject, onUpdateCallback }: Props) => {
         ese,
         fixIa,
         fixIse,
-        tw
+        tw,
       })
     );
-  }, [ise, ia, ese, fixIa, fixIse]);
+  }, [ise, ia, ese, fixIa, fixIse, tw]);
 
   useEffect(() => {
-    updateMarksGivenPointer(theoryRes);
-    handleTWMarksChange(termWorkRes);
+    setLoading(true);
+    if (defaultValues.fallback) {
+      updateMarksGivenPointer(theoryRes);
+      handleTWMarksChange(termWorkRes);
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -149,92 +150,100 @@ const Pointer301 = ({ subjectCode ,subject, onUpdateCallback }: Props) => {
   };
 
   return (
-    <Paper sx={{ p: 3, height: "100%" }}>
-      <Typography sx={{ mb: 3 }} variant="h4">
-        {subject}
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="ISE"
-            helperText="max marks - 30"
-            value={ise.toString()}
-            onChange={onChangeIseMarks}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixIse} onChange={onChangeFixIse} />}
-            label="Fix ISE marks"
-          />
-        </Grid>
+    <Paper className="pointer-paper-container">
+      {!loading ? (
+        <Box>
+          <Typography sx={{ mb: 3 }} variant="h4">
+            {subject}
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="ISE"
+                helperText="max marks - 30"
+                value={ise.toString()}
+                onChange={onChangeIseMarks}
+                type="number"
+              />
+              <FormControlLabel
+                control={<Switch checked={fixIse} onChange={onChangeFixIse} />}
+                label="Fix ISE marks"
+              />
+            </Grid>
 
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="IA"
-            helperText="max marks - 20"
-            value={ia.toString()}
-            onChange={onChangeIaMarks}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
-            label="Fix IA marks"
-          />
-        </Grid>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="IA"
+                helperText="max marks - 20"
+                value={ia.toString()}
+                onChange={onChangeIaMarks}
+                type="number"
+              />
+              <FormControlLabel
+                control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
+                label="Fix IA marks"
+              />
+            </Grid>
 
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="ESE"
-            helperText="max marks - 100"
-            value={ese.toString()}
-            onChange={onChangeEseMarks}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="TW"
-            helperText="max marks - 25"
-            value={tw.toString()}
-            onChange={(e) => setTw(Number(e.target.value))}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Box>
-            <Typography variant="h5" sx={{ my: 2 }}>
-              Theory
-            </Typography>
-            <Typography>Grade Pointer (G): {theoryRes}</Typography>
-            <Slider
-              min={4}
-              step={1}
-              max={10}
-              value={theoryRes}
-              onChange={onChangeSlider}
-              defaultValue={9}
-            />
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Box>
-            <Typography variant="h5" sx={{ my: 2 }}>
-              Term Work
-            </Typography>
-            <Typography>Grade Pointer (G): {termWorkRes}</Typography>
-            <Slider
-              min={4}
-              step={1}
-              max={10}
-              value={termWorkRes}
-              onChange={(e, num) => {
-                handleTWMarksChange(Number(num));
-              }}
-              defaultValue={9}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="ESE"
+                helperText="max marks - 100"
+                value={ese.toString()}
+                onChange={onChangeEseMarks}
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="TW"
+                helperText="max marks - 25"
+                value={tw.toString()}
+                onChange={(e) => setTw(Number(e.target.value))}
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Box>
+                <Typography variant="h5" sx={{ my: 2 }}>
+                  Theory
+                </Typography>
+                <Typography>Grade Pointer (G): {theoryRes}</Typography>
+                <Slider
+                  min={4}
+                  step={1}
+                  max={10}
+                  value={theoryRes}
+                  onChange={onChangeSlider}
+                  defaultValue={9}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <Box>
+                <Typography variant="h5" sx={{ my: 2 }}>
+                  Term Work
+                </Typography>
+                <Typography>Grade Pointer (G): {termWorkRes}</Typography>
+                <Slider
+                  min={4}
+                  step={1}
+                  max={10}
+                  value={termWorkRes}
+                  onChange={(e, num) => {
+                    handleTWMarksChange(Number(num));
+                  }}
+                  defaultValue={9}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        <Box className="center-loader">
+          <CircularProgress />
+        </Box>
+      )}
     </Paper>
   );
 };

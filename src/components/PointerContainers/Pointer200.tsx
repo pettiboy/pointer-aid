@@ -7,18 +7,19 @@ import {
   SxProps,
   FormControlLabel,
   Switch,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
 import { Slider } from "@mui/material";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
-import {useParams} from "react-router-dom"
-import asyncLocalStorage from '../../utils/asyncLocalStorage'
+import { useParams } from "react-router-dom";
+import asyncLocalStorage from "../../utils/asyncLocalStorage";
 
 type Props = {
   subject: string;
-  subjectCode:string;
+  subjectCode: string;
   onUpdateCallback(cg: number): void;
 };
 
@@ -27,17 +28,17 @@ const fallbackDefaultValues: Pointer200LocalStorageType = {
   ia: 0,
   fixIa: false,
   fixIse: false,
+  fallback: true,
 };
 
-
-const Pointer200 = ({subjectCode, subject, onUpdateCallback }: Props) => {
-
+const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer200LocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
   const [res, setRes] = useState(4);
+  const [loading, setLoading] = useState(true);
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
   const [fixIA, setFixIA] = useState(defaultValues.fixIa);
@@ -48,7 +49,6 @@ const Pointer200 = ({subjectCode, subject, onUpdateCallback }: Props) => {
   const iseMaxMarks = 30;
   const iaMaxMarks = 20;
   const totalMarks = iseMaxMarks + iaMaxMarks;
-
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -63,7 +63,11 @@ const Pointer200 = ({subjectCode, subject, onUpdateCallback }: Props) => {
   }, [ise, ia, fixIA, fixIse]);
 
   useEffect(() => {
-    updateMarksGivenPointer(res);
+    setLoading(true);
+    if (defaultValues.fallback) {
+      updateMarksGivenPointer(res);
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -95,53 +99,61 @@ const Pointer200 = ({subjectCode, subject, onUpdateCallback }: Props) => {
   };
 
   return (
-    <Paper sx={{ p: 3, height: "100%" }}>
-      <Typography sx={{ mb: 3 }} variant="h4">
-        {subject}
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="ISE"
-            helperText={`max marks - ${iseMaxMarks}`}
-            value={ise.toString()}
-            onChange={(e) => setIse(Number(e.target.value))}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixIse} onChange={onChangefixIse} />}
-            label="Fix ISE marks"
-          />
-        </Grid>
-        <Grid item xs={12} md={6} sx={gridItemStyle}>
-          <TextField
-            label="IA"
-            helperText={`max marks - ${iaMaxMarks}`}
-            value={ia.toString()}
-            onChange={(e) => setIa(Number(e.target.value))}
-            type="number"
-          />
-          <FormControlLabel
-            control={<Switch checked={fixIA} onChange={onChangefixIA} />}
-            label="Fix IA marks"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Box>
-            <Typography>Grade Pointer (G): {res}</Typography>
-            <Slider
-              min={4}
-              step={1}
-              max={10}
-              value={res}
-              onChange={(_e, num) => {
-                updateMarksGivenPointer(Number(num));
-              }}
-              defaultValue={9}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+    <Paper className="pointer-paper-container">
+      {!loading ? (
+        <Box>
+          <Typography sx={{ mb: 3 }} variant="h4">
+            {subject}
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="ISE"
+                helperText={`max marks - ${iseMaxMarks}`}
+                value={ise.toString()}
+                onChange={(e) => setIse(Number(e.target.value))}
+                type="number"
+              />
+              <FormControlLabel
+                control={<Switch checked={fixIse} onChange={onChangefixIse} />}
+                label="Fix ISE marks"
+              />
+            </Grid>
+            <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <TextField
+                label="IA"
+                helperText={`max marks - ${iaMaxMarks}`}
+                value={ia.toString()}
+                onChange={(e) => setIa(Number(e.target.value))}
+                type="number"
+              />
+              <FormControlLabel
+                control={<Switch checked={fixIA} onChange={onChangefixIA} />}
+                label="Fix IA marks"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <Typography>Grade Pointer (G): {res}</Typography>
+                <Slider
+                  min={4}
+                  step={1}
+                  max={10}
+                  value={res}
+                  onChange={(_e, num) => {
+                    updateMarksGivenPointer(Number(num));
+                  }}
+                  defaultValue={9}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        <Box className="center-loader">
+          <CircularProgress />
+        </Box>
+      )}
     </Paper>
   );
 };

@@ -48,6 +48,7 @@ declare global {
     ia: number;
     fixIse: boolean;
     fixIa: boolean;
+    fallback?: boolean;
   }
 
   interface Pointer110_75LocalStorageType {
@@ -55,10 +56,12 @@ declare global {
     practical: number;
     fixTw: boolean;
     fixPrac: boolean;
+    fallback?: boolean;
   }
 
   interface Pointer110_50LocalStorageType {
     tw: number;
+    fallback?: boolean;
   }
 
   interface Pointer102LocalStorageType {
@@ -67,6 +70,42 @@ declare global {
     ese: number;
     fixIse: boolean;
     fixIa: boolean;
+    fallback?: boolean;
+  }
+  interface Pointer030LocalStorageType {
+    tw: number;
+    fallback?: boolean;
+  }
+  interface Pointer020LocalStorageType {
+    tw: number;
+    practical: number;
+    fixTw: boolean;
+    fixPrac: boolean;
+    fallback?: boolean;
+  }
+  interface Pointer020_50LocalStorageType {
+    tw: number;
+    fallback?: boolean;
+  }
+  interface Pointer012LocalStorageType {
+    tw: number;
+    practical: number;
+    fixTw: boolean;
+    fixPrac: boolean;
+    fallback?: boolean;
+  }
+  interface Pointer011LocalStorageType {
+    tw: number;
+    practical: number;
+    fixTw: boolean;
+    fixPrac: boolean;
+    fallback?: boolean;
+  }
+  interface Pointer010LocalStorageType {
+    tw: number;
+    practical: number;
+    fixTw: boolean;
+    fixPrac: boolean;
     fallback?: boolean;
   }
 }
