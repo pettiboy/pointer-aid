@@ -101,54 +101,59 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   return (
     <Paper className="pointer-paper-container">
       {!loading ? (
-        <Box>
-          <Typography sx={{ mb: 3 }} variant="h4">
-            {subject}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="ISE"
-                helperText={`max marks - ${iseMaxMarks}`}
-                value={ise.toString()}
-                onChange={(e) => setIse(Number(e.target.value))}
-                type="number"
-              />
-              <FormControlLabel
-                control={<Switch checked={fixIse} onChange={onChangefixIse} />}
-                label="Fix ISE marks"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="IA"
-                helperText={`max marks - ${iaMaxMarks}`}
-                value={ia.toString()}
-                onChange={(e) => setIa(Number(e.target.value))}
-                type="number"
-              />
-              <FormControlLabel
-                control={<Switch checked={fixIA} onChange={onChangefixIA} />}
-                label="Fix IA marks"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box>
-                <Typography>Grade Pointer (G): {res}</Typography>
-                <Slider
-                  min={4}
-                  step={1}
-                  max={10}
-                  value={res}
-                  onChange={(_e, num) => {
-                    updateMarksGivenPointer(Number(num));
-                  }}
-                  defaultValue={9}
+        <>
+          <Box>
+            <Typography sx={{ mb: 3 }} variant="h4">
+              {subject}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="ISE"
+                  helperText={`max marks - ${iseMaxMarks}`}
+                  value={ise.toString()}
+                  onChange={(e) => setIse(Number(e.target.value))}
+                  type="number"
                 />
-              </Box>
+                <FormControlLabel
+                  control={
+                    <Switch checked={fixIse} onChange={onChangefixIse} />
+                  }
+                  label="Fix ISE marks"
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="IA"
+                  helperText={`max marks - ${iaMaxMarks}`}
+                  value={ia.toString()}
+                  onChange={(e) => setIa(Number(e.target.value))}
+                  type="number"
+                />
+                <FormControlLabel
+                  control={<Switch checked={fixIA} onChange={onChangefixIA} />}
+                  label="Fix IA marks"
+                />
+              </Grid>
             </Grid>
+          </Box>
+
+          <Grid item xs={12}>
+            <Box>
+              <Typography>Grade Pointer (G): {res}</Typography>
+              <Slider
+                min={4}
+                step={1}
+                max={10}
+                value={res}
+                onChange={(_e, num) => {
+                  updateMarksGivenPointer(Number(num));
+                }}
+                defaultValue={9}
+              />
+            </Box>
           </Grid>
-        </Box>
+        </>
       ) : (
         <Box className="center-loader">
           <CircularProgress />

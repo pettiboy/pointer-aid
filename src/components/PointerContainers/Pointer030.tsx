@@ -81,35 +81,37 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   return (
     <Paper className="pointer-paper-container">
       {!loading ? (
-        <Box>
-          <Typography sx={{ mb: 3 }} variant="h4">
-            {subject}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="Term work"
-                helperText="max marks - 50"
-                value={tw.toString()}
-                onChange={onChangeTWMarks}
-                type="number"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box>
-                <Typography>Grade Pointer (G): {res}</Typography>
-                <Slider
-                  min={4}
-                  step={1}
-                  max={10}
-                  value={res}
-                  onChange={onChangeSlider}
-                  defaultValue={9}
+        <>
+          <Box>
+            <Typography sx={{ mb: 3 }} variant="h4">
+              {subject}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="Term work"
+                  helperText="max marks - 50"
+                  value={tw.toString()}
+                  onChange={onChangeTWMarks}
+                  type="number"
                 />
-              </Box>
+              </Grid>
             </Grid>
+          </Box>
+          <Grid item xs={12}>
+            <Box>
+              <Typography>Grade Pointer (G): {res}</Typography>
+              <Slider
+                min={4}
+                step={1}
+                max={10}
+                value={res}
+                onChange={onChangeSlider}
+                defaultValue={9}
+              />
+            </Box>
           </Grid>
-        </Box>
+        </>
       ) : (
         <Box className="center-loader">
           <CircularProgress />

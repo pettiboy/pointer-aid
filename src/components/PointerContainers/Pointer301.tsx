@@ -152,58 +152,64 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   return (
     <Paper className="pointer-paper-container">
       {!loading ? (
-        <Box>
-          <Typography sx={{ mb: 3 }} variant="h4">
-            {subject}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="ISE"
-                helperText="max marks - 30"
-                value={ise.toString()}
-                onChange={onChangeIseMarks}
-                type="number"
-              />
-              <FormControlLabel
-                control={<Switch checked={fixIse} onChange={onChangeFixIse} />}
-                label="Fix ISE marks"
-              />
-            </Grid>
+        <>
+          <Box>
+            <Typography sx={{ mb: 3 }} variant="h4">
+              {subject}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="ISE"
+                  helperText="max marks - 30"
+                  value={ise.toString()}
+                  onChange={onChangeIseMarks}
+                  type="number"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch checked={fixIse} onChange={onChangeFixIse} />
+                  }
+                  label="Fix ISE marks"
+                />
+              </Grid>
 
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="IA"
-                helperText="max marks - 20"
-                value={ia.toString()}
-                onChange={onChangeIaMarks}
-                type="number"
-              />
-              <FormControlLabel
-                control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
-                label="Fix IA marks"
-              />
-            </Grid>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="IA"
+                  helperText="max marks - 20"
+                  value={ia.toString()}
+                  onChange={onChangeIaMarks}
+                  type="number"
+                />
+                <FormControlLabel
+                  control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
+                  label="Fix IA marks"
+                />
+              </Grid>
 
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="ESE"
-                helperText="max marks - 100"
-                value={ese.toString()}
-                onChange={onChangeEseMarks}
-                type="number"
-              />
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="ESE"
+                  helperText="max marks - 100"
+                  value={ese.toString()}
+                  onChange={onChangeEseMarks}
+                  type="number"
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="TW"
+                  helperText="max marks - 25"
+                  value={tw.toString()}
+                  onChange={(e) => setTw(Number(e.target.value))}
+                  type="number"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="TW"
-                helperText="max marks - 25"
-                value={tw.toString()}
-                onChange={(e) => setTw(Number(e.target.value))}
-                type="number"
-              />
-            </Grid>
-            <Grid item xs={6}>
+          </Box>
+          <Grid container xs={12}>
+            <Grid item xs={6} sx={{px:1}}>
               <Box>
                 <Typography variant="h5" sx={{ my: 2 }}>
                   Theory
@@ -238,7 +244,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               </Box>
             </Grid>
           </Grid>
-        </Box>
+        </>
       ) : (
         <Box className="center-loader">
           <CircularProgress />

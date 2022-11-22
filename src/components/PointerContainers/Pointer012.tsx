@@ -110,56 +110,58 @@ const Pointer010 = ({
   return (
     <Paper className="pointer-paper-container">
       {!loading ? (
-        <Box>
-          <Typography sx={{ mb: 3 }} variant="h4">
-            {subject}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="TW"
-                helperText={`max marks - ${twMaxMarks}`}
-                value={tw.toString()}
-                onChange={(e) => setTw(Number(e.target.value))}
-                type="number"
-              />
-              <FormControlLabel
-                control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-                label="Fix TW marks"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} sx={gridItemStyle}>
-              <TextField
-                label="practical/oral"
-                helperText={`max marks - ${practicalMaxMarks}`}
-                value={practical.toString()}
-                onChange={(e) => setPractical(Number(e.target.value))}
-                type="number"
-              />
-              <FormControlLabel
-                control={
-                  <Switch checked={fixPrac} onChange={onChangeFixPrac} />
-                }
-                label="Fix Practical marks"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box>
-                <Typography>Grade Pointer (G): {res}</Typography>
-                <Slider
-                  min={4}
-                  step={1}
-                  max={10}
-                  value={res}
-                  onChange={(_e, num) => {
-                    updateMarksGivenPointer(Number(num));
-                  }}
-                  defaultValue={9}
+        <>
+          <Box>
+            <Typography sx={{ mb: 3 }} variant="h4">
+              {subject}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="TW"
+                  helperText={`max marks - ${twMaxMarks}`}
+                  value={tw.toString()}
+                  onChange={(e) => setTw(Number(e.target.value))}
+                  type="number"
                 />
-              </Box>
+                <FormControlLabel
+                  control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
+                  label="Fix TW marks"
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={gridItemStyle}>
+                <TextField
+                  label="practical/oral"
+                  helperText={`max marks - ${practicalMaxMarks}`}
+                  value={practical.toString()}
+                  onChange={(e) => setPractical(Number(e.target.value))}
+                  type="number"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch checked={fixPrac} onChange={onChangeFixPrac} />
+                  }
+                  label="Fix Practical marks"
+                />
+              </Grid>
             </Grid>
+          </Box>
+          <Grid item xs={12}>
+            <Box>
+              <Typography>Grade Pointer (G): {res}</Typography>
+              <Slider
+                min={4}
+                step={1}
+                max={10}
+                value={res}
+                onChange={(_e, num) => {
+                  updateMarksGivenPointer(Number(num));
+                }}
+                defaultValue={9}
+              />
+            </Box>
           </Grid>
-        </Box>
+        </>
       ) : (
         <Box className="center-loader">
           <CircularProgress />
