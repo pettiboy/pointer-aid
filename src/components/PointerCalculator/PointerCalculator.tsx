@@ -30,21 +30,21 @@ const PointerCalculator = ({
         {
           "010": (
             <Pointer010
-            subjectCode={subjectCode}
+              subjectCode={subjectCode}
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
           ),
           "011": (
             <Pointer011
-            subjectCode={subjectCode}
+              subjectCode={subjectCode}
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
             />
           ),
           "012": (
             <Pointer012
-            subjectCode={subjectCode}
+              subjectCode={subjectCode}
               subject={subjectName}
               onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
               maxMarks={maxMarks}
@@ -53,13 +53,13 @@ const PointerCalculator = ({
           "020":
             maxMarks === 50 ? (
               <Pointer020_50
-              subjectCode={subjectCode}
+                subjectCode={subjectCode}
                 subject={subjectName}
                 onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
               />
             ) : (
               <Pointer020
-              subjectCode={subjectCode}
+                subjectCode={subjectCode}
                 subject={subjectName}
                 onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
                 maxMarks={maxMarks}
@@ -88,7 +88,6 @@ const PointerCalculator = ({
               />
             ) : (
               <Pointer110_75
-              
                 subject={subjectName}
                 subjectCode={subjectCode}
                 onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}

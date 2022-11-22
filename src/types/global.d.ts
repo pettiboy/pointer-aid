@@ -24,90 +24,45 @@ declare global {
     key: Key;
   }
 
-  interface Pointer301LocalStorageType {
-    ise: number;
-    ia: number;
-    ese: number;
-    fixIse: boolean;
-    fixIa: boolean;
-    fallback?: boolean;
+  interface Pointer301LocalStorageType extends PointerIseIaEse {
     tw: number;
   }
+  interface Pointer300LocalStorageType extends PointerIseIaEse {}
+  interface Pointer200LocalStorageType extends PointerIseIa {}
+  interface Pointer110_50LocalStorageType extends PointerTw {}
+  interface Pointer110_75LocalStorageType extends PointerTwPractical {}
+  interface Pointer102LocalStorageType extends PointerIseIaEse {}
+  interface Pointer030LocalStorageType extends PointerTw {}
+  interface Pointer020LocalStorageType extends PointerTwPractical {}
+  interface Pointer020_50LocalStorageType extends PointerTw {}
+  interface Pointer012LocalStorageType extends PointerTwPractical {}
+  interface Pointer011LocalStorageType extends PointerTwPractical {}
+  interface Pointer010LocalStorageType extends PointerTwPractical {}
+}
 
-  interface Pointer300LocalStorageType {
-    ise: number;
-    ia: number;
-    ese: number;
-    fixIse: boolean;
-    fixIa: boolean;
-    fallback?: boolean;
-  }
+interface PointerIseIa {
+  ise: number;
+  ia: number;
+  fixIse: boolean;
+  fixIa: boolean;
+  fallback?: boolean;
+}
 
-  interface Pointer200LocalStorageType {
-    ise: number;
-    ia: number;
-    fixIse: boolean;
-    fixIa: boolean;
-    fallback?: boolean;
-  }
+interface PointerIseIaEse extends PointerIseIa {
+  ese: number;
+}
 
-  interface Pointer110_75LocalStorageType {
-    tw: number;
-    practical: number;
-    fixTw: boolean;
-    fixPrac: boolean;
-    fallback?: boolean;
-  }
+interface PointerTwPractical {
+  tw: number;
+  practical: number;
+  fixTw: boolean;
+  fixPrac: boolean;
+  fallback?: boolean;
+}
 
-  interface Pointer110_50LocalStorageType {
-    tw: number;
-    fallback?: boolean;
-  }
-
-  interface Pointer102LocalStorageType {
-    ise: number;
-    ia: number;
-    ese: number;
-    fixIse: boolean;
-    fixIa: boolean;
-    fallback?: boolean;
-  }
-  interface Pointer030LocalStorageType {
-    tw: number;
-    fallback?: boolean;
-  }
-  interface Pointer020LocalStorageType {
-    tw: number;
-    practical: number;
-    fixTw: boolean;
-    fixPrac: boolean;
-    fallback?: boolean;
-  }
-  interface Pointer020_50LocalStorageType {
-    tw: number;
-    fallback?: boolean;
-  }
-  interface Pointer012LocalStorageType {
-    tw: number;
-    practical: number;
-    fixTw: boolean;
-    fixPrac: boolean;
-    fallback?: boolean;
-  }
-  interface Pointer011LocalStorageType {
-    tw: number;
-    practical: number;
-    fixTw: boolean;
-    fixPrac: boolean;
-    fallback?: boolean;
-  }
-  interface Pointer010LocalStorageType {
-    tw: number;
-    practical: number;
-    fixTw: boolean;
-    fixPrac: boolean;
-    fallback?: boolean;
-  }
+interface PointerTw {
+  tw: number;
+  fallback?: boolean;
 }
 
 export {};

@@ -7,7 +7,7 @@ import {
   SxProps,
   FormControlLabel,
   Switch,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";

@@ -118,7 +118,8 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
         </Box>
       )}
     </Paper>
-  );};
+  );
+};
 
 export default Pointer020_50;
 

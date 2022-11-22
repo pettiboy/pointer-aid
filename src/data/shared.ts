@@ -119,8 +119,7 @@ export const kjsce_groupc_sem2: PointerCalculatorStructureType[] = [
   },
 ];
 
-
-export const kjsce_groupp_sem1: PointerCalculatorStructureType[]= [
+export const kjsce_groupp_sem1: PointerCalculatorStructureType[] = [
   {
     subjectName: "Applied Mathematics I",
     subjectCode: "AMI",
@@ -176,9 +175,9 @@ export const kjsce_groupp_sem1: PointerCalculatorStructureType[]= [
     creditDistribution: "020",
     maxMarks: 50,
   },
-]
+];
 
-export const kjsce_groupp_sem2: PointerCalculatorStructureType[]=[
+export const kjsce_groupp_sem2: PointerCalculatorStructureType[] = [
   // 301
   {
     subjectName: "Applied Mathematics II",
@@ -233,4 +232,4 @@ export const kjsce_groupp_sem2: PointerCalculatorStructureType[]=[
     creditDistribution: "020",
     maxMarks: 50,
   },
-]
+];
