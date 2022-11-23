@@ -13,7 +13,7 @@ import router from "./router";
 import { getDesignTokens } from "./theme";
 
 function App() {
-  // useTracking();
+  useTracking();
 
   const defaultMode: PaletteMode =
     (localStorage.getItem("themePreference") as PaletteMode) || "dark";
