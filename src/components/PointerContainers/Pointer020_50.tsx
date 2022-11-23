@@ -23,7 +23,7 @@ type Props = {
 };
 const fallbackDefaultValues: Pointer020_50LocalStorageType = {
   tw: 0,
-  fallback: false,
+  fallback: true,
 };
 
 const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
@@ -40,7 +40,9 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log(res)
     if (defaultValues.fallback) {
+      console.log(res)
       updateMarksGivenPointer(res);
     }
     setLoading(false);

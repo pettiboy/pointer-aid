@@ -24,7 +24,7 @@ type Props = {
 
 const fallbackDefaultValues: Pointer030LocalStorageType = {
   tw: 0,
-  fallback: false,
+  fallback: true,
 };
 
 const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {

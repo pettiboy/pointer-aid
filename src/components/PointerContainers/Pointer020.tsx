@@ -29,7 +29,7 @@ const fallbackDefaultValues: Pointer020LocalStorageType = {
   practical: 0,
   fixTw: false,
   fixPrac: false,
-  fallback: false,
+  fallback: true,
 };
 
 const Pointer020_75 = ({
