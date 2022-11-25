@@ -1,19 +1,60 @@
 {
-  "name": "",
-  "short_name": "",
+  "short_name": "Pointer Aid",
+  "name": "Pointer Aid: Calculate Minimum Marks",
+  "scope": "/",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "theme_color": "#b241ff",
+  "background_color": "#2F3437",
+  "description": "Pointer Aid calculates your cgpa. Given marks of completed assessments predicts the minimum marks required for upcoming assessments to maximize your pointer.",
+  "categories": ["education", "utilities", "productivity"],
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/pwa-assets/manifest-icon-192.maskable.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/pwa-assets/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/pwa-assets/manifest-icon-512.maskable.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-assets/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "screenshots": [
+    {
+      "src": "/screenshots/calculator-dark-1.png",
+      "type": "image/png",
+      "sizes": "417x720"
+    },
+    {
+      "src": "/screenshots/home-screen-dark-1.png",
+      "type": "image/png",
+      "sizes": "417x720"
+    },
+    {
+      "src": "/screenshots/calculator-light-1.png",
+      "type": "image/png",
+      "sizes": "417x720"
+    },
+    {
+      "src": "/screenshots/home-screen-light-1.png",
+      "type": "image/png",
+      "sizes": "417x720"
+    }
+  ]
 }
