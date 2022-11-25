@@ -10,12 +10,12 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import calculatorStructure from "../../data/calculatorStructure";
 import { useNavigate } from "react-router-dom";
-import Credits from "../shared/Credits/Credits";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
+import Credits from "../../components/Credits/Credits";
 
 type Props = {};
 
-const KjsceScreen = (props: Props) => {
+const KjsceHome = (props: Props) => {
   let navigate = useNavigate();
 
   const isKeyboardOpen = useDetectKeyboardOpen();
@@ -226,4 +226,4 @@ const KjsceScreen = (props: Props) => {
   );
 };
 
-export default KjsceScreen;
+export default KjsceHome;

@@ -1,8 +1,3 @@
 # Pointer Aid
 
-## Developer Setup
-
-- engagement take email
-- less information
-- align items in each item to same height
-- google analytics
+KJSCE Pointer Aid calculates your cgpa and given marks of completed assessments predicts the minimum marks required for upcoming assessments to maximize your pointer.

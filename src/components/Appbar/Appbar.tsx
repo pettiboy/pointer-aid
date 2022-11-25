@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { useContext } from "react";
-import ColorModeContext from "../../../context/ColorModeContext";
+import ColorModeContext from "../../context/ColorModeContext";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
