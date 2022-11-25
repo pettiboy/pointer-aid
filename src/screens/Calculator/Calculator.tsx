@@ -1,4 +1,9 @@
-import { Box, CircularProgress, Unstable_Grid2 as Grid } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  Unstable_Grid2 as Grid,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import calculatorStructure from "../../data/calculatorStructure";
@@ -107,7 +112,7 @@ const Calculator = (_props: Props) => {
       )}
       {loadingStatus === "no_data" && (
         <Box className="h-85 flex-center">
-          <h1>No calculator available yet</h1>
+          <Typography variant="h1">No calculator available yet</Typography>
         </Box>
       )}
       {loadingStatus === "loading" && (

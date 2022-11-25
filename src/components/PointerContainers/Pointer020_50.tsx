@@ -40,9 +40,7 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log(res)
     if (defaultValues.fallback) {
-      console.log(res)
       updateMarksGivenPointer(res);
     }
     setLoading(false);

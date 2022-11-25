@@ -209,7 +209,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             </Grid>
           </Box>
           <Grid container xs={12}>
-            <Grid item xs={6} sx={{px:1}}>
+            <Grid item xs={6} sx={{ px: 1 }}>
               <Box>
                 <Typography variant="h5" sx={{ my: 2 }}>
                   Theory

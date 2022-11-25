@@ -87,7 +87,7 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               {subject}
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6} sx={gridItemStyle}>
+              <Grid item xs={12} sx={gridItemStyle}>
                 <TextField
                   label="Term work"
                   helperText="max marks - 50"
