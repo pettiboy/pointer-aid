@@ -7,10 +7,12 @@ import {
   IconButton,
   useTheme,
   Box,
+  Button,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import ColorModeContext from "../../context/ColorModeContext";
 import { useNavigate } from "react-router-dom";
+import { useAddToHomescreenPrompt } from "../../hooks/useAddToHomescreenPrompt";
 
 type Props = {};
 
@@ -19,6 +21,15 @@ const Appbar = (props: Props) => {
   const navigate = useNavigate();
 
   const colorMode = useContext(ColorModeContext);
+
+  const [prompt, promptToInstall] = useAddToHomescreenPrompt();
+  const [isPromptVisible, setIsPromptVisible] = useState(false);
+
+  useEffect(() => {
+    if (prompt) {
+      setIsPromptVisible(true);
+    }
+  }, [prompt]);
 
   const onClick = () => {
     navigate("/");
@@ -57,13 +68,20 @@ const Appbar = (props: Props) => {
             Pointer Aid
           </Typography>
         </Box>
-        <IconButton
-          sx={{ ml: "auto" }}
-          onClick={colorMode.toggleColorMode}
-          color="inherit"
-        >
-          {theme.palette.mode === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
-        </IconButton>
+        <Box sx={{ ml: "auto" }}>
+          <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+            {theme.palette.mode === "dark" ? (
+              <DarkModeIcon />
+            ) : (
+              <LightModeIcon />
+            )}
+          </IconButton>
+          {isPromptVisible && (
+            <Button variant="contained" onClick={promptToInstall}>
+              Install
+            </Button>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );

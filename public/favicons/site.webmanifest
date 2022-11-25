@@ -7,7 +7,8 @@
   "display": "standalone",
   "theme_color": "#b241ff",
   "background_color": "#2F3437",
-  "description": "Pointer Aid calculates your cgpa and given marks of completed assessments predicts the minimum marks required for upcoming assessments to maximize your pointer.",
+  "description": "Pointer Aid calculates your cgpa. Given marks of completed assessments predicts the minimum marks required for upcoming assessments to maximize your pointer.",
+  "categories": ["education", "utilities", "productivity"],
   "icons": [
     {
       "src": "/pwa-assets/manifest-icon-192.maskable.png",
