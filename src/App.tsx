@@ -2,6 +2,7 @@ import {
   createTheme,
   CssBaseline,
   PaletteMode,
+  responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material";
 import { useState, useMemo } from "react";
@@ -35,7 +36,10 @@ function App() {
     }),
     []
   );
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  const theme = useMemo(() => {
+    const useTheme = createTheme(getDesignTokens(mode));
+    return responsiveFontSizes(useTheme);
+  }, [mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
