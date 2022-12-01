@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import * as serviceWorkerRegistration from "./serviceWorkerResgistration";
+import GlobalContextProviders from "./context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <App />
+        <GlobalContextProviders>
+          <App />
+        </GlobalContextProviders>
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>

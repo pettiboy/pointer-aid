@@ -4,7 +4,7 @@ import {
   Typography,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import calculatorStructure from "../../data/calculatorStructure";
 import sumObject from "../../utils/sumObject";
@@ -13,21 +13,25 @@ import { romanize } from "../../utils/romanize";
 import Credits from "../../components/Credits/Credits";
 import PointerCalculator from "../../components/PointerCalculator/PointerCalculator";
 import PointerDisplay from "../../components/PointerDisplay/PointerDisplay";
+import { CalculatorContext } from "../../context/CalculatorContext";
 
 type Props = {};
 
 const Calculator = (_props: Props) => {
   const { college, branch, semester } = useParams();
 
-  const [key, setKey] = useState<string>();
+  const { calculatorData, setCalculatorData } = useContext(CalculatorContext);
+
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
-  const [sgpi, setSgpi] = useState(0);
+  const [sgpi, setSgpi] = useState<number | null>(null);
 
   const [cgs, setCgs] = useState<StringNumberObject>({});
 
-  const [totalCredits, setTotalCredits] = useState<number>();
+  const [totalCredits, setTotalCredits] = useState<number | null>(null);
 
+  // parses the URL and fetches data based on the URL
+  // handles loading statuses
   useEffect(() => {
     setLoadingStatus("loading");
 
@@ -35,20 +39,28 @@ const Calculator = (_props: Props) => {
 
     if (givenKey in calculatorStructure) {
       setLoadingStatus("loaded");
-      setKey(givenKey);
+      setCalculatorData(calculatorStructure[givenKey]);
     } else {
       setLoadingStatus("no_data");
     }
+
+    return () => {
+      setCalculatorData(null);
+    };
   }, [college, branch, semester]);
 
+  // updates the total pointer for the bottom component
   useEffect(() => {
-    if (!key) return;
+    if (!calculatorData) return;
 
-    const avg = sumObject(cgs) / getTotalCredits(calculatorStructure[key]);
+    const avg = sumObject(cgs) / getTotalCredits(calculatorData);
     const pointer = Math.round((avg + Number.EPSILON) * 100) / 100;
     setSgpi(pointer);
-  }, [cgs, key]);
+  }, [cgs, calculatorData]);
 
+  // given an array of `PointerCalculatorStructureType` computes the total
+  // sum of the credits by parsing the keys into integers ad adding them
+  // also stores the total credits in state to reduce computation time
   const getTotalCredits = (data: PointerCalculatorStructureType[]) => {
     if (totalCredits) {
       return totalCredits;
@@ -77,7 +89,7 @@ const Calculator = (_props: Props) => {
 
   return (
     <Box sx={{ p: 5 }}>
-      {loadingStatus === "loaded" && key && (
+      {loadingStatus === "loaded" && calculatorData && (
         <>
           <Helmet>
             <title>
@@ -94,7 +106,7 @@ const Calculator = (_props: Props) => {
               alignItems: "stretch",
             }}
           >
-            {calculatorStructure[key].map((subject) => (
+            {calculatorData.map((subject) => (
               <Grid key={subject.subjectCode} xs={12} md={6} lg={6} xl={4}>
                 <PointerCalculator
                   subjectName={subject.subjectName}

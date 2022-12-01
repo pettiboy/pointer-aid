@@ -1,8 +1,8 @@
-import { Paper, Typography } from "@mui/material";
+import { Box, CircularProgress, Paper, Typography } from "@mui/material";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 
 type Props = {
-  pointer: number;
+  pointer: number | null;
 };
 
 const PointerDisplay = ({ pointer }: Props) => {
@@ -21,7 +21,21 @@ const PointerDisplay = ({ pointer }: Props) => {
             zIndex: 9,
           }}
         >
-          <Typography variant="h4">Pointer: {pointer}</Typography>
+          {pointer ? (
+            // actual value
+            <Typography variant="h4">Pointer: {pointer}</Typography>
+          ) : (
+            // loading indicator
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h4">Pointer: </Typography>
+              <CircularProgress size={20} sx={{ ml: 1.2 }} />
+            </Box>
+          )}
         </Paper>
       )}
     </>
