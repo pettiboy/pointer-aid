@@ -18,7 +18,8 @@ const PointerDisplay = ({ pointer }: Props) => {
             bottom: 0,
             left: 0,
             width: "100vw",
-            p: 3,
+            px: 3,
+            py: 2,
             zIndex: 9,
           }}
         >
