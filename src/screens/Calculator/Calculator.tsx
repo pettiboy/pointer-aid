@@ -72,9 +72,14 @@ const Calculator = (_props: Props) => {
     setSgpi(pointer);
   }, [cgs, filteredCalculatorData]);
 
-  // given an array of `PointerCalculatorStructureType` computes the total
-  // sum of the credits by parsing the keys into integers ad adding them
-  // also stores the total credits in state to reduce computation time
+  /**
+   * given an array of `PointerCalculatorStructureType` computes the total
+   * sum of the credits by parsing the keys into integers and adding them.
+   * Stores the total credits in state to reduce computation time
+   *
+   * @param {PointerCalculatorStructureType[]} data
+   * @returns {number} credits
+   */
   const getTotalCredits = (data: PointerCalculatorStructureType[]) => {
     if (totalCredits) {
       return totalCredits;
