@@ -275,6 +275,104 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   // EXTC
   kjsce_extc_sem1: kjsce_groupp_sem1,
   kjsce_extc_sem2: kjsce_groupp_sem2,
+  
+  kjsce_extc_sem3:[
+    {
+      subjectName:"Mathematics for Communication Engineering I ",
+      subjectCode:"MCEI",
+      creditDistribution:"301"
+    },
+    {
+      subjectName:"Basic Electronic Circuits  ",
+      subjectCode:"BEC",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Digital Logic Design  ",
+      subjectCode:"DLD",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Microprocessor and Microcontroller",
+      subjectCode:"MAM",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Electrical Network Theory",
+      subjectCode:"ENT",
+      creditDistribution:"301"
+    },
+    {
+      subjectName:"Data Structures and Analysis of Algorithms Laboratory ",
+      subjectCode:"HDLL",
+      creditDistribution:"020",
+      maxMarks:75
+    },
+    {
+      subjectName:"Basic Electronic Circuits Laboratory ",
+      subjectCode:"BECL",
+      creditDistribution:"010"
+
+    
+    },
+    {
+      subjectName:"Digital Logic Design Laboratory ",
+      subjectCode:"DLDL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Microprocessor and Microcontroller laboratory",
+      subjectCode:"MAML",
+      creditDistribution:"010"
+    }
+  ],
+  kjsce_extc_sem4:[
+    {
+      subjectName:"Mathematics for Communication Engineering II ",
+      subjectCode:"MCEII",
+      creditDistribution:"301"
+    },
+    {
+      subjectName:"Analog Electronics  ",
+      subjectCode:"AE",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Communication Systems  ",
+      subjectCode:"CS",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"  Signals and Systems ",
+      subjectCode:"SAS",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Electromagnetic Field Theory",
+      subjectCode:"EFT",
+      creditDistribution:"301"
+    },
+    {
+      subjectName:"Hardware Description Language Laboratory",
+      subjectCode:"HDLL",
+      creditDistribution:"020"
+    },
+    {
+      subjectName:"Analog Electronics Laboratory",
+      subjectCode:"AEL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Communication Systems Laboratory",
+      subjectCode:"CSL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Signals and Systems Laboratory",
+      subjectCode:"SAS",
+      creditDistribution:"010"
+    }
+  ],
 
   // IT
   kjsce_it_sem1: kjsce_groupc_sem1,
