@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import ColorModeContext from "../../context/ColorModeContext";
+import { StyleThemeContext } from "../../context/StyleThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useAddToHomescreenPrompt } from "../../hooks/useAddToHomescreenPrompt";
 
@@ -20,7 +20,7 @@ const Appbar = (props: Props) => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const colorMode = useContext(ColorModeContext);
+  const { toggleColorMode } = useContext(StyleThemeContext);
 
   const [prompt, promptToInstall] = useAddToHomescreenPrompt();
   const [isPromptVisible, setIsPromptVisible] = useState(false);
@@ -69,7 +69,7 @@ const Appbar = (props: Props) => {
           </Typography>
         </Box>
         <Box sx={{ ml: "auto" }}>
-          <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+          <IconButton onClick={toggleColorMode} color="inherit">
             {theme.palette.mode === "dark" ? (
               <DarkModeIcon />
             ) : (

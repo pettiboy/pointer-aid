@@ -80,6 +80,10 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   useEffect(() => {
     // * 1 is just for readability purpose
     onUpdateCallback(theoryRes * 3, termWorkRes * 1);
+
+    return () => {
+      onUpdateCallback(0, 0);
+    };
   }, [theoryRes, termWorkRes]);
 
   useEffect(() => {

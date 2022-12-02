@@ -64,6 +64,10 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     onUpdateCallback(res * 3);
+
+    return () => {
+      onUpdateCallback(0);
+    };
   }, [res]);
 
   useEffect(() => {

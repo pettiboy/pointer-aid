@@ -66,6 +66,10 @@ const Pointer020_75 = ({
 
   useEffect(() => {
     onUpdateCallback(res * 2);
+
+    return () => {
+      onUpdateCallback(0);
+    };
   }, [res]);
 
   useEffect(() => {

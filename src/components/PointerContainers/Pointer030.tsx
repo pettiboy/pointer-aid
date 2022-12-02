@@ -66,6 +66,10 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     onUpdateCallback(res * 3);
+
+    return () => {
+      onUpdateCallback(0);
+    };
   }, [res]);
 
   const onChangeSlider = (
