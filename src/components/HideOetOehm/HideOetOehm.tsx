@@ -6,20 +6,36 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CalculatorContext } from "../../context/CalculatorContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 type Props = {};
 
 const HideOetOehm = (props: Props) => {
-  const { setDisableSubjectIds } = useContext(CalculatorContext);
+  const { setDisableSubjectIds, calculatorData } =
+    useContext(CalculatorContext);
+
+  const [showComponent, setShowComponent] = useState(false);
 
   const [oet, setOet] = useState(true);
   const [oehm, setOehm] = useState(true);
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const menuOpen = Boolean(anchorEl);
+
+  useEffect(() => {
+    // ASSUMPTION: if oehm is present oet is assumed
+    const isOetPresent = calculatorData?.findIndex(
+      (subject) => subject.subjectCode === "OET"
+    );
+
+    if (isOetPresent === -1) {
+      setShowComponent(false);
+    } else {
+      setShowComponent(true);
+    }
+  }, [calculatorData]);
 
   const handleIconClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,35 +96,39 @@ const HideOetOehm = (props: Props) => {
 
   return (
     <>
-      <IconButton
-        aria-haspopup="true"
-        aria-expanded={menuOpen ? "true" : undefined}
-        onClick={handleIconClick}
-      >
-        <SettingsIcon />
-      </IconButton>
-      <Menu
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        transformOrigin={{ vertical: "bottom", horizontal: "left" }}
-        anchorEl={anchorEl}
-        disableScrollLock={true}
-        open={menuOpen}
-        onClose={handleMenuClose}
-      >
-        <MenuItem>
-          <FormControlLabel
-            control={<Checkbox checked={oet} onChange={onChangeOet} />}
-            label="OET"
-          />
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <FormControlLabel
-            control={<Checkbox checked={oehm} onChange={onChangeOehm} />}
-            label="OEHM"
-          />
-        </MenuItem>
-      </Menu>
+      {showComponent && (
+        <>
+          <IconButton
+            aria-haspopup="true"
+            aria-expanded={menuOpen ? "true" : undefined}
+            onClick={handleIconClick}
+          >
+            <SettingsIcon />
+          </IconButton>
+          <Menu
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            transformOrigin={{ vertical: "bottom", horizontal: "left" }}
+            anchorEl={anchorEl}
+            disableScrollLock={true}
+            open={menuOpen}
+            onClose={handleMenuClose}
+          >
+            <MenuItem>
+              <FormControlLabel
+                control={<Checkbox checked={oet} onChange={onChangeOet} />}
+                label="OET"
+              />
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <FormControlLabel
+                control={<Checkbox checked={oehm} onChange={onChangeOehm} />}
+                label="OEHM"
+              />
+            </MenuItem>
+          </Menu>
+        </>
+      )}
     </>
   );
 };

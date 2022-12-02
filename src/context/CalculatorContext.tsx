@@ -3,16 +3,20 @@ import React, { useEffect } from "react";
 import { useState, createContext, PropsWithChildren } from "react";
 
 interface ContextValueType {
+  calculatorData: CalculatorDataStateType;
   // setter to fetch calculator data
   setCalculatorData: React.Dispatch<
     React.SetStateAction<CalculatorDataStateType>
   >;
 
-  // use this calculator data
+  // use this data to render calculator on screen
   filteredCalculatorData: CalculatorDataStateType;
 
-  //
-  setDisableSubjectIds: React.Dispatch<React.SetStateAction<string[]>>;
+  // setter to update disableSubjectIds
+  // disableSubjectIds are not included in filteredCalculatorData
+  setDisableSubjectIds: React.Dispatch<
+    React.SetStateAction<DisabledSubjectIdsStateType>
+  >;
 }
 
 export const CalculatorContext = createContext<ContextValueType>(
@@ -27,7 +31,8 @@ export const CalculatorProvider = (
   const [filteredCalculatorData, setFilteredCalculatorData] =
     useState<CalculatorDataStateType>(null);
 
-  const [disableSubjectIds, setDisableSubjectIds] = useState<string[]>([]);
+  const [disableSubjectIds, setDisableSubjectIds] =
+    useState<DisabledSubjectIdsStateType>([]);
 
   useEffect(() => {
     setFilteredCalculatorData(calculatorData);
@@ -38,7 +43,6 @@ export const CalculatorProvider = (
       const updatedCalcData: CalculatorDataStateType = [];
       calculatorData?.forEach((subject) => {
         if (!disableSubjectIds.includes(subject.subjectCode)) {
-          console.log("here");
           updatedCalcData.push(subject);
         }
       });
@@ -49,6 +53,7 @@ export const CalculatorProvider = (
   return (
     <CalculatorContext.Provider
       value={{
+        calculatorData,
         setCalculatorData,
         filteredCalculatorData,
         setDisableSubjectIds,
@@ -62,3 +67,4 @@ export const CalculatorProvider = (
 export const CalculatorConsumer = CalculatorContext.Consumer;
 
 type CalculatorDataStateType = PointerCalculatorStructureType[] | null;
+type DisabledSubjectIdsStateType = string[];
