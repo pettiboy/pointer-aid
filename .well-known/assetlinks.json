@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.pettiboy.pointer_aid.twa",
+      "sha256_cert_fingerprints": [
+        "E4:55:CD:DC:44:8F:89:17:AA:6C:3C:28:B9:42:AD:1C:03:5A:2C:10:09:8A:63:0B:0E:79:C2:C2:95:89:F6:DA"
+      ]
+    }
+  }
+]
