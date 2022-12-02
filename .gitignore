@@ -24,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 dev.md
+
+signing.keystore
+signing-key-info.txt
