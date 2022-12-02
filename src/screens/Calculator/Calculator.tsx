@@ -20,7 +20,8 @@ type Props = {};
 const Calculator = (_props: Props) => {
   const { college, branch, semester } = useParams();
 
-  const { calculatorData, setCalculatorData } = useContext(CalculatorContext);
+  const { filteredCalculatorData, setCalculatorData } =
+    useContext(CalculatorContext);
 
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
@@ -38,7 +39,7 @@ const Calculator = (_props: Props) => {
     const givenKey = `${college}_${branch}_${semester}`;
 
     if (givenKey in calculatorStructure) {
-      setLoadingStatus("loaded");
+      // update calculator data in parent context
       setCalculatorData(calculatorStructure[givenKey]);
     } else {
       setLoadingStatus("no_data");
@@ -49,14 +50,27 @@ const Calculator = (_props: Props) => {
     };
   }, [college, branch, semester]);
 
+  // handle loading states by listening for filteredCalculatorData
+  useEffect(() => {
+    // reset total credits
+    setTotalCredits(null);
+
+    if (filteredCalculatorData) {
+      setLoadingStatus("loaded");
+    } else {
+      setLoadingStatus("loading");
+    }
+  }, [filteredCalculatorData]);
+
   // updates the total pointer for the bottom component
   useEffect(() => {
-    if (!calculatorData) return;
+    if (!filteredCalculatorData) return;
 
-    const avg = sumObject(cgs) / getTotalCredits(calculatorData);
+    const avg = sumObject(cgs) / getTotalCredits(filteredCalculatorData);
     const pointer = Math.round((avg + Number.EPSILON) * 100) / 100;
+
     setSgpi(pointer);
-  }, [cgs, calculatorData]);
+  }, [cgs, filteredCalculatorData]);
 
   // given an array of `PointerCalculatorStructureType` computes the total
   // sum of the credits by parsing the keys into integers ad adding them
@@ -89,7 +103,7 @@ const Calculator = (_props: Props) => {
 
   return (
     <Box sx={{ p: 5 }}>
-      {loadingStatus === "loaded" && calculatorData && (
+      {loadingStatus === "loaded" && filteredCalculatorData && (
         <>
           <Helmet>
             <title>
@@ -106,7 +120,7 @@ const Calculator = (_props: Props) => {
               alignItems: "stretch",
             }}
           >
-            {calculatorData.map((subject) => (
+            {filteredCalculatorData.map((subject) => (
               <Grid key={subject.subjectCode} xs={12} md={6} lg={6} xl={4}>
                 <PointerCalculator
                   subjectName={subject.subjectName}

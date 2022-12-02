@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Paper, Typography } from "@mui/material";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
+import HideOetOehm from "../HideOetOehm/HideOetOehm";
 
 type Props = {
   pointer: number | null;
@@ -22,8 +23,18 @@ const PointerDisplay = ({ pointer }: Props) => {
           }}
         >
           {pointer ? (
-            // actual value
-            <Typography variant="h4">Pointer: {pointer}</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              {/* actual value */}
+              <Typography variant="h4">Pointer: {pointer}</Typography>
+              <HideOetOehm />
+            </Box>
           ) : (
             // loading indicator
             <Box

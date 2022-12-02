@@ -59,6 +59,10 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     onUpdateCallback(res * 1);
+
+    return () => {
+      onUpdateCallback(0);
+    };
   }, [res]);
 
   useEffect(() => {
