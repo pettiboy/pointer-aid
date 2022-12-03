@@ -267,6 +267,111 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
   ],
+  kjsce_etrx_sem5: [
+    {
+      subjectName: "Electromagnetic Engineering",
+      subjectCode: "EME",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Digital Signal Processing",
+      subjectCode: "DSP",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Power Electronics",
+      subjectCode: "PE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Department Elective- I",
+      subjectCode: "DE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName:
+        "Virtual Instrumentation and Industrial Automation Lab Course",
+      subjectCode: "VIIAL",
+      creditDistribution: "020",
+    },
+    {
+      subjectName: "Digital Signal Processing Laboratory",
+      subjectCode: "DSPL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Power Electronics Laboratory",
+      subjectCode: "PEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Department Elective - I Laboratory",
+      subjectCode: "DELIL",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_etrx_sem6: [
+    {
+      subjectName: "Basics of VLSI",
+      subjectCode: "BVLSI",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Analog Integrated Circuits and Applications",
+      subjectCode: "AICA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Introduction to Automation and Mechatronics",
+      subjectCode: "IAM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Department Elective- II",
+      subjectCode: "DEII",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Basics of VLSI Laboratory",
+      subjectCode: "BVLSIL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Analog Integrated Circuits and Applications Laboratory",
+      subjectCode: "AICAL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Introduction to Automation and Mechatronics Laboratory",
+      subjectCode: "IAML",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Department Elective - II Laboratory",
+      subjectCode: "DELIIL",
+      creditDistribution: "010",
+    },
+  ],
 
   // EXCP
   kjsce_excp_sem1: kjsce_groupp_sem1,
@@ -275,6 +380,216 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   // EXTC
   kjsce_extc_sem1: kjsce_groupp_sem1,
   kjsce_extc_sem2: kjsce_groupp_sem2,
+  kjsce_extc_sem3: [
+    {
+      subjectName: "Mathematics for Communication Engineering I ",
+      subjectCode: "MCEI",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Basic Electronic Circuits  ",
+      subjectCode: "BEC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Digital Logic Design  ",
+      subjectCode: "DLD",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Microprocessor and Microcontroller",
+      subjectCode: "MAM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Electrical Network Theory",
+      subjectCode: "ENT",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Data Structures and Analysis of Algorithms Laboratory ",
+      subjectCode: "HDLL",
+      creditDistribution: "020",
+      maxMarks: 75,
+    },
+    {
+      subjectName: "Basic Electronic Circuits Laboratory ",
+      subjectCode: "BECL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Digital Logic Design Laboratory ",
+      subjectCode: "DLDL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Microprocessor and Microcontroller laboratory",
+      subjectCode: "MAML",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_extc_sem4: [
+    {
+      subjectName: "Mathematics for Communication Engineering II ",
+      subjectCode: "MCEII",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Analog Electronics  ",
+      subjectCode: "AE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Communication Systems  ",
+      subjectCode: "CS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "  Signals and Systems ",
+      subjectCode: "SAS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Electromagnetic Field Theory",
+      subjectCode: "EFT",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Hardware Description Language Laboratory",
+      subjectCode: "HDLL",
+      creditDistribution: "020",
+    },
+    {
+      subjectName: "Analog Electronics Laboratory",
+      subjectCode: "AEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Communication Systems Laboratory",
+      subjectCode: "CSL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Signals and Systems Laboratory",
+      subjectCode: "SAS",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_extc_sem5: [
+    {
+      subjectName: "Digital Communication ",
+      subjectCode: "DC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "RF Filters and Antennas ",
+      subjectCode: "RFFA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Digital Signal Processing ",
+      subjectCode: "DSP",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective - I ",
+      subjectCode: "DE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Digital Communication Laboratory",
+      subjectCode: "DCL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "RF Filters and Antennas laboratory ",
+      subjectCode: "RFFAL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Digital Signal Processing Laboratory",
+      subjectCode: "DSPL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Elective-I Laboratory",
+      subjectCode: "DEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Advanced Microcontroller Laboratory ",
+      subjectCode: "AML",
+      creditDistribution: "020",
+      maxMarks: 75,
+    },
+  ],
+  kjsce_extc_sem6: [
+    {
+      subjectName: "Wireless Communication",
+      subjectCode: "WC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Computer Communication Networks ",
+      subjectCode: "CCN",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Optical fibre Communication ",
+      subjectCode: "OFC",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective - II ",
+      subjectCode: "DE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET ",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEM ",
+      subjectCode: "OEM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Wireless Communication Laboratory ",
+      subjectCode: "WCL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Computer Communication Networks Laboratory ",
+      subjectCode: "CCNL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Optical Fibre Communication Laboratory ",
+      subjectCode: "OFCL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Elective- II Laboratory",
+      subjectCode: "DEII",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Mini Project",
+      subjectCode: "MP",
+      creditDistribution: "020",
+    },
+  ],
 
   // IT
   kjsce_it_sem1: kjsce_groupc_sem1,
