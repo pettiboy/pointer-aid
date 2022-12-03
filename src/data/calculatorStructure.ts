@@ -284,7 +284,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "300",
     },
     {
-      subjectName: "Department Elective- I",
+      subjectName: "Department Elective-I",
       subjectCode: "DE",
       creditDistribution: "300",
     },
@@ -315,7 +315,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
     {
-      subjectName: "Department Elective - I Laboratory",
+      subjectName: "Department Elective-I Laboratory",
       subjectCode: "DELIL",
       creditDistribution: "010",
     },
@@ -337,7 +337,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "300",
     },
     {
-      subjectName: "Department Elective- II",
+      subjectName: "Department Elective-II",
       subjectCode: "DEII",
       creditDistribution: "300",
     },
@@ -367,7 +367,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
     {
-      subjectName: "Department Elective - II Laboratory",
+      subjectName: "Department Elective-II Laboratory",
       subjectCode: "DELIIL",
       creditDistribution: "010",
     },
@@ -492,7 +492,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "300",
     },
     {
-      subjectName: "Departmental Elective - I ",
+      subjectName: "Departmental Elective-I ",
       subjectCode: "DE",
       creditDistribution: "300",
     },
@@ -550,7 +550,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "300",
     },
     {
-      subjectName: "Departmental Elective - II ",
+      subjectName: "Departmental Elective-II ",
       subjectCode: "DE",
       creditDistribution: "300",
     },
@@ -580,7 +580,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
     {
-      subjectName: "Elective- II Laboratory",
+      subjectName: "Elective-II Laboratory",
       subjectCode: "DEII",
       creditDistribution: "010",
     },
@@ -715,14 +715,14 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "300",
     },
     {
-      subjectName: "Department Elective - I",
+      subjectName: "Department Elective-I",
       subjectCode: "DEI",
       creditDistribution: "300",
     },
 
     // 020
     {
-      subjectName: "Web Programming - II Lab",
+      subjectName: "Web Programming-II Lab",
       subjectCode: "WPIIL",
       creditDistribution: "020",
       maxMarks: 100,
@@ -740,7 +740,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "010",
     },
     {
-      subjectName: "Department Elective - I Lab",
+      subjectName: "Department Elective-I Lab",
       subjectCode: "DEIL",
       creditDistribution: "010",
     },

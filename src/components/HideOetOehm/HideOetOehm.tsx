@@ -124,11 +124,19 @@ const HideOetOehm = (props: Props) => {
     }
   };
 
+  const onClickOetMenuItem = () => {
+    onChange("OET", !oet);
+  };
+
   const onChangeOet = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
     onChange("OET", checked);
+  };
+
+  const onClickOehmMenuItem = () => {
+    onChange("OEHM", !oehm);
   };
 
   const onChangeOehm = (
@@ -157,14 +165,14 @@ const HideOetOehm = (props: Props) => {
             open={menuOpen}
             onClose={handleMenuClose}
           >
-            <MenuItem>
+            <MenuItem onClick={onClickOetMenuItem}>
               <FormControlLabel
                 control={<Checkbox checked={oet} onChange={onChangeOet} />}
                 label="OET"
               />
             </MenuItem>
             <Divider />
-            <MenuItem>
+            <MenuItem onClick={onClickOehmMenuItem}>
               <FormControlLabel
                 control={<Checkbox checked={oehm} onChange={onChangeOehm} />}
                 label="OEHM"
