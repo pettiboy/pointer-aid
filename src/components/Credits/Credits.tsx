@@ -1,12 +1,10 @@
 import { Link, SxProps, Typography, useTheme } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
 
 type Props = {
   styles?: SxProps;
 };
 
 const Credits = ({ styles }: Props) => {
-  const [searchParams] = useSearchParams();
   const theme = useTheme();
 
   return (
@@ -16,11 +14,6 @@ const Credits = ({ styles }: Props) => {
         &hearts;
       </span>{" "}
       by{" "}
-      {searchParams.get("jay")?.toLowerCase() === "csi" && (
-        <span>
-          <s>KJSCE codecell</s>{" "}
-        </span>
-      )}
       <Link
         href="https://pettiboy.com"
         rel="noopener noreferrer"
