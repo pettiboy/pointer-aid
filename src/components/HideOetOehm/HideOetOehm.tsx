@@ -60,10 +60,10 @@ const HideOetOehm = (props: Props) => {
     // if by default showOet or showOehm is false then
     // explicitly set it to false to update filtered data
     if (oet === false) {
-      onChange("OET", oet);
+      updateDisableSubjectIds("OET", oet);
     }
     if (oehm === false) {
-      onChange("OEHM", oehm);
+      updateDisableSubjectIds("OEHM", oehm);
     }
   }, []);
 
@@ -88,13 +88,7 @@ const HideOetOehm = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const onChange = (subjectCode: string, checked: boolean) => {
-    if (subjectCode === "OET") {
-      setOet((prev) => !prev);
-    } else if (subjectCode === "OEHM") {
-      setOehm((prev) => !prev);
-    }
-
+  const updateDisableSubjectIds = (subjectCode: string, checked: boolean) => {
     if (checked === true) {
       // remove subject from disabled subject ids
       setDisableSubjectIds((prev) => {
@@ -125,25 +119,29 @@ const HideOetOehm = (props: Props) => {
   };
 
   const onClickOetMenuItem = () => {
-    onChange("OET", !oet);
+    setOet((prev) => !prev);
+    updateDisableSubjectIds("OET", !oet);
   };
 
   const onChangeOet = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    onChange("OET", checked);
+    setOet((prev) => !prev);
+    updateDisableSubjectIds("OET", checked);
   };
 
   const onClickOehmMenuItem = () => {
-    onChange("OEHM", !oehm);
+    setOehm((prev) => !prev);
+    updateDisableSubjectIds("OEHM", !oehm);
   };
 
   const onChangeOehm = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    onChange("OEHM", checked);
+    setOehm((prev) => !prev);
+    updateDisableSubjectIds("OEHM", checked);
   };
 
   return (
