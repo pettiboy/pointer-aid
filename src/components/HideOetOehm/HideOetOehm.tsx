@@ -119,28 +119,32 @@ const HideOetOehm = (props: Props) => {
   };
 
   const onClickOetMenuItem = () => {
-    setOet((prev) => !prev);
-    updateDisableSubjectIds("OET", !oet);
+    setOet((prev) => {
+      updateDisableSubjectIds("OET", !prev);
+      return !prev;
+    });
   };
 
   const onChangeOet = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    setOet((prev) => !prev);
+    setOet(checked);
     updateDisableSubjectIds("OET", checked);
   };
 
   const onClickOehmMenuItem = () => {
-    setOehm((prev) => !prev);
-    updateDisableSubjectIds("OEHM", !oehm);
+    setOehm((prev) => {
+      updateDisableSubjectIds("OEHM", !prev);
+      return !prev;
+    });
   };
 
   const onChangeOehm = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    setOehm((prev) => !prev);
+    setOehm(checked);
     updateDisableSubjectIds("OEHM", checked);
   };
 
