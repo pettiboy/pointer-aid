@@ -165,6 +165,53 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       maxMarks: 50,
     },
   ],
+  kjsce_comps_sem7: [
+    {
+      subjectName: "Project Management",
+      subjectCode: "PM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-III",
+      subjectCode: "DEIII",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-IV",
+      subjectCode: "DE-IV",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName:"Project-I",
+      subjectCode:"PI",
+      creditDistribution:"030"
+    },
+    {
+      subjectName:"Project Management Lab",
+      subjectCode:"PML",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Elective-III Lab",
+      subjectCode:"EIIIL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Elective-IV Lab",
+      subjectCode:"EIVL",
+      creditDistribution:"010"
+    },
+  ],
 
   // ETRX
   kjsce_etrx_sem3: [
@@ -761,6 +808,114 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
   // MECH
   kjsce_mech_sem1: kjsce_groupp_sem1,
   kjsce_mech_sem2: kjsce_groupp_sem2,
+  kjsce_mech_sem3:[
+    {
+      subjectName: "Mathematics for Mechanical Engineering-I",
+      subjectCode: "MMEI",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Strength of Materials",
+      subjectCode: "SOM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Material science and metallurgy",
+      subjectCode: "MSM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Thermodynamics",
+      subjectCode: "THD",
+      creditDistribution: "300",
+    },{
+      subjectName: "Production Engineering-I",
+      subjectCode: "PEI",
+      creditDistribution: "300",
+    },{
+      subjectName: "Computer Aided Machine Drawing Laboratory",
+      subjectCode: "CAMDL",
+      creditDistribution: "020",
+    },
+    
+    {
+      subjectName: "Strength of Materials Laboratory",
+      subjectCode: "SOML",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Material science and Metallurgy Laboratory",
+      subjectCode: "MSML",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Production Engineering-I Laboratory",
+      subjectCode: "PEIL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Machine Shop Practice-I",
+      subjectCode: "MSPI",
+      creditDistribution: "010",
+    },
+
+
+
+    
+  ],
+  kjsce_mech_sem4:[
+    {
+      subjectName: "Mathematics for Mechanical Engineering-II",
+      subjectCode: "MMEII",
+      creditDistribution: "301",
+    },
+    {
+      subjectName: "Theory of Machines-I",
+      subjectCode: "TMI",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Fluid Mechanics",
+      subjectCode: "FM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Production Engineering-II",
+      subjectCode: "PEII",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Heat and Mass Transfer",
+      subjectCode: "HMT",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Theory of Machines-I Laboratory",
+      subjectCode: "TMIL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "FLuid Mechanics Laboratory",
+      subjectCode: "FML",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Production Engineering-II Laboratory",
+      subjectCode: "PEIIL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Heat and Mass Transfer Laboratory",
+      subjectCode: "HMTL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Machine Shop practice-II",
+      subjectCode: "MSPII",
+      creditDistribution: "020",
+      
+    },
+  ]
 };
 
 export default calculatorStructure;
