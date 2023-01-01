@@ -1,13 +1,13 @@
 import {
   Box,
   Typography,
-  TextField,
   Switch,
   FormControlLabel,
   Grid,
   Paper,
   SxProps,
   CircularProgress,
+  TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -18,6 +18,7 @@ import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField as CustomTextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -180,12 +181,21 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
-                <TextField
+                {/* <TextField
                   label="ESE"
                   helperText="max marks - 100"
                   value={ese.toString()}
                   onChange={onChangeEseMarks}
                   type="number"
+                /> */}
+                <CustomTextField
+                  label={"ESE"}
+                  maxMarks={100}
+                  inputProps={{
+                    value: ese.toString(),
+                    onChange: onChangeEseMarks,
+                    type: "number",
+                  }}
                 />
               </Grid>
             </Grid>
