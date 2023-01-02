@@ -6,22 +6,32 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
+import LockSwitch from "../LockSwitch/LockSwitch";
 
 export interface Props {
   label: string;
   maxMarks: number;
   inputProps: StandardTextFieldProps;
+
+  // drilled down to LockSwitch
+  lockedState?: boolean;
+  onLockStateChange?: (checked: boolean) => void;
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
   inputProps,
   label,
   maxMarks,
+
+  lockedState,
+  onLockStateChange,
 }) => {
   const theme = useTheme();
   return (
     <Box sx={{ position: "relative", mb: 2, width: "100%" }}>
-      <Typography>{label}</Typography>
+      <Typography sx={{ color: theme.palette.text.secondary }}>
+        {label}
+      </Typography>
       <Typography
         sx={{
           position: "absolute",
@@ -33,6 +43,21 @@ export const TextField: React.FunctionComponent<Props> = ({
       >
         / {maxMarks}
       </Typography>
+
+      {lockedState !== undefined && onLockStateChange !== undefined && (
+        <LockSwitch
+          containerStyles={{
+            position: "absolute",
+            top: "40%",
+            right: "5%",
+            fontSize: "larger",
+            zIndex: 9,
+          }}
+          checked={lockedState}
+          onChangeCallback={onLockStateChange}
+        />
+      )}
+
       <MUITextField fullWidth {...inputProps} />
     </Box>
   );
