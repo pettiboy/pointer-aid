@@ -27,6 +27,7 @@ export const TextField: React.FunctionComponent<Props> = ({
   onLockStateChange,
 }) => {
   const theme = useTheme();
+
   return (
     <Box sx={{ position: "relative", mb: 2, width: "100%" }}>
       <Typography sx={{ color: theme.palette.text.secondary }}>

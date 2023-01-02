@@ -1,5 +1,4 @@
 import { IconButton, SxProps, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 
@@ -11,18 +10,10 @@ type Props = {
 
 const LockSwitch = ({ containerStyles, checked, onChangeCallback }: Props) => {
   const theme = useTheme();
-  const [lockedState, setLockedState] = useState(checked);
-
-  useEffect(() => {
-    onChangeCallback(lockedState);
-  }, [lockedState]);
 
   return (
-    <IconButton
-      sx={containerStyles}
-      onClick={() => setLockedState((prev) => !prev)}
-    >
-      {lockedState === true ? (
+    <IconButton sx={containerStyles} onClick={() => onChangeCallback(!checked)}>
+      {checked === true ? (
         <LockIcon sx={{ color: theme.palette.primary.main }} />
       ) : (
         <LockOpenIcon />

@@ -180,7 +180,6 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                   inputProps={{
                     value: ese.toString(),
                     onChange: onChangeEseMarks,
-                    type: "number",
                   }}
                 />
               </Grid>
