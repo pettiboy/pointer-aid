@@ -50,7 +50,7 @@ export const TextField: React.FunctionComponent<Props> = ({
 
   // sets error boolean based on error text
   useEffect(() => {
-    setError(helperText && helperText.length > 0 ? true : false);
+    setError(helperText !== null && helperText.length > 0 ? true : false);
   }, [helperText, setError]);
 
   // helper function that sets error
@@ -83,7 +83,7 @@ export const TextField: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box sx={{ mb: 2, position: "relative" }}>
       <Box sx={{ position: "relative", width: "100%" }}>
         <Typography
           sx={{
@@ -133,7 +133,10 @@ export const TextField: React.FunctionComponent<Props> = ({
           fullWidth
         />
       </Box>
-      <Typography sx={{ color: theme.palette.error.main }} variant="subtitle2">
+      <Typography
+        sx={{ color: theme.palette.error.main, position: "absolute" }}
+        variant="subtitle2"
+      >
         {helperText}
       </Typography>
     </Box>
