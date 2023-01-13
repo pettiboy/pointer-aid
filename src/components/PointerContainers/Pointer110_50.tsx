@@ -32,7 +32,7 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const [tw, setTw] = useState(defaultValues.tw);
   const [loading, setLoading] = useState(true);
@@ -73,7 +73,7 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     setTw(round(calculateMarksGivenPointer(pointer, twMaxMarks)));
   };
 
-  const onChangeTwMarks = (num:number) => {
+  const onChangeTwMarks = (num: number) => {
     setTw(round(Number(num)));
   };
 
@@ -99,7 +99,7 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   label={"TW"}
                   maxMarks={twMaxMarks}
                   inputProps={{
-                    value:tw.toString()
+                    value: tw.toString(),
                   }}
                   onChangeCallback={onChangeTwMarks}
                 />
@@ -115,7 +115,6 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

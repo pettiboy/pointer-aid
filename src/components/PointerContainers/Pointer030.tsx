@@ -37,7 +37,7 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [loading, setLoading] = useState(true);
 
   const [tw, setTW] = useState<Number>(defaultValues.tw);
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const onChangeTWMarks = (num: number) => {
     setRes(round(calculatePointer(Number(num), 50)));
@@ -93,7 +93,7 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sx={gridItemStyle}>
                 <TextField
-                  label={"Term work"}
+                  label={"TW"}
                   inputProps={{
                     value: tw.toString(),
                   }}
@@ -112,7 +112,6 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

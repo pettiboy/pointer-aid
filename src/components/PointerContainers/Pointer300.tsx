@@ -39,7 +39,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const [loading, setLoading] = useState(true);
 
@@ -194,7 +194,6 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

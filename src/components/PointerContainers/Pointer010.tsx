@@ -4,8 +4,6 @@ import {
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -31,7 +29,7 @@ const fallbackDefaultValues: Pointer011LocalStorageType = {
 };
 
 const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer010LocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
@@ -135,7 +133,7 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label={"practical/oral"}
+                  label={"Practical / Viva"}
                   maxMarks={practicalMaxMarks}
                   inputProps={{
                     value: practical.toString(),
@@ -156,7 +154,6 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

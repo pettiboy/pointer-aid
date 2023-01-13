@@ -33,7 +33,7 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   );
   const [loading, setLoading] = useState(true);
   const [tw, setTW] = useState<number>(defaultValues.tw);
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const totalMarks = 50;
 
@@ -94,7 +94,7 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sx={gridItemStyle}>
                 <TextField
-                  label={"Term Work"}
+                  label={"TW"}
                   maxMarks={50}
                   inputProps={{
                     value: tw.toString(),
@@ -113,7 +113,6 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

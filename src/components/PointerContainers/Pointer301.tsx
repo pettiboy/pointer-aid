@@ -40,8 +40,8 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
-  const [theoryRes, setTheoryRes] = useState(4);
-  const [termWorkRes, setTermWorkRes] = useState(4);
+  const [theoryRes, setTheoryRes] = useState(9);
+  const [termWorkRes, setTermWorkRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [ise, setIse] = useState(defaultValues.ise);
@@ -221,7 +221,6 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   max={10}
                   value={theoryRes}
                   onChange={onChangeSlider}
-                  defaultValue={9}
                 />
               </Box>
             </Grid>
@@ -239,7 +238,6 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   onChange={(e, num) => {
                     handleTWMarksChange(Number(num));
                   }}
-                  defaultValue={9}
                 />
               </Box>
             </Grid>

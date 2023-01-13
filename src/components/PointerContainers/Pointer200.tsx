@@ -14,6 +14,7 @@ import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import { TextField } from "../TextField/TextField";
+
 type Props = {
   subject: string;
   subjectCode: string;
@@ -34,11 +35,11 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
-  const [fixIA, setFixIA] = useState(defaultValues.fixIa);
+  const [fixIa, setFixIa] = useState(defaultValues.fixIa);
 
   const [ise, setIse] = useState(defaultValues.ise);
   const [ia, setIa] = useState(defaultValues.ia);
@@ -53,11 +54,11 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify({
         ise,
         ia,
-        fixIA,
+        fixIa,
         fixIse,
       })
     );
-  }, [ise, ia, fixIA, fixIse]);
+  }, [ise, ia, fixIa, fixIse]);
 
   useEffect(() => {
     setLoading(true);
@@ -82,7 +83,7 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const updateMarksGivenPointer = (num: number) => {
     if (fixIse) {
       setIa(round(calculateMarksGivenPointer(num, totalMarks)) - ise);
-    } else if (fixIA) {
+    } else if (fixIa) {
       setIse(round(calculateMarksGivenPointer(num, totalMarks)) - ia);
     } else {
       setIa(round(calculateMarksGivenPointer(num, iaMaxMarks)));
@@ -91,12 +92,12 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   };
 
   const onChangeFixIse = (checked: boolean) => {
-    if (checked === true) setFixIA(false);
+    if (checked === true) setFixIa(false);
     setFixIse(checked);
   };
-  const onChangeFixIA = (checked: boolean) => {
+  const onChangeFixIa = (checked: boolean) => {
     if (checked === true) setFixIse(false);
-    setFixIA(checked);
+    setFixIa(checked);
   };
 
   return (
@@ -128,8 +129,8 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                     value: ia.toString(),
                   }}
                   onChangeCallback={setIa}
-                  lockedState={fixIA}
-                  onLockStateChange={onChangeFixIA}
+                  lockedState={fixIa}
+                  onLockStateChange={onChangeFixIa}
                 />
               </Grid>
             </Grid>
@@ -146,7 +147,6 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={(_e, num) => {
                   updateMarksGivenPointer(Number(num));
                 }}
-                defaultValue={9}
               />
             </Box>
           </Grid>

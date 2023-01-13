@@ -41,7 +41,7 @@ const Pointer020_75 = ({
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [fixTw, setFixTw] = useState(defaultValues.fixTw);
@@ -134,7 +134,7 @@ const Pointer020_75 = ({
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label={"practical/oral"}
+                  label={"Practical / Viva"}
                   maxMarks={practicalMaxMarks}
                   inputProps={{
                     value: practical.toString(),
@@ -157,7 +157,6 @@ const Pointer020_75 = ({
                 onChange={(_e, num) => {
                   updateMarksGivenPointer(Number(num));
                 }}
-                defaultValue={9}
               />
             </Box>
           </Grid>

@@ -4,8 +4,6 @@ import {
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -38,7 +36,7 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [fixTw, setFixTw] = useState(defaultValues.fixTw);
@@ -143,7 +141,7 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label={"practical/oral"}
+                  label={"Practical / Viva"}
                   maxMarks={oralMaxMarks}
                   inputProps={{
                     value: practical.toString(),
@@ -164,7 +162,6 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>
