@@ -131,6 +131,19 @@ export const TextField: React.FunctionComponent<Props> = ({
           onChange={handleChange}
           // styling
           fullWidth
+          inputProps={{
+            // keyboard type
+            inputmode: "numeric",
+
+            // when bluring with empty string
+            // set value to 0
+            onBlur: () => {
+              if (value.toString() === "") {
+                setValue(0);
+                onChangeCallback(0);
+              }
+            },
+          }}
         />
       </Box>
       <Typography
