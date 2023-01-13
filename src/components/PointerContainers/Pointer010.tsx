@@ -1,7 +1,6 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
@@ -16,6 +15,7 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -96,11 +96,11 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     }
   };
 
-  const onChangeFixTw = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixTw = (checked: boolean) => {
     if (checked === true) setFixPrac(false);
     setFixTw(checked);
   };
-  const onChangeFixPrac = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixPrac = (checked: boolean) => {
     if (checked === true) setFixTw(false);
     setFixPrac(checked);
   };
@@ -123,30 +123,26 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="TW"
-                  helperText={`max marks - ${twMaxMarks}`}
-                  value={tw.toString()}
-                  onChange={(e) => setTw(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-                  label="Fix TW marks"
+                  label={"TW"}
+                  maxMarks={twMaxMarks}
+                  inputProps={{
+                    value: tw.toString(),
+                  }}
+                  onChangeCallback={setTw}
+                  lockedState={fixTw}
+                  onLockStateChange={onChangeFixTw}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="practical/oral"
-                  helperText={`max marks - ${practicalMaxMarks}`}
-                  value={practical.toString()}
-                  onChange={(e) => setPractical(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixPrac} onChange={onChangeFixPrac} />
-                  }
-                  label="Fix Practical marks"
+                  label={"practical/oral"}
+                  maxMarks={practicalMaxMarks}
+                  inputProps={{
+                    value: practical.toString(),
+                  }}
+                  onChangeCallback={setPractical}
+                  lockedState={fixPrac}
+                  onLockStateChange={onChangeFixPrac}
                 />
               </Grid>
             </Grid>

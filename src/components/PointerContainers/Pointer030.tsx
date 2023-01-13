@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Paper,
   Typography,
-  TextField,
   Grid,
   SxProps,
   Box,
@@ -14,6 +13,7 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import calculatePointer from "../../utils/calculatePointer";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import { useParams } from "react-router-dom";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -39,9 +39,9 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [tw, setTW] = useState<Number>(defaultValues.tw);
   const [res, setRes] = useState(4);
 
-  const onChangeTWMarks = (e: OnChangeEvent) => {
-    setRes(round(calculatePointer(Number(e.target.value), 50)));
-    setTW(round(Number(e.target.value)));
+  const onChangeTWMarks = (num: number) => {
+    setRes(round(calculatePointer(Number(num), 50)));
+    setTW(round(Number(num)));
   };
 
   useEffect(() => {
@@ -93,11 +93,12 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sx={gridItemStyle}>
                 <TextField
-                  label="Term work"
-                  helperText="max marks - 50"
-                  value={tw.toString()}
-                  onChange={onChangeTWMarks}
-                  type="number"
+                  label={"Term work"}
+                  inputProps={{
+                    value: tw.toString(),
+                  }}
+                  onChangeCallback={onChangeTWMarks}
+                  maxMarks={50}
                 />
               </Grid>
             </Grid>

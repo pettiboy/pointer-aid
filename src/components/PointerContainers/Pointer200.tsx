@@ -1,12 +1,9 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,7 +13,7 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
-
+import { TextField } from "../TextField/TextField";
 type Props = {
   subject: string;
   subjectCode: string;
@@ -93,11 +90,11 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     }
   };
 
-  const onChangefixIse = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixIse = (checked: boolean) => {
     if (checked === true) setFixIA(false);
     setFixIse(checked);
   };
-  const onChangefixIA = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixIA = (checked: boolean) => {
     if (checked === true) setFixIse(false);
     setFixIA(checked);
   };
@@ -113,30 +110,26 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="ISE"
-                  helperText={`max marks - ${iseMaxMarks}`}
-                  value={ise.toString()}
-                  onChange={(e) => setIse(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixIse} onChange={onChangefixIse} />
-                  }
-                  label="Fix ISE marks"
+                  label={"ISE"}
+                  maxMarks={30}
+                  inputProps={{
+                    value: ise.toString(),
+                  }}
+                  onChangeCallback={setIse}
+                  lockedState={fixIse}
+                  onLockStateChange={onChangeFixIse}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="IA"
-                  helperText={`max marks - ${iaMaxMarks}`}
-                  value={ia.toString()}
-                  onChange={(e) => setIa(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixIA} onChange={onChangefixIA} />}
-                  label="Fix IA marks"
+                  label={"IA"}
+                  maxMarks={20}
+                  inputProps={{
+                    value: ia.toString(),
+                  }}
+                  onChangeCallback={setIa}
+                  lockedState={fixIA}
+                  onLockStateChange={onChangeFixIA}
                 />
               </Grid>
             </Grid>
