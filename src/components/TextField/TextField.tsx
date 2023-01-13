@@ -5,13 +5,17 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LockSwitch from "../LockSwitch/LockSwitch";
+import round from "../../utils/round";
 
 export interface Props {
   label: string;
   maxMarks: number;
-  inputProps: StandardTextFieldProps;
+  inputProps: {
+    value: string;
+    onChange(num: number): void;
+  };
 
   // drilled down to LockSwitch
   lockedState?: boolean;
@@ -27,6 +31,31 @@ export const TextField: React.FunctionComponent<Props> = ({
   onLockStateChange,
 }) => {
   const theme = useTheme();
+  const { value, onChange } = inputProps;
+  const [val, setVal] = useState(Number(value));
+  const [error, setError] = useState(false);
+
+  const checkErrors = (num: number) => {
+    if (num > maxMarks) setError(true);
+    else if (num < 0) setError(true);
+    else {
+      setError(false);
+    }
+  };
+
+  const handleChange = (e: OnChangeEvent) => {
+    let num = round(Number(e.target.value));
+    if (!isNaN(num)) {
+      checkErrors(num);
+      setVal(round(Number(e.target.value)));
+      onChange(num);
+    } else setVal(0);
+  };
+
+  useEffect(() => {
+    checkErrors(Number(value));
+    setVal(Number(value));
+  }, [inputProps]);
 
   return (
     <Box sx={{ position: "relative", mb: 2, width: "100%" }}>
@@ -59,7 +88,12 @@ export const TextField: React.FunctionComponent<Props> = ({
         />
       )}
 
-      <MUITextField fullWidth {...inputProps} />
+      <MUITextField
+        error={error}
+        fullWidth
+        value={val}
+        onChange={handleChange}
+      />
     </Box>
   );
 };

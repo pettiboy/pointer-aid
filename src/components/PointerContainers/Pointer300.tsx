@@ -85,14 +85,14 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
     );
   }, [ise, ia, ese, fixIa, fixIse]);
 
-  const onChangeIseMarks = (e: OnChangeEvent) => {
-    setIse(round(Number(e.target.value)));
+  const onChangeIseMarks = (num:number) => {
+    setIse(num)
   };
-  const onChangeIaMarks = (e: OnChangeEvent) => {
-    setIa(round(Number(e.target.value)));
+  const onChangeIaMarks = (num:number) => {
+    setIa(num)
   };
-  const onChangeEseMarks = (e: OnChangeEvent) => {
-    setEse(round(Number(e.target.value)));
+  const onChangeEseMarks = (num:number) => {
+    setEse(num)
   };
 
   const onChangeFixIse = (checked: boolean) => {
