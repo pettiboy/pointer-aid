@@ -5,6 +5,7 @@ import {
   Paper,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -16,6 +17,7 @@ import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import { TextField } from "../TextField/TextField";
+import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 
 type Props = {
   subject: string;
@@ -49,6 +51,12 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
   const [fixIa, setFixIa] = useState(defaultValues.fixIa);
+
+  const [showMinimize, setShowMinimize] = useState(false);
+
+  const maxIse = 30;
+  const maxIa = 20;
+  const maxEse = 100;
 
   useEffect(() => {
     setLoading(true);
@@ -84,6 +92,18 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
       })
     );
   }, [ise, ia, ese, fixIa, fixIse]);
+
+  useEffect(() => {
+    const addition = round(ia + ise + ese / 2);
+    const total = round(maxIse + maxIa + maxEse / 2);
+    const percentage = (addition / total) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [ia, ise, ese, res]);
 
   const onChangeIseMarks = (num: number) => {
     setIse(num);
@@ -152,7 +172,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ISE"}
-                  maxMarks={30}
+                  maxMarks={maxIse}
                   inputProps={{
                     value: ise.toString(),
                   }}
@@ -164,7 +184,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"IA"}
-                  maxMarks={20}
+                  maxMarks={maxIa}
                   inputProps={{
                     value: ia.toString(),
                   }}
@@ -176,7 +196,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ESE"}
-                  maxMarks={100}
+                  maxMarks={maxEse}
                   inputProps={{
                     value: ese.toString(),
                   }}
@@ -196,6 +216,17 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (
