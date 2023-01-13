@@ -85,14 +85,14 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
     );
   }, [ise, ia, ese, fixIa, fixIse]);
 
-  const onChangeIseMarks = (num:number) => {
-    setIse(num)
+  const onChangeIseMarks = (num: number) => {
+    setIse(num);
   };
-  const onChangeIaMarks = (num:number) => {
-    setIa(num)
+  const onChangeIaMarks = (num: number) => {
+    setIa(num);
   };
-  const onChangeEseMarks = (num:number) => {
-    setEse(num)
+  const onChangeEseMarks = (num: number) => {
+    setEse(num);
   };
 
   const onChangeFixIse = (checked: boolean) => {
@@ -155,8 +155,8 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                   maxMarks={30}
                   inputProps={{
                     value: ise.toString(),
-                    onChange: onChangeIseMarks,
                   }}
+                  onChangeCallback={onChangeIseMarks}
                   lockedState={fixIse}
                   onLockStateChange={onChangeFixIse}
                 />
@@ -167,8 +167,8 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                   maxMarks={20}
                   inputProps={{
                     value: ia.toString(),
-                    onChange: onChangeIaMarks,
                   }}
+                  onChangeCallback={onChangeIaMarks}
                   lockedState={fixIa}
                   onLockStateChange={onChangeFixIa}
                 />
@@ -179,8 +179,8 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                   maxMarks={100}
                   inputProps={{
                     value: ese.toString(),
-                    onChange: onChangeEseMarks,
                   }}
+                  onChangeCallback={onChangeEseMarks}
                 />
               </Grid>
             </Grid>
