@@ -1,12 +1,9 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,6 +13,7 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -37,11 +35,11 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
-  const [fixIA, setFixIA] = useState(defaultValues.fixIa);
+  const [fixIa, setFixIa] = useState(defaultValues.fixIa);
 
   const [ise, setIse] = useState(defaultValues.ise);
   const [ia, setIa] = useState(defaultValues.ia);
@@ -56,11 +54,11 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify({
         ise,
         ia,
-        fixIA,
+        fixIa,
         fixIse,
       })
     );
-  }, [ise, ia, fixIA, fixIse]);
+  }, [ise, ia, fixIa, fixIse]);
 
   useEffect(() => {
     setLoading(true);
@@ -85,7 +83,7 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const updateMarksGivenPointer = (num: number) => {
     if (fixIse) {
       setIa(round(calculateMarksGivenPointer(num, totalMarks)) - ise);
-    } else if (fixIA) {
+    } else if (fixIa) {
       setIse(round(calculateMarksGivenPointer(num, totalMarks)) - ia);
     } else {
       setIa(round(calculateMarksGivenPointer(num, iaMaxMarks)));
@@ -93,13 +91,13 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     }
   };
 
-  const onChangefixIse = (_e: OnChangeEvent, checked: boolean) => {
-    if (checked === true) setFixIA(false);
+  const onChangeFixIse = (checked: boolean) => {
+    if (checked === true) setFixIa(false);
     setFixIse(checked);
   };
-  const onChangefixIA = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixIa = (checked: boolean) => {
     if (checked === true) setFixIse(false);
-    setFixIA(checked);
+    setFixIa(checked);
   };
 
   return (
@@ -113,37 +111,33 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="ISE"
-                  helperText={`max marks - ${iseMaxMarks}`}
-                  value={ise.toString()}
-                  onChange={(e) => setIse(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixIse} onChange={onChangefixIse} />
-                  }
-                  label="Fix ISE marks"
+                  label={"ISE"}
+                  maxMarks={30}
+                  inputProps={{
+                    value: ise.toString(),
+                  }}
+                  onChangeCallback={setIse}
+                  lockedState={fixIse}
+                  onLockStateChange={onChangeFixIse}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="IA"
-                  helperText={`max marks - ${iaMaxMarks}`}
-                  value={ia.toString()}
-                  onChange={(e) => setIa(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixIA} onChange={onChangefixIA} />}
-                  label="Fix IA marks"
+                  label={"IA"}
+                  maxMarks={20}
+                  inputProps={{
+                    value: ia.toString(),
+                  }}
+                  onChangeCallback={setIa}
+                  lockedState={fixIa}
+                  onLockStateChange={onChangeFixIa}
                 />
               </Grid>
             </Grid>
           </Box>
 
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
@@ -153,7 +147,6 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={(_e, num) => {
                   updateMarksGivenPointer(Number(num));
                 }}
-                defaultValue={9}
               />
             </Box>
           </Grid>

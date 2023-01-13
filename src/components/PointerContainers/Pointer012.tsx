@@ -1,12 +1,9 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,6 +13,7 @@ import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -38,7 +36,7 @@ const Pointer010 = ({
   onUpdateCallback,
   maxMarks,
 }: Props) => {
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer012LocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${semester}_${subjectCode}`) ||
@@ -102,11 +100,11 @@ const Pointer010 = ({
     }
   };
 
-  const onChangeFixTw = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixTw = (checked: boolean) => {
     if (checked === true) setFixPrac(false);
     setFixTw(checked);
   };
-  const onChangeFixPrac = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixPrac = (checked: boolean) => {
     if (checked === true) setFixTw(false);
     setFixPrac(checked);
   };
@@ -122,36 +120,32 @@ const Pointer010 = ({
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="TW"
-                  helperText={`max marks - ${twMaxMarks}`}
-                  value={tw.toString()}
-                  onChange={(e) => setTw(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-                  label="Fix TW marks"
+                  label={"TW"}
+                  maxMarks={twMaxMarks}
+                  inputProps={{
+                    value: tw.toString(),
+                  }}
+                  onChangeCallback={setTw}
+                  lockedState={fixTw}
+                  onLockStateChange={onChangeFixTw}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="practical/oral"
-                  helperText={`max marks - ${practicalMaxMarks}`}
-                  value={practical.toString()}
-                  onChange={(e) => setPractical(Number(e.target.value))}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixPrac} onChange={onChangeFixPrac} />
-                  }
-                  label="Fix Practical marks"
+                  label={"Practical / Viva"}
+                  maxMarks={practicalMaxMarks}
+                  inputProps={{
+                    value: practical.toString(),
+                  }}
+                  onChangeCallback={setPractical}
+                  onLockStateChange={onChangeFixPrac}
+                  lockedState={fixPrac}
                 />
               </Grid>
             </Grid>
           </Box>
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
@@ -161,7 +155,6 @@ const Pointer010 = ({
                 onChange={(_e, num) => {
                   updateMarksGivenPointer(Number(num));
                 }}
-                defaultValue={9}
               />
             </Box>
           </Grid>

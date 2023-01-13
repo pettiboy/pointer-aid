@@ -1,9 +1,6 @@
 import {
   Box,
   Typography,
-  TextField,
-  Switch,
-  FormControlLabel,
   Grid,
   Paper,
   SxProps,
@@ -18,6 +15,7 @@ import pointerToMarksIseIaFixed from "../../utils/pointerToMarksIseIaFixed";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -41,7 +39,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const [loading, setLoading] = useState(true);
 
@@ -87,21 +85,21 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
     );
   }, [ise, ia, ese, fixIa, fixIse]);
 
-  const onChangeIseMarks = (e: OnChangeEvent) => {
-    setIse(round(Number(e.target.value)));
+  const onChangeIseMarks = (num: number) => {
+    setIse(num);
   };
-  const onChangeIaMarks = (e: OnChangeEvent) => {
-    setIa(round(Number(e.target.value)));
+  const onChangeIaMarks = (num: number) => {
+    setIa(num);
   };
-  const onChangeEseMarks = (e: OnChangeEvent) => {
-    setEse(round(Number(e.target.value)));
+  const onChangeEseMarks = (num: number) => {
+    setEse(num);
   };
 
-  const onChangeFixIse = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixIse = (checked: boolean) => {
     if (checked === false) setFixIa(false);
     setFixIse(checked);
   };
-  const onChangeFixIa = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixIa = (checked: boolean) => {
     if (checked === true) setFixIse(true);
     setFixIa(checked);
   };
@@ -153,45 +151,42 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="ISE"
-                  helperText="max marks - 30"
-                  value={ise.toString()}
-                  onChange={onChangeIseMarks}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixIse} onChange={onChangeFixIse} />
-                  }
-                  label="Fix ISE marks"
+                  label={"ISE"}
+                  maxMarks={30}
+                  inputProps={{
+                    value: ise.toString(),
+                  }}
+                  onChangeCallback={onChangeIseMarks}
+                  lockedState={fixIse}
+                  onLockStateChange={onChangeFixIse}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="IA"
-                  helperText="max marks - 20"
-                  value={ia.toString()}
-                  onChange={onChangeIaMarks}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixIa} onChange={onChangeFixIa} />}
-                  label="Fix IA marks"
+                  label={"IA"}
+                  maxMarks={20}
+                  inputProps={{
+                    value: ia.toString(),
+                  }}
+                  onChangeCallback={onChangeIaMarks}
+                  lockedState={fixIa}
+                  onLockStateChange={onChangeFixIa}
                 />
               </Grid>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="ESE"
-                  helperText="max marks - 100"
-                  value={ese.toString()}
-                  onChange={onChangeEseMarks}
-                  type="number"
+                  label={"ESE"}
+                  maxMarks={100}
+                  inputProps={{
+                    value: ese.toString(),
+                  }}
+                  onChangeCallback={onChangeEseMarks}
                 />
               </Grid>
             </Grid>
           </Box>
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
@@ -199,7 +194,6 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

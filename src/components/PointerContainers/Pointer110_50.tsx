@@ -1,7 +1,6 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
@@ -14,7 +13,7 @@ import { Slider } from "@mui/material";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
-
+import { TextField } from "../TextField/TextField";
 type Props = {
   subject: string;
   subjectCode: string;
@@ -33,7 +32,7 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
 
   const [tw, setTw] = useState(defaultValues.tw);
   const [loading, setLoading] = useState(true);
@@ -74,8 +73,8 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     setTw(round(calculateMarksGivenPointer(pointer, twMaxMarks)));
   };
 
-  const onChangeTwMarks = (e: OnChangeEvent) => {
-    setTw(round(Number(e.target.value)));
+  const onChangeTwMarks = (num: number) => {
+    setTw(round(Number(num)));
   };
 
   const onChangeSlider = (
@@ -97,18 +96,18 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sx={gridItemStyle}>
                 <TextField
-                  label="TW"
-                  helperText={`max marks - ${twMaxMarks}`}
-                  value={tw === 0 ? "" : tw.toString()}
-                  onChange={onChangeTwMarks}
-                  type="number"
-                  fullWidth
+                  label={"TW"}
+                  maxMarks={twMaxMarks}
+                  inputProps={{
+                    value: tw.toString(),
+                  }}
+                  onChangeCallback={onChangeTwMarks}
                 />
               </Grid>
             </Grid>
           </Box>
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
@@ -116,7 +115,6 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>

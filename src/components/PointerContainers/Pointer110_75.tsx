@@ -1,12 +1,9 @@
 import {
   Box,
   Typography,
-  TextField,
   Paper,
   Grid,
   SxProps,
-  FormControlLabel,
-  Switch,
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,6 +13,7 @@ import { Slider } from "@mui/material";
 import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
+import { TextField } from "../TextField/TextField";
 
 type Props = {
   subject: string;
@@ -38,7 +36,7 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       JSON.stringify(fallbackDefaultValues)
   );
 
-  const [res, setRes] = useState(4);
+  const [res, setRes] = useState(9);
   const [loading, setLoading] = useState(true);
 
   const [fixTw, setFixTw] = useState(defaultValues.fixTw);
@@ -95,20 +93,20 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     }
   };
 
-  const onChangeFixTw = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixTw = (checked: boolean) => {
     if (checked === true) setFixPrac(false);
     setFixTw(checked);
   };
-  const onChangeFixPrac = (_e: OnChangeEvent, checked: boolean) => {
+  const onChangeFixPrac = (checked: boolean) => {
     if (checked === true) setFixTw(false);
     setFixPrac(checked);
   };
 
-  const onChangeTwMarks = (e: OnChangeEvent) => {
-    setTw(round(Number(e.target.value)));
+  const onChangeTwMarks = (num: number) => {
+    setTw(round(Number(num)));
   };
-  const onChangePracticalMarks = (e: OnChangeEvent) => {
-    setPractical(round(Number(e.target.value)));
+  const onChangePracticalMarks = (num: number) => {
+    setPractical(round(Number(num)));
   };
 
   const onChangeSlider = (
@@ -130,37 +128,33 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="TW"
-                  helperText={`max marks - ${twMaxMarks}`}
-                  value={tw === 0 ? "" : tw.toString()}
-                  onChange={onChangeTwMarks}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={<Switch checked={fixTw} onChange={onChangeFixTw} />}
-                  label="Fix TW marks"
+                  label={"TW"}
+                  maxMarks={twMaxMarks}
+                  inputProps={{
+                    value: tw.toString(),
+                  }}
+                  onChangeCallback={onChangeTwMarks}
+                  lockedState={fixTw}
+                  onLockStateChange={onChangeFixTw}
                 />
               </Grid>
 
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
-                  label="practical/oral"
-                  helperText={`max marks - ${oralMaxMarks}`}
-                  value={practical === 0 ? "" : practical.toString()}
-                  onChange={onChangePracticalMarks}
-                  type="number"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch checked={fixPrac} onChange={onChangeFixPrac} />
-                  }
-                  label="Fix Practical marks"
+                  label={"Practical / Viva"}
+                  maxMarks={oralMaxMarks}
+                  inputProps={{
+                    value: practical.toString(),
+                  }}
+                  onChangeCallback={onChangePracticalMarks}
+                  lockedState={fixPrac}
+                  onLockStateChange={onChangeFixPrac}
                 />
               </Grid>
             </Grid>
           </Box>
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
@@ -168,7 +162,6 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 max={10}
                 value={res}
                 onChange={onChangeSlider}
-                defaultValue={9}
               />
             </Box>
           </Grid>
