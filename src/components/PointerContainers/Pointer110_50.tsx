@@ -107,7 +107,7 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             </Grid>
           </Box>
           <Grid item xs={12}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <Typography>Grade Pointer (G): {res}</Typography>
               <Slider
                 min={4}
