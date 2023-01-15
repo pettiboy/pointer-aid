@@ -259,7 +259,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   onClick={() => {
                     updateMarksGivenPointer(theoryRes);
                   }}
-                  variant="outlined"
+                  variant={!showMinimizeTheory ? "outlined" : "contained"}
                   disabled={!showMinimizeTheory}
                   fullWidth
                 >
@@ -286,7 +286,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   onClick={() => {
                     handleTWMarksChange(Number(termWorkRes));
                   }}
-                  variant="outlined"
+                  variant={!showMinimizeTw ? "outlined" : "contained"}
                   disabled={!showMinimizeTw}
                   fullWidth
                 >

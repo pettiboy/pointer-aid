@@ -178,7 +178,7 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               onClick={() => {
                 updateMarksGivenPointer(res);
               }}
-              variant="outlined"
+              variant={!showMinimize ? "outlined" : "contained"}
               disabled={!showMinimize}
               fullWidth
             >

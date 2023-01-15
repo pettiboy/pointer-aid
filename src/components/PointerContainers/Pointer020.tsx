@@ -180,7 +180,7 @@ const Pointer020_75 = ({
               onClick={() => {
                 updateMarksGivenPointer(res);
               }}
-              variant="outlined"
+              variant={!showMinimize ? "outlined" : "contained"}
               disabled={!showMinimize}
               fullWidth
             >
