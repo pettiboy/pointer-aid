@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -29,6 +30,10 @@ const fallbackDefaultValues: Pointer200LocalStorageType = {
   fallback: true,
 };
 
+const iseMaxMarks = 30;
+const iaMaxMarks = 20;
+const totalMaxMarks = iseMaxMarks + iaMaxMarks;
+
 const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer200LocalStorageType = JSON.parse(
@@ -44,9 +49,7 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [ise, setIse] = useState(defaultValues.ise);
   const [ia, setIa] = useState(defaultValues.ia);
 
-  const iseMaxMarks = 30;
-  const iaMaxMarks = 20;
-  const totalMarks = iseMaxMarks + iaMaxMarks;
+  const [showMinimize, setShowMinimize] = useState(false);
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -77,14 +80,25 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(ise + ia, totalMarks));
+    setRes(calculatePointer(ise + ia, totalMaxMarks));
   }, [ise, ia]);
+
+  useEffect(() => {
+    const addition = round(ia + ise);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [ia, ise, res]);
 
   const updateMarksGivenPointer = (num: number) => {
     if (fixIse) {
-      setIa(round(calculateMarksGivenPointer(num, totalMarks)) - ise);
+      setIa(round(calculateMarksGivenPointer(num, totalMaxMarks)) - ise);
     } else if (fixIa) {
-      setIse(round(calculateMarksGivenPointer(num, totalMarks)) - ia);
+      setIse(round(calculateMarksGivenPointer(num, totalMaxMarks)) - ia);
     } else {
       setIa(round(calculateMarksGivenPointer(num, iaMaxMarks)));
       setIse(round(calculateMarksGivenPointer(num, iseMaxMarks)));
@@ -149,6 +163,18 @@ const Pointer200 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 }}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (

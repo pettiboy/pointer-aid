@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -28,6 +29,10 @@ const fallbackDefaultValues: Pointer011LocalStorageType = {
   fallback: true,
 };
 
+const twMaxMarks = 25;
+const practicalMaxMarks = 25;
+const totalMaxMarks = twMaxMarks + practicalMaxMarks;
+
 const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [res, setRes] = useState(9);
   const { college, branch, semester } = useParams();
@@ -43,9 +48,7 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [tw, setTw] = useState(defaultValues.tw);
   const [practical, setPractical] = useState(defaultValues.practical);
 
-  const twMaxMarks = 25;
-  const practicalMaxMarks = 25;
-  const totalMarks = twMaxMarks + practicalMaxMarks;
+  const [showMinimize, setShowMinimize] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -64,8 +67,9 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(tw + practical, totalMarks));
+    setRes(calculatePointer(tw + practical, totalMaxMarks));
   }, [tw, practical]);
+
   useEffect(() => {
     asyncLocalStorage.setItem(
       `${college}_${branch}_${semester}_${subjectCode}`,
@@ -78,8 +82,20 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     );
   }, [tw, practical, fixTw, fixPrac]);
 
+  useEffect(() => {
+    const addition = round(tw + practical);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [tw, practical, res]);
+
   const pointerToMarksFixed = (pointer: number, fixVal: number) => {
-    const totalReq = calculateMarksGivenPointer(pointer, totalMarks) - fixVal;
+    const totalReq =
+      calculateMarksGivenPointer(pointer, totalMaxMarks) - fixVal;
     return round(totalReq);
   };
 
@@ -156,6 +172,18 @@ const Pointer010 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (

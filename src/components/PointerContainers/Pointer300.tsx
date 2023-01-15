@@ -34,6 +34,10 @@ const fallbackDefaultValues: Pointer300LocalStorageType = {
   fallback: true,
 };
 
+const iseMaxMarks = 30;
+const iaMaxMarks = 20;
+const eseMaxMarks = 100;
+
 const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer300LocalStorageType = JSON.parse(
@@ -53,10 +57,6 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
   const [fixIa, setFixIa] = useState(defaultValues.fixIa);
 
   const [showMinimize, setShowMinimize] = useState(false);
-
-  const maxIse = 30;
-  const maxIa = 20;
-  const maxEse = 100;
 
   useEffect(() => {
     setLoading(true);
@@ -95,7 +95,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
 
   useEffect(() => {
     const addition = round(ia + ise + ese / 2);
-    const total = round(maxIse + maxIa + maxEse / 2);
+    const total = round(iseMaxMarks + iaMaxMarks + eseMaxMarks / 2);
     const percentage = (addition / total) * 100;
 
     if (calculateMarksGivenPointer(res, 100) < percentage) {
@@ -172,7 +172,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ISE"}
-                  maxMarks={maxIse}
+                  maxMarks={iseMaxMarks}
                   inputProps={{
                     value: ise.toString(),
                   }}
@@ -184,7 +184,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"IA"}
-                  maxMarks={maxIa}
+                  maxMarks={iaMaxMarks}
                   inputProps={{
                     value: ia.toString(),
                   }}
@@ -196,7 +196,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ESE"}
-                  maxMarks={maxEse}
+                  maxMarks={eseMaxMarks}
                   inputProps={{
                     value: ese.toString(),
                   }}
@@ -224,6 +224,7 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
               }}
               variant="outlined"
               disabled={!showMinimize}
+              fullWidth
             >
               Minimize Marks
             </Button>

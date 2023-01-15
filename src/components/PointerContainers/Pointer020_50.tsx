@@ -7,6 +7,7 @@ import {
   Box,
   Slider,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import round from "../../utils/round";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
@@ -20,6 +21,7 @@ type Props = {
   subjectCode: string;
   onUpdateCallback(cg: number): void;
 };
+
 const fallbackDefaultValues: Pointer020_50LocalStorageType = {
   tw: 0,
   fallback: true,
@@ -35,7 +37,9 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [tw, setTW] = useState<number>(defaultValues.tw);
   const [res, setRes] = useState(9);
 
-  const totalMarks = 50;
+  const [showMinimize, setShowMinimize] = useState(false);
+
+  const totalMaxMarks = 50;
 
   useEffect(() => {
     setLoading(true);
@@ -54,7 +58,7 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(tw, totalMarks));
+    setRes(calculatePointer(tw, totalMaxMarks));
   }, [tw]);
 
   useEffect(() => {
@@ -65,12 +69,24 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
       })
     );
   }, [tw]);
+
+  useEffect(() => {
+    const addition = round(tw);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [tw, res]);
+
   const updateMarksGivenPointer = (num: number) => {
-    setTW(round(calculateMarksGivenPointer(Number(num), totalMarks)));
+    setTW(round(calculateMarksGivenPointer(Number(num), totalMaxMarks)));
   };
 
   const onChangeTWMarks = (num: number) => {
-    setRes(round(calculatePointer(Number(num), totalMarks)));
+    setRes(round(calculatePointer(Number(num), totalMaxMarks)));
 
     setTW(round(Number(num)));
   };
@@ -115,6 +131,18 @@ const Pointer020_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (

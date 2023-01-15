@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -34,6 +35,12 @@ const fallbackDefaultValues: Pointer301LocalStorageType = {
   tw: 0,
 };
 
+const iseMaxMarks = 30;
+const iaMaxMarks = 20;
+const eseMaxMarks = 100;
+
+const twMaxMarks = 25;
+
 const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer301LocalStorageType = JSON.parse(
@@ -51,6 +58,9 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
   const [fixIa, setFixIa] = useState(defaultValues.fixIa);
+
+  const [showMinimizeTheory, setShowMinimizeTheory] = useState(false);
+  const [showMinimizeTw, setShowMinimizeTw] = useState(false);
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -89,11 +99,34 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   }, [ise, ia, ese]);
 
   useEffect(() => {
-    setTermWorkRes(calculatePointer(tw, 25));
+    const addition = round(ia + ise + ese / 2);
+    const total = round(iseMaxMarks + iaMaxMarks + eseMaxMarks / 2);
+    const percentage = (addition / total) * 100;
+
+    if (calculateMarksGivenPointer(theoryRes, 100) < percentage) {
+      setShowMinimizeTheory(true);
+    } else {
+      setShowMinimizeTheory(false);
+    }
+  }, [ia, ise, ese, theoryRes]);
+
+  useEffect(() => {
+    const addition = round(tw);
+    const percentage = (addition / twMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(termWorkRes, 100) < percentage) {
+      setShowMinimizeTw(true);
+    } else {
+      setShowMinimizeTw(false);
+    }
+  }, [tw, termWorkRes]);
+
+  useEffect(() => {
+    setTermWorkRes(calculatePointer(tw, twMaxMarks));
   }, [tw]);
 
   const handleTWMarksChange = (num: number) => {
-    setTw(round(calculateMarksGivenPointer(num, 25)));
+    setTw(round(calculateMarksGivenPointer(num, twMaxMarks)));
   };
 
   const onChangeIseMarks = (num: number) => {
@@ -163,7 +196,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ISE"}
-                  maxMarks={30}
+                  maxMarks={iseMaxMarks}
                   inputProps={{
                     value: ise.toString(),
                   }}
@@ -176,7 +209,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"IA"}
-                  maxMarks={20}
+                  maxMarks={iaMaxMarks}
                   inputProps={{
                     value: ia.toString(),
                   }}
@@ -189,7 +222,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"ESE"}
-                  maxMarks={100}
+                  maxMarks={eseMaxMarks}
                   inputProps={{
                     value: ese.toString(),
                   }}
@@ -199,7 +232,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
               <Grid item xs={12} md={6} sx={gridItemStyle}>
                 <TextField
                   label={"TW"}
-                  maxMarks={25}
+                  maxMarks={twMaxMarks}
                   inputProps={{
                     value: tw.toString(),
                   }}
@@ -222,6 +255,16 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                   value={theoryRes}
                   onChange={onChangeSlider}
                 />
+                <Button
+                  onClick={() => {
+                    updateMarksGivenPointer(theoryRes);
+                  }}
+                  variant="outlined"
+                  disabled={!showMinimizeTheory}
+                  fullWidth
+                >
+                  Minimize Marks
+                </Button>
               </Box>
             </Grid>
             <Grid item xs={6}>
@@ -239,6 +282,16 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                     handleTWMarksChange(Number(num));
                   }}
                 />
+                <Button
+                  onClick={() => {
+                    handleTWMarksChange(Number(termWorkRes));
+                  }}
+                  variant="outlined"
+                  disabled={!showMinimizeTw}
+                  fullWidth
+                >
+                  Minimize Marks
+                </Button>
               </Box>
             </Grid>
           </Grid>

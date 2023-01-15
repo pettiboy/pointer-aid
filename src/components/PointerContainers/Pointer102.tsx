@@ -5,6 +5,7 @@ import {
   Paper,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -16,6 +17,7 @@ import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import { TextField } from "../TextField/TextField";
+import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
 
 type Props = {
   subject: string;
@@ -31,6 +33,11 @@ const fallbackDefaultValues: Pointer102LocalStorageType = {
   fixIse: false,
   fallback: true,
 };
+
+const maxMarksIse = 30;
+const maxMarksIa = 20;
+const maxMarksEse = 100;
+const totalMaxMarks = maxMarksIse + maxMarksIa + maxMarksEse / 2; // 100
 
 const Pointer102 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
@@ -49,6 +56,8 @@ const Pointer102 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   const [fixIse, setFixIse] = useState(defaultValues.fixIse);
   const [fixIa, setFixIa] = useState(defaultValues.fixIa);
+
+  const [showMinimize, setShowMinimize] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -69,8 +78,19 @@ const Pointer102 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   }, [res]);
 
   useEffect(() => {
-    setRes(round(calculatePointer(ise + ia + ese / 2, 100)));
+    setRes(round(calculatePointer(ise + ia + ese / 2, totalMaxMarks)));
   }, [ise, ia, ese]);
+
+  useEffect(() => {
+    const addition = round(ia + ise + ese / 2);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [ia, ise, ese, res]);
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -199,6 +219,19 @@ const Pointer102 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (

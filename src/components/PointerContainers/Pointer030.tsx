@@ -7,6 +7,7 @@ import {
   Box,
   Slider,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import round from "../../utils/round";
 import calculateMarksGivenPointer from "../../utils/calculateMarksGivenPointer";
@@ -36,8 +37,12 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   );
   const [loading, setLoading] = useState(true);
 
-  const [tw, setTW] = useState<Number>(defaultValues.tw);
+  const [tw, setTW] = useState<number>(defaultValues.tw);
   const [res, setRes] = useState(9);
+
+  const [showMinimize, setShowMinimize] = useState(false);
+
+  const totalMaxMarks = 50;
 
   const onChangeTWMarks = (num: number) => {
     setRes(round(calculatePointer(Number(num), 50)));
@@ -47,6 +52,7 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   useEffect(() => {
     setRes(round(calculatePointer(Number(tw), 50)));
   }, [tw]);
+
   useEffect(() => {
     setLoading(true);
     if (defaultValues.fallback) {
@@ -72,12 +78,27 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     };
   }, [res]);
 
+  useEffect(() => {
+    const addition = round(tw);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setShowMinimize(true);
+    } else {
+      setShowMinimize(false);
+    }
+  }, [tw, res]);
+
+  const updateMarksGivenPointer = (num: number) => {
+    setTW(round(calculateMarksGivenPointer(Number(num), totalMaxMarks)));
+  };
+
   const onChangeSlider = (
     _e: Event,
     value: number | number[],
     _activeThumb: number
   ) => {
-    setTW(round(calculateMarksGivenPointer(Number(value), 50)));
+    updateMarksGivenPointer(Number(value));
 
     setRes(Number(value));
   };
@@ -98,7 +119,7 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                     value: tw.toString(),
                   }}
                   onChangeCallback={onChangeTWMarks}
-                  maxMarks={50}
+                  maxMarks={totalMaxMarks}
                 />
               </Grid>
             </Grid>
@@ -114,6 +135,18 @@ const Pointer030 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant="outlined"
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (
