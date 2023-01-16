@@ -104,9 +104,13 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     const percentage = (addition / total) * 100;
 
     if (calculateMarksGivenPointer(theoryRes, 100) < percentage) {
-      setShowMinimizeTheory(true);
+      setTimeout(() => {
+        setShowMinimizeTheory(true);
+      }, 200);
     } else {
-      setShowMinimizeTheory(false);
+      setTimeout(() => {
+        setShowMinimizeTheory(false);
+      }, 200);
     }
   }, [ia, ise, ese, theoryRes]);
 
@@ -115,9 +119,13 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     const percentage = (addition / twMaxMarks) * 100;
 
     if (calculateMarksGivenPointer(termWorkRes, 100) < percentage) {
-      setShowMinimizeTw(true);
+      setTimeout(() => {
+        setShowMinimizeTw(true);
+      }, 200);
     } else {
-      setShowMinimizeTw(false);
+      setTimeout(() => {
+        setShowMinimizeTw(false);
+      }, 200);
     }
   }, [tw, termWorkRes]);
 

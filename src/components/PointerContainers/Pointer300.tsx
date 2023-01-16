@@ -99,9 +99,13 @@ const Pointer300 = ({ subject, subjectCode, onUpdateCallback }: Props) => {
     const percentage = (addition / total) * 100;
 
     if (calculateMarksGivenPointer(res, 100) < percentage) {
-      setShowMinimize(true);
+      setTimeout(() => {
+        setShowMinimize(true);
+      }, 200);
     } else {
-      setShowMinimize(false);
+      setTimeout(() => {
+        setShowMinimize(false);
+      }, 200);
     }
   }, [ia, ise, ese, res]);
 

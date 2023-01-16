@@ -93,9 +93,13 @@ const Pointer010 = ({
     const percentage = (addition / totalMaxMarks) * 100;
 
     if (calculateMarksGivenPointer(res, 100) < percentage) {
-      setShowMinimize(true);
+      setTimeout(() => {
+        setShowMinimize(true);
+      }, 200);
     } else {
-      setShowMinimize(false);
+      setTimeout(() => {
+        setShowMinimize(false);
+      }, 200);
     }
   }, [tw, practical, res]);
 
