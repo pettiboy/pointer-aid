@@ -165,6 +165,64 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       maxMarks: 50,
     },
   ],
+  kjsce_comps_sem6: [
+    {
+      subjectName: "Digital Signal & Image Processing",
+      subjectCode: "DSIP",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Information Security",
+      subjectCode: "IS",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Artifical Intelligence",
+      subjectCode: "AI",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective",
+      subjectCode: "DE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "OET",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Digital Signal & Image Processing Lab",
+      subjectCode: "DSIPL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Information Security Lab",
+      subjectCode: "ISL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Artificial Intelligence Lab",
+      subjectCode: "AIL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Departmental Elective Lab",
+      subjectCode: "DEL",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Mini Project",
+      subjectCode: "MP",
+      creditDistribution: "030",
+      maxMarks:75
+    },
+  ],
   kjsce_comps_sem7: [
     {
       subjectName: "Project Management",
@@ -192,24 +250,24 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "200",
     },
     {
-      subjectName:"Project-I",
-      subjectCode:"PI",
-      creditDistribution:"030"
+      subjectName: "Project-I",
+      subjectCode: "PI",
+      creditDistribution: "030",
     },
     {
-      subjectName:"Project Management Lab",
-      subjectCode:"PML",
-      creditDistribution:"010"
+      subjectName: "Project Management Lab",
+      subjectCode: "PML",
+      creditDistribution: "010",
     },
     {
-      subjectName:"Elective-III Lab",
-      subjectCode:"EIIIL",
-      creditDistribution:"010"
+      subjectName: "Elective-III Lab",
+      subjectCode: "EIIIL",
+      creditDistribution: "010",
     },
     {
-      subjectName:"Elective-IV Lab",
-      subjectCode:"EIVL",
-      creditDistribution:"010"
+      subjectName: "Elective-IV Lab",
+      subjectCode: "EIVL",
+      creditDistribution: "010",
     },
   ],
 
@@ -607,8 +665,8 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "200",
     },
     {
-      subjectName: "OEM ",
-      subjectCode: "OEM",
+      subjectName: "OEHM ",
+      subjectCode: "OEHM",
       creditDistribution: "200",
     },
     {
@@ -804,11 +862,71 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "200",
     },
   ],
+  kjsce_it_sem6:[
+    {
+      subjectName:"Object Oriented Software Engineering",
+      subjectCode:"OOSE",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Modeling and Simulation",
+      subjectCode:"MAS",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Cloud Computing",
+      subjectCode:"CC",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Departmental Elective",
+      subjectCode:"DE",
+      creditDistribution:"300"
+    },
+    {
+      subjectName: "OET ",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM ",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName:"Object Oriented Software Engineering Lab",
+      subjectCode:"OOSEL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Modeling and Simulation Lab",
+      subjectCode:"MASL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Cloud Computing Lab",
+      subjectCode:"CCL",
+      creditDistribution:"010",
+      maxMarks:75
+    },
+    {
+      subjectName:"Departmental Elective Lab",
+      subjectCode:"DEL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Mini Project",
+      subjectCode:"MP",
+      creditDistribution:"020",
+      maxMarks:50,
+      structureType:"b"
+    }
+  ],
 
   // MECH
   kjsce_mech_sem1: kjsce_groupp_sem1,
   kjsce_mech_sem2: kjsce_groupp_sem2,
-  kjsce_mech_sem3:[
+  kjsce_mech_sem3: [
     {
       subjectName: "Mathematics for Mechanical Engineering-I",
       subjectCode: "MMEI",
@@ -828,16 +946,18 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectName: "Thermodynamics",
       subjectCode: "THD",
       creditDistribution: "300",
-    },{
+    },
+    {
       subjectName: "Production Engineering-I",
       subjectCode: "PEI",
       creditDistribution: "300",
-    },{
+    },
+    {
       subjectName: "Computer Aided Machine Drawing Laboratory",
       subjectCode: "CAMDL",
       creditDistribution: "020",
     },
-    
+
     {
       subjectName: "Strength of Materials Laboratory",
       subjectCode: "SOML",
@@ -858,12 +978,8 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectCode: "MSPI",
       creditDistribution: "010",
     },
-
-
-
-    
   ],
-  kjsce_mech_sem4:[
+  kjsce_mech_sem4: [
     {
       subjectName: "Mathematics for Mechanical Engineering-II",
       subjectCode: "MMEII",
@@ -913,9 +1029,8 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectName: "Machine Shop practice-II",
       subjectCode: "MSPII",
       creditDistribution: "020",
-      
     },
-  ]
+  ],
 };
 
 export default calculatorStructure;

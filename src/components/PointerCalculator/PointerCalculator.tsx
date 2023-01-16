@@ -1,10 +1,13 @@
 import { Box } from "@mui/material";
 import Pointer010 from "../PointerContainers/Pointer010";
+import Pointer010_75 from "../PointerContainers/Pointer010_75";
 import Pointer011 from "../PointerContainers/Pointer011";
 import Pointer012 from "../PointerContainers/Pointer012";
 import Pointer020 from "../PointerContainers/Pointer020";
 import Pointer020_50 from "../PointerContainers/Pointer020_50";
+import Pointer020_50b from "../PointerContainers/Pointer020_50b";
 import Pointer030 from "../PointerContainers/Pointer030";
+import Pointer030_75 from "../PointerContainers/Pointer030_75";
 import Pointer102 from "../PointerContainers/Pointer102";
 import Pointer110_50 from "../PointerContainers/Pointer110_50";
 import Pointer110_75 from "../PointerContainers/Pointer110_75";
@@ -21,20 +24,27 @@ const PointerCalculator = ({
   subjectCode,
   creditDistribution,
   maxMarks,
-
+  structureType,
   handleInputChange,
 }: Props) => {
   return (
     <Box sx={{ height: "100%" }}>
       {
         {
-          "010": (
-            <Pointer010
-              subjectCode={subjectCode}
-              subject={subjectName}
-              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
-            />
-          ),
+          "010":
+            maxMarks === 75 ? (
+              <Pointer010_75
+                subjectCode={subjectCode}
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              />
+            ) : (
+              <Pointer010
+                subjectCode={subjectCode}
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              />
+            ),
           "011": (
             <Pointer011
               subjectCode={subjectCode}
@@ -52,11 +62,19 @@ const PointerCalculator = ({
           ),
           "020":
             maxMarks === 50 ? (
-              <Pointer020_50
-                subjectCode={subjectCode}
-                subject={subjectName}
-                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
-              />
+              structureType === "b" ? (
+                <Pointer020_50b
+                  subjectCode={subjectCode}
+                  subject={subjectName}
+                  onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+                />
+              ) : (
+                <Pointer020_50
+                  subjectCode={subjectCode}
+                  subject={subjectName}
+                  onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+                />
+              )
             ) : (
               <Pointer020
                 subjectCode={subjectCode}
@@ -65,13 +83,21 @@ const PointerCalculator = ({
                 maxMarks={maxMarks}
               />
             ),
-          "030": (
-            <Pointer030
-              subjectCode={subjectCode}
-              subject={subjectName}
-              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
-            />
-          ),
+          "030":
+            maxMarks === 75 ? (
+              <Pointer030_75
+                subjectCode={subjectCode}
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+                maxMarks={maxMarks}
+              />
+            ) : (
+              <Pointer030
+                subjectCode={subjectCode}
+                subject={subjectName}
+                onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              />
+            ),
           "102": (
             <Pointer102
               subjectCode={subjectCode}

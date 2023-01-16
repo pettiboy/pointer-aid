@@ -133,6 +133,7 @@ const Calculator = (_props: Props) => {
                   creditDistribution={subject.creditDistribution}
                   maxMarks={subject.maxMarks}
                   handleInputChange={handleInputChange}
+                  structureType={subject.structureType}
                 />
               </Grid>
             ))}
