@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -52,7 +53,9 @@ const Pointer020_75 = ({
 
   const twMaxMarks = maxMarks === 100 ? 50 : 25;
   const practicalMaxMarks = 50;
-  const totalMarks = twMaxMarks + practicalMaxMarks;
+  const totalMaxMarks = twMaxMarks + practicalMaxMarks;
+
+  const [showMinimize, setShowMinimize] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -71,7 +74,7 @@ const Pointer020_75 = ({
   }, [res]);
 
   useEffect(() => {
-    setRes(calculatePointer(tw + practical, totalMarks));
+    setRes(calculatePointer(tw + practical, totalMaxMarks));
   }, [tw, practical]);
 
   useEffect(() => {
@@ -86,8 +89,24 @@ const Pointer020_75 = ({
     );
   }, [tw, practical, fixPrac, fixTw]);
 
+  useEffect(() => {
+    const addition = round(tw + practical);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setTimeout(() => {
+        setShowMinimize(true);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setShowMinimize(false);
+      }, 200);
+    }
+  }, [tw, practical, res]);
+
   const pointerToMarksFixed = (pointer: number, fixVal: number) => {
-    const totalReq = calculateMarksGivenPointer(pointer, totalMarks) - fixVal;
+    const totalReq =
+      calculateMarksGivenPointer(pointer, totalMaxMarks) - fixVal;
     return round(totalReq);
   };
 
@@ -159,6 +178,18 @@ const Pointer020_75 = ({
                 }}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant={!showMinimize ? "outlined" : "contained"}
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (

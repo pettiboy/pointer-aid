@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -29,6 +30,10 @@ const fallbackDefaultValues: Pointer110_75LocalStorageType = {
   fallback: true,
 };
 
+const twMaxMarks = 50;
+const oralMaxMarks = 25;
+const totalMaxMarks = twMaxMarks + oralMaxMarks;
+
 const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const { college, branch, semester } = useParams();
   const defaultValues: Pointer110_75LocalStorageType = JSON.parse(
@@ -44,9 +49,7 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   const [tw, setTw] = useState(defaultValues.tw);
   const [practical, setPractical] = useState(defaultValues.practical);
 
-  const twMaxMarks = 50;
-  const oralMaxMarks = 25;
-  const totalMaxMarks = twMaxMarks + oralMaxMarks;
+  const [showMinimize, setShowMinimize] = useState(false);
 
   useEffect(() => {
     asyncLocalStorage.setItem(
@@ -79,6 +82,21 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
   useEffect(() => {
     setRes(calculatePointer(tw + practical, totalMaxMarks));
   }, [tw, practical]);
+
+  useEffect(() => {
+    const addition = round(tw + practical);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setTimeout(() => {
+        setShowMinimize(true);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setShowMinimize(false);
+      }, 200);
+    }
+  }, [tw, practical, res]);
 
   const updateMarksGivenPointer = (pointer: number) => {
     if (fixTw) {
@@ -164,6 +182,18 @@ const Pointer110_75 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant={!showMinimize ? "outlined" : "contained"}
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (
