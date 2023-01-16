@@ -5,6 +5,7 @@ import {
   Grid,
   SxProps,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import calculatePointer from "../../utils/calculatePointer";
@@ -14,6 +15,7 @@ import round from "../../utils/round";
 import { useParams } from "react-router-dom";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import { TextField } from "../TextField/TextField";
+
 type Props = {
   subject: string;
   subjectCode: string;
@@ -36,6 +38,8 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
 
   const [tw, setTw] = useState(defaultValues.tw);
   const [loading, setLoading] = useState(true);
+
+  const [showMinimize, setShowMinimize] = useState(false);
 
   const twMaxMarks = 50;
   const totalMaxMarks = twMaxMarks;
@@ -68,7 +72,21 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
     setRes(calculatePointer(tw, totalMaxMarks));
   }, [tw]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const addition = round(tw);
+    const percentage = (addition / totalMaxMarks) * 100;
+
+    if (calculateMarksGivenPointer(res, 100) < percentage) {
+      setTimeout(() => {
+        setShowMinimize(true);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setShowMinimize(false);
+      }, 200);
+    }
+  }, [tw, res]);
+
   const updateMarksGivenPointer = (pointer: number) => {
     setTw(round(calculateMarksGivenPointer(pointer, twMaxMarks)));
   };
@@ -117,6 +135,18 @@ const Pointer110_50 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 onChange={onChangeSlider}
               />
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() => {
+                updateMarksGivenPointer(res);
+              }}
+              variant={!showMinimize ? "outlined" : "contained"}
+              disabled={!showMinimize}
+              fullWidth
+            >
+              Minimize Marks
+            </Button>
           </Grid>
         </>
       ) : (
