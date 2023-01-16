@@ -171,7 +171,6 @@ const HideOetOehm = (props: Props) => {
               <FormControlLabel
                 control={<Checkbox checked={oet} onChange={onChangeOet} />}
                 label="OET"
-                onClick={onClickOetMenuItem}
               />
             </MenuItem>
             <Divider />
@@ -179,7 +178,6 @@ const HideOetOehm = (props: Props) => {
               <FormControlLabel
                 control={<Checkbox checked={oehm} onChange={onChangeOehm} />}
                 label="OEHM"
-                onClick={onClickOehmMenuItem}
               />
             </MenuItem>
           </Menu>
