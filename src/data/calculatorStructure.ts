@@ -665,8 +665,8 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "200",
     },
     {
-      subjectName: "OEM ",
-      subjectCode: "OEM",
+      subjectName: "OEHM ",
+      subjectCode: "OEHM",
       creditDistribution: "200",
     },
     {
@@ -861,6 +861,66 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectCode: "OEHM",
       creditDistribution: "200",
     },
+  ],
+  kjsce_it_sem6:[
+    {
+      subjectName:"Object Oriented Software Engineering",
+      subjectCode:"OOSE",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Modeling and Simulation",
+      subjectCode:"MAS",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Cloud Computing",
+      subjectCode:"CC",
+      creditDistribution:"300"
+    },
+    {
+      subjectName:"Departmental Elective",
+      subjectCode:"DE",
+      creditDistribution:"300"
+    },
+    {
+      subjectName: "OET ",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "OEHM ",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName:"Object Oriented Software Engineering Lab",
+      subjectCode:"OOSEL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Modeling and Simulation Lab",
+      subjectCode:"MASL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Cloud Computing Lab",
+      subjectCode:"CCL",
+      creditDistribution:"010",
+      maxMarks:75
+    },
+    {
+      subjectName:"Departmental Elective Lab",
+      subjectCode:"DEL",
+      creditDistribution:"010"
+    },
+    {
+      subjectName:"Mini Project",
+      subjectCode:"MP",
+      creditDistribution:"020",
+      maxMarks:50,
+      structureType:"b"
+    }
   ],
 
   // MECH

@@ -19,6 +19,7 @@ declare global {
     subjectCode: string;
     creditDistribution: string;
     maxMarks?: 50 | 75 | 100;
+    structureType?:"b"
   };
 
   interface RouterLocation extends Path {
