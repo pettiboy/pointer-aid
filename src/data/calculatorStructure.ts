@@ -220,6 +220,7 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       subjectName: "Mini Project",
       subjectCode: "MP",
       creditDistribution: "030",
+      maxMarks:75
     },
   ],
   kjsce_comps_sem7: [

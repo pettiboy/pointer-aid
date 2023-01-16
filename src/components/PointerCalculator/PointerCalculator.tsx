@@ -5,6 +5,7 @@ import Pointer012 from "../PointerContainers/Pointer012";
 import Pointer020 from "../PointerContainers/Pointer020";
 import Pointer020_50 from "../PointerContainers/Pointer020_50";
 import Pointer030 from "../PointerContainers/Pointer030";
+import Pointer030_75 from "../PointerContainers/Pointer030_75";
 import Pointer102 from "../PointerContainers/Pointer102";
 import Pointer110_50 from "../PointerContainers/Pointer110_50";
 import Pointer110_75 from "../PointerContainers/Pointer110_75";
@@ -65,7 +66,15 @@ const PointerCalculator = ({
                 maxMarks={maxMarks}
               />
             ),
-          "030": (
+          "030": 
+          maxMarks===75?(
+            <Pointer030_75
+              subjectCode={subjectCode}
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+              maxMarks={maxMarks}
+            />
+          ):(
             <Pointer030
               subjectCode={subjectCode}
               subject={subjectName}
