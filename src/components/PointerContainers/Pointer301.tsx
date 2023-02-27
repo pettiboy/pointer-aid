@@ -250,7 +250,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
             </Grid>
           </Box>
           <Grid container xs={12}>
-            <Grid item xs={6} sx={{ px: 1 }}>
+            <Grid item xs={6} sx={{ pr: 2 }}>
               <Box>
                 <Typography variant="h5" sx={{ my: 2 }}>
                   Theory
@@ -275,7 +275,7 @@ const Pointer301 = ({ subjectCode, subject, onUpdateCallback }: Props) => {
                 </Button>
               </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} sx={{ pl: 2 }}>
               <Box>
                 <Typography variant="h5" sx={{ my: 2 }}>
                   Term Work
