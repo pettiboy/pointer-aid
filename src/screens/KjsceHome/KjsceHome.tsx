@@ -88,6 +88,11 @@ const KjsceHome = (props: Props) => {
   }, [selectedBranch]);
 
   const onPressOpenCalculator = () => {
+    if (selectedBranch.length < 1 || selectedSemester.length < 1) return;
+
+    localStorage.setItem("selectedBranch", selectedBranch);
+    localStorage.setItem("selectedSemester", selectedSemester);
+
     navigate(
       `/kjsce/${selectedBranch.toLowerCase()}/sem${
         selectedSemester.split(" ")[1]
