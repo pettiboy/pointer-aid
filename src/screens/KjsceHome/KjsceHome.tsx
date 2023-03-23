@@ -87,6 +87,14 @@ const KjsceHome = (props: Props) => {
     }
   }, [selectedBranch]);
 
+  const onPressOpenCgpaCalculator = () => {
+    if (selectedBranch.length < 1) return;
+
+    localStorage.setItem("selectedBranch", selectedBranch);
+
+    navigate(`/kjsce/${selectedBranch.toLowerCase()}/cgpa`);
+  };
+
   const onPressOpenCalculator = () => {
     if (selectedBranch.length < 1 || selectedSemester.length < 1) return;
 
@@ -169,7 +177,7 @@ const KjsceHome = (props: Props) => {
       <Box sx={{ minWidth: "50vw" }}>
         <Grid container spacing={2}>
           {/* branch */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Autocomplete
               fullWidth
               open={openBranches}
@@ -201,8 +209,20 @@ const KjsceHome = (props: Props) => {
             />
           </Grid>
 
+          <Grid item xs={12}>
+            <Button
+              disabled={selectedBranch.length === 0}
+              onClick={onPressOpenCgpaCalculator}
+              variant="contained"
+              size="large"
+              fullWidth
+            >
+              Overall CGPA Calculator
+            </Button>
+          </Grid>
+
           {/* semester */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Autocomplete
               fullWidth
               open={openSemesters}
@@ -245,7 +265,7 @@ const KjsceHome = (props: Props) => {
               size="large"
               fullWidth
             >
-              Open
+              Semester CGPA Calculator
             </Button>
           </Grid>
         </Grid>
