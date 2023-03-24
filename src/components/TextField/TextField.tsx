@@ -19,6 +19,7 @@ export interface Props {
   // drilled down to LockSwitch
   lockedState?: boolean;
   onLockStateChange?: (checked: boolean) => void;
+  inputType?: "number" | "decimal";
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
@@ -30,6 +31,7 @@ export const TextField: React.FunctionComponent<Props> = ({
 
   lockedState,
   onLockStateChange,
+  inputType = "number",
 }) => {
   const theme = useTheme();
 
@@ -66,14 +68,27 @@ export const TextField: React.FunctionComponent<Props> = ({
   };
 
   const handleChange = (e: OnChangeEvent) => {
-    const changedNum = round(Number(e.target.value));
+    // console.log(e.target.value, inputType);
+    let changedNum = 0;
+    if (inputType === "number") changedNum = round(Number(e.target.value));
+    else {
+      // console.log(parseFloat("9.2"),parseFloat(x));
+      changedNum = parseFloat(e.target.value.toString());
+    }
+    console.log(changedNum);
 
     if (!isNaN(changedNum) && changedNum !== 0) {
       // validate input
       checkErrors(changedNum);
 
       // set textfield value
-      setValue(changedNum);
+      if (inputType === "number") {
+        onChangeCallback(changedNum);
+        setValue(changedNum);
+      } else {
+        setValue(e.target.value);
+        onChangeCallback(parseFloat(e.target.value));
+      }
 
       // callback to update value in parent
       onChangeCallback(changedNum);
@@ -133,7 +148,7 @@ export const TextField: React.FunctionComponent<Props> = ({
           fullWidth
           inputProps={{
             // keyboard type
-            inputmode: "numeric",
+            // inputMode: "numeric",
 
             // when bluring with empty string
             // set value to 0

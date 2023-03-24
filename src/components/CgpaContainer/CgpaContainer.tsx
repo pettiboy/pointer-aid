@@ -20,6 +20,7 @@ const CgpaContainer = ({ credits, label }: Props) => {
         onChangeCallback={(val) => {
           setValue(val.toString());
         }}
+        inputType="decimal"
       />
     </Box>
   );
