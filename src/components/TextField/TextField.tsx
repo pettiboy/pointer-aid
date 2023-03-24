@@ -19,7 +19,8 @@ export interface Props {
   // drilled down to LockSwitch
   lockedState?: boolean;
   onLockStateChange?: (checked: boolean) => void;
-  inputType?: "number" | "decimal";
+
+  inputType?: "numeric" | "decimal";
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
@@ -31,7 +32,8 @@ export const TextField: React.FunctionComponent<Props> = ({
 
   lockedState,
   onLockStateChange,
-  inputType = "number",
+
+  inputType = "numeric",
 }) => {
   const theme = useTheme();
 
@@ -68,30 +70,25 @@ export const TextField: React.FunctionComponent<Props> = ({
   };
 
   const handleChange = (e: OnChangeEvent) => {
-    // console.log(e.target.value, inputType);
-    let changedNum = 0;
-    if (inputType === "number") changedNum = round(Number(e.target.value));
-    else {
-      // console.log(parseFloat("9.2"),parseFloat(x));
+    let changedNum;
+    if (inputType === "numeric") {
+      changedNum = round(Number(e.target.value));
+    } else {
       changedNum = parseFloat(e.target.value.toString());
     }
-    console.log(changedNum);
 
     if (!isNaN(changedNum) && changedNum !== 0) {
       // validate input
       checkErrors(changedNum);
 
       // set textfield value
-      if (inputType === "number") {
+      if (inputType === "numeric") {
         onChangeCallback(changedNum);
         setValue(changedNum);
       } else {
-        setValue(e.target.value);
         onChangeCallback(parseFloat(e.target.value));
+        setValue(e.target.value);
       }
-
-      // callback to update value in parent
-      onChangeCallback(changedNum);
     } else {
       setValue("");
     }
@@ -148,7 +145,7 @@ export const TextField: React.FunctionComponent<Props> = ({
           fullWidth
           inputProps={{
             // keyboard type
-            // inputMode: "numeric",
+            inputMode: inputType,
 
             // when bluring with empty string
             // set value to 0
