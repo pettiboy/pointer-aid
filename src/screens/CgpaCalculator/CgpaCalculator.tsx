@@ -1,13 +1,17 @@
 import { Box, Unstable_Grid2 as Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import CgpaContainer from "../../components/CgpaContainer/CgpaContainer";
+import CgpaDisplay from "../../components/CgpaDisplay/CgpaDisplay";
 
 type Props = {};
 
 const CgpaCalculator = (props: Props) => {
   const { college, branch } = useParams();
+
+  const [sgpi, setSgpi] = useState<number | null>(null);
+  const [cgs, setCgs] = useState<StringNumberObject>({});
 
   return (
     <Box sx={{ p: 5 }}>
@@ -33,6 +37,7 @@ const CgpaCalculator = (props: Props) => {
           />
         </Grid>
       </Grid>
+      <CgpaDisplay cgpa={sgpi} />
     </Box>
   );
 };
