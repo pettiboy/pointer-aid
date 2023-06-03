@@ -2,14 +2,12 @@ import {
   Box,
   CircularProgress,
   Unstable_Grid2 as Grid,
-  Paper,
-  Slider,
-  TextField,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import CgpaCalculatorContainer from "../../components/CgpaCalculator/CgpaCalculatorContainer/CgpaCalculatorContainer";
 
 type Props = {};
 
@@ -18,26 +16,10 @@ const CgpaCalculator = (props: Props) => {
 
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
-  const [value, setValue] = useState<string>("9.0");
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === "") {
-      setValue("");
-    } else setValue(event.target.value);
-  };
-
   useEffect(() => {
     console.log("semester", semester);
     setLoadingStatus("loaded");
   }, []);
-
-  const onChangeSlider = (
-    _e: Event,
-    value: number | number[],
-    _activeThumb: number
-  ) => {
-    setValue(((value as number) / 10).toString());
-  };
 
   return (
     <Box sx={{ p: 5 }}>
@@ -59,31 +41,7 @@ const CgpaCalculator = (props: Props) => {
             }}
           >
             <Grid xs={12} md={6} lg={6} xl={4}>
-              <Paper className="pointer-paper-container">
-                <Typography sx={{ mb: 1 }} variant="h4">
-                  Semester 1
-                </Typography>
-                <Box sx={{ display: "flex" }}>
-                  <TextField
-                    value={value}
-                    onChange={handleChange}
-                    label="SGPA"
-                    sx={{}}
-                  />
-                  <TextField value={21} disabled />
-                </Box>
-                <Box sx={{ mt: 2 }}>
-                  <Typography variant="subtitle2">
-                    Semester Grade Pointer (SGPA): {parseFloat(value)}
-                  </Typography>
-                  <Slider
-                    min={40}
-                    max={100}
-                    value={parseFloat(value) * 10}
-                    onChange={onChangeSlider}
-                  />
-                </Box>
-              </Paper>
+              <CgpaCalculatorContainer />
             </Grid>
           </Grid>
         </>
