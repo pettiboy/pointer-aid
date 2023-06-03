@@ -1,7 +1,8 @@
-import { Paper, Typography, Box, Slider } from "@mui/material";
+import { Paper, Typography, Box, Slider, useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
+import LockSwitch from "../../LockSwitch/LockSwitch";
 
 type Props = {
   id: string;
@@ -9,14 +10,22 @@ type Props = {
   weightage: number;
 };
 
+// todo(suggession): minimise container when locked to save space
+
 const SgpaContainer = ({ id, title, weightage }: Props) => {
+  const theme = useTheme();
   const { addToAverage } = useContext(CgpaCalculatorContext);
 
   const [value, setValue] = useState<string>("9.0");
+  const [lockedState, setLockedState] = useState(false);
 
   useEffect(() => {
     addToAverage(id, parseFloat(value), weightage);
   }, [value]);
+
+  const onChangeLockState = (checked: boolean) => {
+    setLockedState(checked);
+  };
 
   const onChangeSlider = (
     _e: Event,
@@ -27,10 +36,27 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   };
 
   return (
-    <Paper className="pointer-paper-container">
-      <Typography sx={{ mb: 2 }} variant="h4">
-        {title}
-      </Typography>
+    <Paper
+      className="pointer-paper-container"
+      sx={
+        lockedState ? { border: "2px solid " + theme.palette.primary.main } : {}
+      }
+    >
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 2,
+        }}
+      >
+        <Typography variant="h4">{title}</Typography>
+
+        <LockSwitch
+          checked={lockedState}
+          onChangeCallback={onChangeLockState}
+        />
+      </Box>
       <Box sx={{ display: "flex" }}>
         <SgpaTextField
           label="SGPA"
