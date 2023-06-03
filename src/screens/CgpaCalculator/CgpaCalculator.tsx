@@ -4,15 +4,18 @@ import {
   Unstable_Grid2 as Grid,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import CgpaCalculatorContainer from "../../components/CgpaCalculator/CgpaCalculatorContainer/CgpaCalculatorContainer";
+import SgpaContainer from "../../components/CgpaCalculator/SgpaContainer/SgpaContainer";
+import { CgpaCalculatorContext } from "../../context/CgpaCalculatorContext";
 
 type Props = {};
 
 const CgpaCalculator = (props: Props) => {
   const { college, branch, semester } = useParams();
+
+  const { calculateCurrentAverage } = useContext(CgpaCalculatorContext);
 
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
@@ -41,11 +44,18 @@ const CgpaCalculator = (props: Props) => {
             }}
           >
             <Grid xs={12} md={6} lg={6} xl={4}>
-              <CgpaCalculatorContainer />
+              <SgpaContainer
+                title="Semester 1"
+                weightage={21}
+                onUpdateCallback={(cg: number) => {
+                  console.log(cg);
+                }}
+              />
             </Grid>
           </Grid>
         </>
       )}
+      <Typography>CGPA: {calculateCurrentAverage()}</Typography>
       {loadingStatus === "no_data" && (
         <Box className="h-85 flex-center">
           <Typography variant="h1">No calculator available yet</Typography>

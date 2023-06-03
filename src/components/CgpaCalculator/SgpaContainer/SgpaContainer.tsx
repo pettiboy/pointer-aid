@@ -2,9 +2,14 @@ import { Paper, Typography, Box, Slider } from "@mui/material";
 import { useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 
-type Props = {};
+type Props = {
+  title: string;
+  weightage: number;
 
-const CgpaCalculatorContainer = (props: Props) => {
+  onUpdateCallback(cg: number): void;
+};
+
+const SgpaContainer = (props: Props) => {
   const [value, setValue] = useState<string>("9.0");
 
   const onChangeSlider = (
@@ -54,4 +59,4 @@ const CgpaCalculatorContainer = (props: Props) => {
   );
 };
 
-export default CgpaCalculatorContainer;
+export default SgpaContainer;
