@@ -2,10 +2,13 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import useWindowDimensions from "../../../hooks/useWindowDimentions";
 
 type Props = {};
+
+// Todo: input validation
+// Todo: for large screens align to side
 
 const CgpaDisplay = (props: Props) => {
   const isKeyboardOpen = useDetectKeyboardOpen();
@@ -71,31 +74,54 @@ const CgpaDisplay = (props: Props) => {
               alignItems: "center",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <Typography
                 variant={showEqualizer && width < 600 ? "h5" : "h4"}
                 sx={{ mr: spacingM }}
               >
                 CGPA:
               </Typography>
-              <TextField
-                value={cgpaInputState}
-                onChange={onChangeCgpaInput}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
+
+              <Box>
+                {showEqualizer && (
+                  <Typography variant="subtitle2">Target</Typography>
+                )}
+                <TextField
+                  value={cgpaInputState}
+                  onChange={onChangeCgpaInput}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    inputMode: "decimal",
+                    style: showEqualizer
+                      ? {
+                          padding: 8,
+                        }
+                      : {},
+                  }}
+                />
+              </Box>
+
               {showEqualizer && (
                 <>
                   <Button
                     variant="outlined"
-                    endIcon={<ArrowForwardIcon />}
-                    sx={{ ml: spacingM }}
+                    endIcon={<SyncAltIcon />}
+                    sx={{ ml: spacingM, minWidth: 100, alignSelf: "stretch" }}
                   >
                     {"sync"}
                   </Button>
-                  <Typography sx={{ ml: spacingM }} variant="h3">
-                    {currentAverage}
-                  </Typography>
+                  <Box sx={{ ml: spacingM }}>
+                    <Typography variant="subtitle2">Current</Typography>
+                    <Typography sx={{}} variant="h4">
+                      {currentAverage}
+                    </Typography>
+                  </Box>
                 </>
               )}
             </Box>

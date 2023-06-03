@@ -50,9 +50,8 @@ const CgpaCalculator = (props: Props) => {
             <Grid xs={12} md={6} lg={6} xl={4}>
               <SgpaContainer id="3" title="Semester 3" weightage={22} />
             </Grid>
-
-            <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
           </Grid>
+          <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
         </>
       )}
 
