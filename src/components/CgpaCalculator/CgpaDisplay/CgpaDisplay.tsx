@@ -47,7 +47,8 @@ const CgpaDisplay = (props: Props) => {
     setIsCgpaInputFocused(false);
   };
 
-  const showEqualizer = cgpaInputState !== currentAverage.toString();
+  const showEqualizer =
+    parseFloat(cgpaInputState).toString() !== currentAverage.toString();
 
   const spacingL = !showEqualizer && width > 600 ? 3 : 2;
   const spacingM = !showEqualizer && width > 600 ? 2 : 1;
