@@ -20,11 +20,15 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   const [lockedState, setLockedState] = useState(false);
 
   useEffect(() => {
-    addToAverage(id, parseFloat(value), weightage);
+    addToAverage(id, parseFloat(value), weightage, lockedState);
   }, [value]);
 
   const onChangeLockState = (checked: boolean) => {
     setLockedState(checked);
+
+    // add to average preventing refresh of cgpa display
+    // this is to just send the updarted lock state to the context
+    addToAverage(id, parseFloat(value), weightage, lockedState, true);
   };
 
   const onChangeSlider = (

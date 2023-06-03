@@ -2,7 +2,13 @@ import { createContext, PropsWithChildren, useState } from "react";
 import round from "../utils/round";
 
 interface ContextValueType {
-  addToAverage: (id: string, value: number, weight: number) => void;
+  addToAverage: (
+    id: string,
+    value: number,
+    weight: number,
+    isLocked: boolean, // pass the state of the lock switch in the sgpa container
+    noRefreshAverage?: boolean // pass true to prevent refresh of average in UI
+  ) => void;
   getPredictionFor: (id: string) => number;
   calculateCurrentAverage: () => number;
 
@@ -20,8 +26,15 @@ export const CgpaCalculatorProvider = (
 
   const [refreshAverageCount, setRefreshAverageCount] = useState<number>(0);
 
-  const addToAverage = (id: string, value: number, weight: number) => {
-    console.log("request to add to average for: ", id, value, weight);
+  const addToAverage = (
+    id: string,
+    value: number,
+    weight: number,
+    isLocked: boolean,
+
+    noRefreshAverage: boolean = false
+  ) => {
+    console.log("request to add to average for: ", id, value, weight, isLocked);
 
     setSgpaList((prevSgpaList) => {
       // add or create entry in sgpa list
@@ -31,6 +44,7 @@ export const CgpaCalculatorProvider = (
         if (sgpa.id === id) {
           sgpa.value = value;
           sgpa.weight = weight;
+          sgpa.isLocked = isLocked;
           found = true;
         }
       });
@@ -39,13 +53,14 @@ export const CgpaCalculatorProvider = (
           id: id,
           value: value,
           weight: weight,
+          isLocked: isLocked,
         });
       }
 
       return newSgpaList;
     });
 
-    setRefreshAverageCount((prev) => prev + 1);
+    if (!noRefreshAverage) setRefreshAverageCount((prev) => prev + 1);
   };
 
   const getPredictionFor = (id: string) => {
@@ -84,4 +99,5 @@ type SgpaListType = {
   id: string;
   value: number;
   weight: number;
+  isLocked: boolean;
 }[];
