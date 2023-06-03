@@ -1,16 +1,22 @@
 import { Paper, Typography, Box, Slider } from "@mui/material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
+import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 
 type Props = {
+  id: string;
   title: string;
   weightage: number;
-
-  onUpdateCallback(cg: number): void;
 };
 
-const SgpaContainer = (props: Props) => {
+const SgpaContainer = ({ id, title, weightage }: Props) => {
+  const { addToAverage } = useContext(CgpaCalculatorContext);
+
   const [value, setValue] = useState<string>("9.0");
+
+  useEffect(() => {
+    addToAverage(id, parseFloat(value), weightage);
+  }, [value]);
 
   const onChangeSlider = (
     _e: Event,
@@ -23,7 +29,7 @@ const SgpaContainer = (props: Props) => {
   return (
     <Paper className="pointer-paper-container">
       <Typography sx={{ mb: 2 }} variant="h4">
-        Semester 1
+        {title}
       </Typography>
       <Box sx={{ display: "flex" }}>
         <SgpaTextField
@@ -38,15 +44,16 @@ const SgpaContainer = (props: Props) => {
         <SgpaTextField
           label="credits"
           inputProps={{
-            value: "21",
+            value: weightage.toString(),
           }}
           onChangeCallback={(_: string) => {}}
           disabled={true}
         />
       </Box>
       <Box sx={{ mt: 2 }}>
-        <Typography variant="subtitle2">
-          Semester Grade Pointer (SGPA): {parseFloat(value)}
+        <Typography>
+          SGPA: {parseFloat(value)}
+          {/* todo: add an info icon showing what is SGPA */}
         </Typography>
         <Slider
           min={40}

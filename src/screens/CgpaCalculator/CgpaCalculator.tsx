@@ -13,19 +13,28 @@ import { CgpaCalculatorContext } from "../../context/CgpaCalculatorContext";
 type Props = {};
 
 const CgpaCalculator = (props: Props) => {
-  const { college, branch, semester } = useParams();
+  const { college, branch } = useParams();
 
-  const { calculateCurrentAverage } = useContext(CgpaCalculatorContext);
+  const { calculateCurrentAverage, refreshAverageCount } = useContext(
+    CgpaCalculatorContext
+  );
 
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
+  const [currentAverage, setCurrentAverage] = useState<number>(
+    calculateCurrentAverage()
+  );
+
   useEffect(() => {
-    console.log("semester", semester);
     setLoadingStatus("loaded");
   }, []);
 
+  useEffect(() => {
+    setCurrentAverage(calculateCurrentAverage());
+  }, [refreshAverageCount]);
+
   return (
-    <Box sx={{ p: 5 }}>
+    <Box sx={{ p: 3 }}>
       {loadingStatus === "loaded" && (
         <>
           <Helmet>
@@ -38,24 +47,21 @@ const CgpaCalculator = (props: Props) => {
           {/* code starts here */}
           <Grid
             container
-            spacing={6}
+            spacing={4}
             style={{
               alignItems: "stretch",
             }}
           >
             <Grid xs={12} md={6} lg={6} xl={4}>
-              <SgpaContainer
-                title="Semester 1"
-                weightage={21}
-                onUpdateCallback={(cg: number) => {
-                  console.log(cg);
-                }}
-              />
+              <SgpaContainer id="1" title="Semester 1" weightage={21} />
+            </Grid>
+            <Grid xs={12} md={6} lg={6} xl={4}>
+              <SgpaContainer id="2" title="Semester 2" weightage={32} />
             </Grid>
           </Grid>
         </>
       )}
-      <Typography>CGPA: {calculateCurrentAverage()}</Typography>
+      <Typography>CGPA: {currentAverage}</Typography>
       {loadingStatus === "no_data" && (
         <Box className="h-85 flex-center">
           <Typography variant="h1">No calculator available yet</Typography>
