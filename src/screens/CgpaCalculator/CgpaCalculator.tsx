@@ -10,21 +10,38 @@ import { useParams } from "react-router-dom";
 import SgpaContainer from "../../components/CgpaCalculator/SgpaContainer/SgpaContainer";
 import CgpaDisplay from "../../components/CgpaCalculator/CgpaDisplay/CgpaDisplay";
 import Credits from "../../components/Credits/Credits";
+import cgpaData from "../../data/cgpaData";
 
 type Props = {};
 
 const CgpaCalculator = (props: Props) => {
   const { college, branch } = useParams();
 
+  const [calculatorData, setCalculatorData] = useState<
+    CgpaCalculatorStructureType[] | null
+  >(null);
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
 
   useEffect(() => {
-    setLoadingStatus("loaded");
+    setLoadingStatus("loading");
+
+    const givenKey = `${college}_${branch}`;
+    if (givenKey in cgpaData) {
+      // update data for calculator
+      setCalculatorData(cgpaData[givenKey]);
+      setLoadingStatus("loaded");
+    } else {
+      setLoadingStatus("no_data");
+    }
+
+    return () => {
+      setCalculatorData(null);
+    };
   }, []);
 
   return (
     <Box sx={{ p: 3 }}>
-      {loadingStatus === "loaded" && (
+      {loadingStatus === "loaded" && calculatorData && (
         <>
           <Helmet>
             <title>
@@ -41,15 +58,15 @@ const CgpaCalculator = (props: Props) => {
               alignItems: "stretch",
             }}
           >
-            <Grid xs={12} md={6} lg={6} xl={4}>
-              <SgpaContainer id="1" title="Semester 1" weightage={21} />
-            </Grid>
-            <Grid xs={12} md={6} lg={6} xl={4}>
-              <SgpaContainer id="2" title="Semester 2" weightage={32} />
-            </Grid>
-            <Grid xs={12} md={6} lg={6} xl={4}>
-              <SgpaContainer id="3" title="Semester 3" weightage={22} />
-            </Grid>
+            {calculatorData.map((data) => (
+              <Grid xs={12} sm={6} md={4} lg={4} xl={4}>
+                <SgpaContainer
+                  id={data.semesterId}
+                  title={data.semesterName}
+                  weightage={data.maxCredits}
+                />
+              </Grid>
+            ))}
           </Grid>
           <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
         </>
