@@ -4,6 +4,7 @@ import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import useWindowDimensions from "../../../hooks/useWindowDimentions";
+import round from "../../../utils/round";
 
 type Props = {};
 
@@ -14,9 +15,11 @@ const CgpaDisplay = (props: Props) => {
   const isKeyboardOpen = useDetectKeyboardOpen();
   const { width } = useWindowDimensions();
 
-  const { calculateCurrentAverage, refreshAverageCount } = useContext(
-    CgpaCalculatorContext
-  );
+  const {
+    calculateCurrentAverage,
+    refreshAverageCount,
+    calculateAndRefreshPredictions,
+  } = useContext(CgpaCalculatorContext);
 
   const [currentAverage, setCurrentAverage] = useState<number>(
     calculateCurrentAverage()
@@ -114,6 +117,11 @@ const CgpaDisplay = (props: Props) => {
                     variant="outlined"
                     endIcon={<SyncAltIcon />}
                     sx={{ ml: spacingM, minWidth: 100, alignSelf: "stretch" }}
+                    onClick={() => {
+                      calculateAndRefreshPredictions(
+                        round(parseFloat(cgpaInputState), 2)
+                      );
+                    }}
                   >
                     {"sync"}
                   </Button>

@@ -9,10 +9,13 @@ interface ContextValueType {
     isLocked: boolean, // pass the state of the lock switch in the sgpa container
     noRefreshAverage?: boolean // pass true to prevent refresh of average in UI
   ) => void;
-  getPredictionFor: (id: string) => number;
+  getPredictionFor: (id: string) => number; // should be called after calculatePredictions
   calculateCurrentAverage: () => number;
+  calculateAndRefreshPredictions: (desiredResult: number) => void;
 
   refreshAverageCount: number;
+
+  refreshRequestPrediction: number;
 }
 
 export const CgpaCalculatorContext = createContext<ContextValueType>(
@@ -22,9 +25,17 @@ export const CgpaCalculatorContext = createContext<ContextValueType>(
 export const CgpaCalculatorProvider = (
   props: PropsWithChildren<any>
 ): JSX.Element => {
+  // private states
   const [sgpaList, setSgpaList] = useState<SgpaListType>([]);
+  const [predictions, setPredictions] = useState<Record<
+    string,
+    number
+  > | null>();
 
+  // public states
   const [refreshAverageCount, setRefreshAverageCount] = useState<number>(0);
+  const [refreshRequestPrediction, setRefreshRequestPrediction] =
+    useState<number>(0);
 
   const addToAverage = (
     id: string,
@@ -34,8 +45,6 @@ export const CgpaCalculatorProvider = (
 
     noRefreshAverage: boolean = false
   ) => {
-    console.log("request to add to average for: ", id, value, weight, isLocked);
-
     setSgpaList((prevSgpaList) => {
       // add or create entry in sgpa list
       let newSgpaList = [...prevSgpaList];
@@ -63,8 +72,49 @@ export const CgpaCalculatorProvider = (
     if (!noRefreshAverage) setRefreshAverageCount((prev) => prev + 1);
   };
 
+  // calculate predictions
+  // and request refresh of predictions
+  const calculateAndRefreshPredictions = (desiredResult: number) => {
+    let newPredictions: Record<string, number> = {};
+
+    // x = ((goal * total_credits) - ab_tak_ka_weights_x_value) / remaing_weights_ka_sum
+    let totalCredits = 0;
+    let abTakKaWeightsXValue = 0;
+    let remainingWeightsKaSum = 0;
+
+    console.log("sgpaList: ", sgpaList);
+
+    sgpaList.forEach((sgpa) => {
+      totalCredits += sgpa.weight;
+      if (!sgpa.isLocked) {
+        remainingWeightsKaSum += sgpa.weight;
+      } else {
+        abTakKaWeightsXValue += sgpa.weight * sgpa.value;
+      }
+    });
+
+    console.log(totalCredits, abTakKaWeightsXValue, remainingWeightsKaSum);
+
+    let x =
+      (desiredResult * totalCredits - abTakKaWeightsXValue) /
+      remainingWeightsKaSum;
+
+    sgpaList.forEach((sgpa) => {
+      if (!sgpa.isLocked) {
+        newPredictions[sgpa.id] = round(x, 2);
+      }
+    });
+
+    setPredictions(newPredictions);
+    setRefreshRequestPrediction((prev) => prev + 1);
+  };
+
   const getPredictionFor = (id: string) => {
-    return 0;
+    if (predictions && id in predictions) {
+      return predictions[id];
+    } else {
+      return -1;
+    }
   };
 
   const calculateCurrentAverage = () => {
@@ -84,8 +134,10 @@ export const CgpaCalculatorProvider = (
         addToAverage,
         getPredictionFor,
         calculateCurrentAverage,
+        calculateAndRefreshPredictions,
 
         refreshAverageCount,
+        refreshRequestPrediction,
       }}
     >
       {props.children}

@@ -14,7 +14,8 @@ type Props = {
 
 const SgpaContainer = ({ id, title, weightage }: Props) => {
   const theme = useTheme();
-  const { addToAverage } = useContext(CgpaCalculatorContext);
+  const { addToAverage, refreshRequestPrediction, getPredictionFor } =
+    useContext(CgpaCalculatorContext);
 
   const [value, setValue] = useState<string>("9.0");
   const [lockedState, setLockedState] = useState(false);
@@ -23,12 +24,19 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
     addToAverage(id, parseFloat(value), weightage, lockedState);
   }, [value]);
 
+  useEffect(() => {
+    const predictedValue = getPredictionFor(id);
+    if (predictedValue !== -1) {
+      setValue(predictedValue.toString());
+    }
+  }, [refreshRequestPrediction]);
+
   const onChangeLockState = (checked: boolean) => {
     setLockedState(checked);
 
     // add to average preventing refresh of cgpa display
     // this is to just send the updarted lock state to the context
-    addToAverage(id, parseFloat(value), weightage, lockedState, true);
+    addToAverage(id, parseFloat(value), weightage, checked, true);
   };
 
   const onChangeSlider = (
