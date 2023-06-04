@@ -10,6 +10,7 @@ type Props = {
   weightage: number;
 };
 
+// todo(priority): save data to local storage
 // todo(suggession): minimise container when locked to save space
 
 const SgpaContainer = ({ id, title, weightage }: Props) => {

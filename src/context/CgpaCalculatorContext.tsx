@@ -11,9 +11,11 @@ interface ContextValueType {
   ) => void;
   getPredictionFor: (id: string) => number; // should be called after calculatePredictions
   calculateCurrentAverage: () => number;
+  calculateCurrentAverageForLocked: () => number;
   calculateAndRefreshPredictions: (desiredResult: number) => void;
 
   refreshAverageCount: number;
+  refreshLockedAverageCount: number;
 
   refreshRequestPrediction: number;
 }
@@ -34,6 +36,8 @@ export const CgpaCalculatorProvider = (
 
   // public states
   const [refreshAverageCount, setRefreshAverageCount] = useState<number>(0);
+  const [refreshLockedAverageCount, setRefreshLockedAverageCount] =
+    useState<number>(0);
   const [refreshRequestPrediction, setRefreshRequestPrediction] =
     useState<number>(0);
 
@@ -69,7 +73,12 @@ export const CgpaCalculatorProvider = (
       return newSgpaList;
     });
 
-    if (!noRefreshAverage) setRefreshAverageCount((prev) => prev + 1);
+    if (noRefreshAverage) {
+      setRefreshLockedAverageCount((prev) => prev + 1);
+    } else {
+      setRefreshAverageCount((prev) => prev + 1);
+      setRefreshLockedAverageCount((prev) => prev + 1);
+    }
   };
 
   // calculate predictions
@@ -82,8 +91,6 @@ export const CgpaCalculatorProvider = (
     let abTakKaWeightsXValue = 0;
     let remainingWeightsKaSum = 0;
 
-    console.log("sgpaList: ", sgpaList);
-
     sgpaList.forEach((sgpa) => {
       totalCredits += sgpa.weight;
       if (!sgpa.isLocked) {
@@ -92,8 +99,6 @@ export const CgpaCalculatorProvider = (
         abTakKaWeightsXValue += sgpa.weight * sgpa.value;
       }
     });
-
-    console.log(totalCredits, abTakKaWeightsXValue, remainingWeightsKaSum);
 
     let x =
       (desiredResult * totalCredits - abTakKaWeightsXValue) /
@@ -128,15 +133,29 @@ export const CgpaCalculatorProvider = (
     return round(round(totalValue, 2) / totalWeight, 2);
   };
 
+  const calculateCurrentAverageForLocked = () => {
+    let totalWeight = 0;
+    let totalValue = 0;
+    sgpaList.forEach((sgpa) => {
+      if (sgpa.isLocked) {
+        totalWeight += sgpa.weight;
+        totalValue += sgpa.value * sgpa.weight;
+      }
+    });
+    return round(totalValue / totalWeight, 2) || 0;
+  };
+
   return (
     <CgpaCalculatorContext.Provider
       value={{
         addToAverage,
         getPredictionFor,
         calculateCurrentAverage,
+        calculateCurrentAverageForLocked,
         calculateAndRefreshPredictions,
 
         refreshAverageCount,
+        refreshLockedAverageCount,
         refreshRequestPrediction,
       }}
     >

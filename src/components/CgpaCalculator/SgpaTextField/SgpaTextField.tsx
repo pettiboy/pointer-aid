@@ -40,7 +40,6 @@ const SgpaTextField = ({
     checkErrors(Number(parentValue));
 
     if (value !== parentValue) {
-      console.log("setting value");
       setValue(parentValue);
     }
   }, [inputProps.value]);
@@ -67,9 +66,6 @@ const SgpaTextField = ({
   const handleChange = (e: OnChangeEvent) => {
     const rawValue = e.target.value;
     const changedNum = parseFloat(rawValue);
-
-    console.log("changedNum", changedNum);
-    console.log("rawValue", rawValue, rawValue.includes("."));
 
     if (rawValue.includes(".") === true) {
       setValue(rawValue);

@@ -59,7 +59,7 @@ const CgpaCalculator = (props: Props) => {
             }}
           >
             {calculatorData.map((data) => (
-              <Grid xs={12} sm={6} md={4} lg={4} xl={4}>
+              <Grid key={data.semesterId} xs={12} sm={6} md={4} lg={4} xl={4}>
                 <SgpaContainer
                   id={data.semesterId}
                   title={data.semesterName}

@@ -17,13 +17,17 @@ const CgpaDisplay = (props: Props) => {
 
   const {
     calculateCurrentAverage,
+    calculateCurrentAverageForLocked,
     refreshAverageCount,
+    refreshLockedAverageCount,
     calculateAndRefreshPredictions,
   } = useContext(CgpaCalculatorContext);
 
   const [currentAverage, setCurrentAverage] = useState<number>(
     calculateCurrentAverage()
   );
+
+  const [currentLockedAverage, setCurrentLockedAverage] = useState<number>(0);
 
   const [cgpaInputState, setCgpaInputState] = useState<string>("");
 
@@ -35,6 +39,12 @@ const CgpaDisplay = (props: Props) => {
     setCurrentAverage(updatedCurrentAverage);
     setCgpaInputState(updatedCurrentAverage.toString());
   }, [refreshAverageCount]);
+
+  useEffect(() => {
+    const updatedCurrentLockedAverage = calculateCurrentAverageForLocked();
+
+    setCurrentLockedAverage(updatedCurrentLockedAverage);
+  }, [refreshLockedAverageCount]);
 
   // input on change function
   const onChangeCgpaInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,6 +144,10 @@ const CgpaDisplay = (props: Props) => {
                 </>
               )}
             </Box>
+
+            <Typography sx={{}} variant="h4">
+              {currentLockedAverage.toString()}
+            </Typography>
           </Box>
         </Paper>
       )}
