@@ -45,7 +45,13 @@ export const TextField: React.FunctionComponent<Props> = ({
   // updates local to reflect changes
   useEffect(() => {
     checkErrors(Number(parentValue));
-    setValue(Number(parentValue));
+
+    if (
+      value.toString() !== "" &&
+      parentValue.toString() !== value.toString()
+    ) {
+      setValue(parentValue);
+    }
   }, [inputProps]);
 
   // sets error boolean based on error text
