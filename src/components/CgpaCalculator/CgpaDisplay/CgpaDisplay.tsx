@@ -94,16 +94,16 @@ const CgpaDisplay = (props: Props) => {
                 alignItems: "center",
               }}
             >
-              <Typography
+              {/* <Typography
                 variant={showEqualizer && width < 600 ? "h5" : "h4"}
                 sx={{ mr: spacingM }}
               >
                 CGPA:
-              </Typography>
+              </Typography> */}
 
               <Box>
                 {showEqualizer && (
-                  <Typography variant="subtitle2">Target</Typography>
+                  <Typography variant="subtitle2">Target CGPA</Typography>
                 )}
                 <TextField
                   value={cgpaInputState}

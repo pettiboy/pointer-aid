@@ -5,6 +5,7 @@ import {
   useTheme,
   TextField as MUITextField,
 } from "@mui/material";
+import useWindowDimensions from "../../../hooks/useWindowDimentions";
 
 type Props = {
   label?: string;
@@ -23,6 +24,8 @@ const SgpaTextField = ({
   disabled = false,
 }: Props) => {
   const theme = useTheme();
+  const { width } = useWindowDimensions();
+  const isSmallDevice = width < 600;
 
   const { value: parentValue } = inputProps;
   const [value, setValue] = useState<number | string>(Number(parentValue));
@@ -118,6 +121,24 @@ const SgpaTextField = ({
               onChangeCallback("0");
             }
           },
+
+          style: isSmallDevice
+            ? {
+                padding: 6,
+              }
+            : {},
+        }}
+        InputProps={{
+          sx:
+            label === "SGPA"
+              ? {
+                  borderBottomRightRadius: 0,
+                  borderTopRightRadius: 0,
+                }
+              : {
+                  borderBottomLeftRadius: 0,
+                  borderTopLeftRadius: 0,
+                },
         }}
       />
       <Typography sx={{ color: theme.palette.error.main }} variant="subtitle2">

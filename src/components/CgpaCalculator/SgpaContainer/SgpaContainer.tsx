@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import LockSwitch from "../../LockSwitch/LockSwitch";
+import useWindowDimensions from "../../../hooks/useWindowDimentions";
 
 type Props = {
   id: string;
@@ -15,6 +16,9 @@ type Props = {
 
 const SgpaContainer = ({ id, title, weightage }: Props) => {
   const theme = useTheme();
+  const { width } = useWindowDimensions();
+  const isSmallDevice = width < 600;
+
   const { addToAverage, refreshRequestPrediction, getPredictionFor } =
     useContext(CgpaCalculatorContext);
 
@@ -50,7 +54,7 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
 
   return (
     <Paper
-      className="pointer-paper-container"
+      className="sgpa-paper-container"
       sx={
         lockedState ? { border: "2px solid " + theme.palette.primary.main } : {}
       }
@@ -60,7 +64,7 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          mb: 2,
+          mb: isSmallDevice ? 1 : 2,
         }}
       >
         <Typography variant="h4">{title}</Typography>
@@ -89,11 +93,11 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
           disabled={true}
         />
       </Box>
-      <Box sx={{ mt: 2 }}>
-        <Typography>
-          SGPA: {parseFloat(value)}
-          {/* todo: add an info icon showing what is SGPA */}
-        </Typography>
+      <Box sx={{ mt: isSmallDevice ? 1 : 2 }}>
+        {/* <Typography> */}
+        {/* SGPA: {parseFloat(value)} */}
+        {/* todo: add an info icon showing what is SGPA */}
+        {/* </Typography> */}
         <Slider
           min={40}
           max={100}

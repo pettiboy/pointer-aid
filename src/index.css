@@ -36,3 +36,19 @@ code {
   flex-direction: column;
   display: flex;
 }
+
+.sgpa-paper-container {
+  padding: 1rem;
+  padding-bottom: 0.2rem;
+  height: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+
+/* for larger screens media query */
+@media (min-width: 768px) {
+  .sgpa-paper-container {
+    padding: 30px;
+  }
+}
