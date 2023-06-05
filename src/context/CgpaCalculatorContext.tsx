@@ -13,10 +13,10 @@ interface ContextValueType {
   calculateCurrentAverage: () => number;
   calculateCurrentAverageForLocked: () => number;
   calculateAndRefreshPredictions: (desiredResult: number) => void;
+  calculateLockedSems: () => number;
 
   refreshAverageCount: number;
   refreshLockedAverageCount: number;
-
   refreshRequestPrediction: number;
 }
 
@@ -40,6 +40,7 @@ export const CgpaCalculatorProvider = (
     useState<number>(0);
   const [refreshRequestPrediction, setRefreshRequestPrediction] =
     useState<number>(0);
+  const [refreshLockedSemCount, setRefreshLockedSemCount] = useState<number>(0);
 
   const addToAverage = (
     id: string,
@@ -144,6 +145,15 @@ export const CgpaCalculatorProvider = (
     });
     return round(totalValue / totalWeight, 2) || 0;
   };
+  const calculateLockedSems = () => {
+    let totalSems = 0;
+    sgpaList.forEach((sgpa) => {
+      if (sgpa.isLocked) {
+        totalSems += 1;
+      }
+    });
+    return totalSems;
+  };
 
   return (
     <CgpaCalculatorContext.Provider
@@ -153,6 +163,7 @@ export const CgpaCalculatorProvider = (
         calculateCurrentAverage,
         calculateCurrentAverageForLocked,
         calculateAndRefreshPredictions,
+        calculateLockedSems,
 
         refreshAverageCount,
         refreshLockedAverageCount,

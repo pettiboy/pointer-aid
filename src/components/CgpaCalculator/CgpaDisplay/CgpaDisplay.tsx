@@ -15,6 +15,7 @@ const CgpaDisplay = (props: Props) => {
   const {
     calculateCurrentAverage,
     calculateCurrentAverageForLocked,
+    calculateLockedSems,
     refreshAverageCount,
     refreshLockedAverageCount,
   } = useContext(CgpaCalculatorContext);
@@ -59,29 +60,29 @@ const CgpaDisplay = (props: Props) => {
               alignItems: "center",
             }}
           >
-            {/* container for overall CGPA (all semesters considered) */}
-            <Box
-              sx={{
-                flex: 1,
-              }}
-            >
-              <Typography>Overall CGPA</Typography>
-              <Typography sx={{}} variant="h4">
-                {currentAverage}
-              </Typography>
-            </Box>
-
             {/* container for current CGPA (only locked semesters considered) */}
             <Box
               sx={{
                 flex: 1,
-                borderLeft: "1px solid " + theme.palette.text.primary,
-                pl: 2,
+                borderRight: "1px solid " + theme.palette.primary.main,
               }}
             >
-              <Typography>Current CGPA</Typography>
+              <Typography>CGPA {calculateLockedSems()} sems</Typography>
               <Typography sx={{}} variant="h4">
                 {currentLockedAverage.toString()}
+              </Typography>
+            </Box>
+            {/* container for overall CGPA (all semesters considered) */}
+            <Box
+              sx={{
+                flex: 1,
+                textAlign: "right",
+                pr: 2,
+              }}
+            >
+              <Typography>Total CGPA</Typography>
+              <Typography sx={{}} variant="h4">
+                {currentAverage}
               </Typography>
             </Box>
           </Box>

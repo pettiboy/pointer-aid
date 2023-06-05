@@ -76,9 +76,6 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   return (
     <Paper
       className="sgpa-paper-container"
-      sx={
-        lockedState ? { border: "2px solid " + theme.palette.primary.main } : {}
-      }
     >
       <Box
         sx={{
