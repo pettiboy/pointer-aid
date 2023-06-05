@@ -4,6 +4,7 @@ import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import LockSwitch from "../../LockSwitch/LockSwitch";
 import useWindowDimensions from "../../../hooks/useWindowDimentions";
+import { useParams } from "react-router-dom";
 
 type Props = {
   id: string;
@@ -11,10 +12,20 @@ type Props = {
   weightage: number;
 };
 
+const fallbackDefaultValues: GpaLocalStorageType = {
+  value: "9.0",
+  fix: false,
+};
+
 // todo(priority): save data to local storage
 // todo(suggession): minimise container when locked to save space
 
 const SgpaContainer = ({ id, title, weightage }: Props) => {
+  const { college, branch } = useParams();
+  const defaultValues: GpaLocalStorageType = JSON.parse(
+    localStorage.getItem(`${college}_${branch}_${id}`) ||
+      JSON.stringify(fallbackDefaultValues)
+  );
   const theme = useTheme();
   const { width } = useWindowDimensions();
   const isSmallDevice = width < 600;
@@ -22,8 +33,8 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   const { addToAverage, refreshRequestPrediction, getPredictionFor } =
     useContext(CgpaCalculatorContext);
 
-  const [value, setValue] = useState<string>("9.0");
-  const [lockedState, setLockedState] = useState(false);
+  const [value, setValue] = useState<string>(defaultValues.value);
+  const [lockedState, setLockedState] = useState(defaultValues.fix);
 
   useEffect(() => {
     addToAverage(id, parseFloat(value), weightage, lockedState);
@@ -51,6 +62,16 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   ) => {
     setValue(((value as number) / 10).toString());
   };
+
+  useEffect(() => {
+    localStorage.setItem(
+      `${college}_${branch}_${id}`,
+      JSON.stringify({
+        value: value,
+        fix: lockedState,
+      })
+    );
+  }, [value, lockedState]);
 
   return (
     <Paper
