@@ -11,6 +11,7 @@ import SgpaContainer from "../../components/CgpaCalculator/SgpaContainer/SgpaCon
 import CgpaDisplay from "../../components/CgpaCalculator/CgpaDisplay/CgpaDisplay";
 import Credits from "../../components/Credits/Credits";
 import cgpaData from "../../data/cgpaData";
+import CgpaTarget from "../../components/CgpaCalculator/CgpaTarget/CgpaTarget";
 
 type Props = {};
 
@@ -49,11 +50,15 @@ const CgpaCalculator = (props: Props) => {
               Pointer Aid
             </title>
           </Helmet>
-          <Box sx={{ mb: 7 }}></Box> {/* offset navbar */}
+          <Box sx={{ mb: 5 }}></Box> {/* offset navbar */}
           {/* code starts here */}
+          <CgpaTarget />
           <Grid
             container
             spacing={4}
+            sx={{
+              mt: 19,
+            }}
             style={{
               alignItems: "stretch",
             }}
