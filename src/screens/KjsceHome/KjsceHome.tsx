@@ -35,25 +35,64 @@ const KjsceHome = (props: Props) => {
   useEffect(() => {
     setBranchLoadingStatus("loading");
 
-    setAllBranches(getAllBranches());
+    const branches = getAllBranches();
+    setAllBranches(branches);
 
-    setOpenBranches(true);
+    // if branch in localStorage is present in `branches`
+    // then set it as selectedBranch and open semesters
+    // else get user to select branch from dropdown
+
+    const selectedBranchFromLocalStorage =
+      localStorage.getItem("selectedBranch");
+
+    if (selectedBranchFromLocalStorage) {
+      if (branches.includes(selectedBranchFromLocalStorage)) {
+        setSelectedBranch(selectedBranchFromLocalStorage);
+        setOpenSemesters(true);
+      }
+    } else {
+      setOpenBranches(true);
+    }
+
     setBranchLoadingStatus("loaded");
   }, []);
 
   useEffect(() => {
+    console.log("selectedBranch changed", selectedBranch);
+
     setSelectedSemester("");
     if (selectedBranch.length > 0) {
       setSemesterLoadingStatus("loading");
 
-      setAllSemesters(getAllSemesters(selectedBranch));
+      const semesters = getAllSemesters(selectedBranch);
+      setAllSemesters(semesters);
 
-      setOpenSemesters(true);
+      // if semester in localStorage is present in `semesters`
+      // then set it as selectedSemester and close semesters dropdown
+      // else get user to select semester from dropdown
+
+      const selectedSemesterFromLocalStorage =
+        localStorage.getItem("selectedSemester");
+
+      if (selectedSemesterFromLocalStorage) {
+        if (semesters.includes(selectedSemesterFromLocalStorage)) {
+          setSelectedSemester(selectedSemesterFromLocalStorage);
+          setOpenSemesters(false);
+        }
+      } else {
+        setOpenSemesters(true);
+      }
+
       setSemesterLoadingStatus("loaded");
     }
   }, [selectedBranch]);
 
   const onPressOpenCalculator = () => {
+    if (selectedBranch.length < 1 || selectedSemester.length < 1) return;
+
+    localStorage.setItem("selectedBranch", selectedBranch);
+    localStorage.setItem("selectedSemester", selectedSemester);
+
     navigate(
       `/kjsce/${selectedBranch.toLowerCase()}/sem${
         selectedSemester.split(" ")[1]

@@ -41,6 +41,7 @@ declare global {
   interface Pointer012LocalStorageType extends PointerTwPractical {}
   interface Pointer011LocalStorageType extends PointerTwPractical {}
   interface Pointer010LocalStorageType extends PointerTwPractical {}
+  interface GpaLocalStorageType extends SGPA {}
 
   interface CgpaCalculatorStructureType {
     semesterId: string;
@@ -101,6 +102,10 @@ interface PointerTwPractical {
 interface PointerTw {
   tw: number;
   fallback?: boolean;
+}
+interface SGPA {
+  value: string;
+  fix: boolean;
 }
 
 export {};
