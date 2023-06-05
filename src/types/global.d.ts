@@ -19,7 +19,7 @@ declare global {
     subjectCode: string;
     creditDistribution: string;
     maxMarks?: 50 | 75 | 100;
-    structureType?:"b"
+    structureType?: "b";
   };
 
   interface RouterLocation extends Path {
@@ -41,6 +41,12 @@ declare global {
   interface Pointer012LocalStorageType extends PointerTwPractical {}
   interface Pointer011LocalStorageType extends PointerTwPractical {}
   interface Pointer010LocalStorageType extends PointerTwPractical {}
+
+  interface CgpaCalculatorStructureType {
+    semesterId: string;
+    semesterName: string;
+    maxCredits: number;
+  }
 
   /**
    * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler

@@ -1,4 +1,5 @@
 import Calculator from "../screens/Calculator/Calculator";
+import CgpaCalculator from "../screens/CgpaCalculator/CgpaCalculator";
 import KjsceHome from "../screens/KjsceHome/KjsceHome";
 
 const router = [
@@ -17,6 +18,12 @@ const router = [
   {
     path: "/:college/:branch/:semester/calculator",
     element: <Calculator />,
+  },
+
+  // cgpa calculator
+  {
+    path: "/:college/:branch/cgpa",
+    element: <CgpaCalculator />,
   },
 ];
 
