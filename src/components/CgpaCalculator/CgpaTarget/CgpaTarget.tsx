@@ -34,9 +34,9 @@ const CgpaTarget = (props: Props) => {
           p: 1.5,
           position: "fixed",
           zIndex: 1,
-          right: 10,
-          left: 10,
-          mx: 2,
+          right: 8,
+          left: 8,
+          mx: 1,
         }}
       >
         <Box>
@@ -45,7 +45,7 @@ const CgpaTarget = (props: Props) => {
           <Box
             sx={{
               display: "flex",
-              // alignItems: "center",
+              alignItems: "center",
               justifyContent: "flex-start",
             }}
           >

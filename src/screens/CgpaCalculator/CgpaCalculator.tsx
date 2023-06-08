@@ -57,7 +57,7 @@ const CgpaCalculator = (props: Props) => {
             container
             spacing={4}
             sx={{
-              mt: 19,
+              mt: 17,
             }}
             style={{
               alignItems: "stretch",

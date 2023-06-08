@@ -2,6 +2,7 @@ import { Box, Paper, Typography, useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
+import LockIcon from "@mui/icons-material/Lock";
 
 type Props = {};
 
@@ -67,7 +68,15 @@ const CgpaDisplay = (props: Props) => {
                 borderRight: "1px solid " + theme.palette.primary.main,
               }}
             >
-              <Typography>CGPA {calculateLockedSems()} sems</Typography>
+              <Box sx={{ display: "flex" }}>
+                <Typography>
+                  CGPA {calculateLockedSems()} sems {"("}
+                </Typography>
+                <LockIcon
+                  sx={{ width: 15, color: theme.palette.primary.main }}
+                />
+                <Typography>{")"}</Typography>
+              </Box>
               <Typography sx={{}} variant="h4">
                 {currentLockedAverage.toString()}
               </Typography>
@@ -82,7 +91,7 @@ const CgpaDisplay = (props: Props) => {
             >
               <Typography>Total CGPA</Typography>
               <Typography sx={{}} variant="h4">
-                {currentAverage}
+                {currentAverage.toString()}
               </Typography>
             </Box>
           </Box>

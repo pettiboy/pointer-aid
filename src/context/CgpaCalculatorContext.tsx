@@ -40,7 +40,6 @@ export const CgpaCalculatorProvider = (
     useState<number>(0);
   const [refreshRequestPrediction, setRefreshRequestPrediction] =
     useState<number>(0);
-  const [refreshLockedSemCount, setRefreshLockedSemCount] = useState<number>(0);
 
   const addToAverage = (
     id: string,
