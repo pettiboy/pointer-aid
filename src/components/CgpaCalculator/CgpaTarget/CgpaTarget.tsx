@@ -29,11 +29,26 @@ const CgpaTarget = (props: Props) => {
 
   return (
     <HideOnScroll>
-      <Paper sx={{ p: 2, position: "fixed", zIndex: 1, right: 10, left: 10 }}>
+      <Paper
+        sx={{
+          p: 1.5,
+          position: "fixed",
+          zIndex: 1,
+          right: 10,
+          left: 10,
+          mx: 2,
+        }}
+      >
         <Box>
           <Typography variant="subtitle2">Target CGPA</Typography>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              // alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
             <TextField
               value={cgpaInputState}
               onChange={onChangeCgpaInput}
