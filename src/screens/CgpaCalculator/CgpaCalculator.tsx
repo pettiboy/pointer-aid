@@ -11,7 +11,7 @@ import SgpaContainer from "../../components/CgpaCalculator/SgpaContainer/SgpaCon
 import CgpaDisplay from "../../components/CgpaCalculator/CgpaDisplay/CgpaDisplay";
 import Credits from "../../components/Credits/Credits";
 import cgpaData from "../../data/cgpaData";
-import CgpaTarget from "../../components/CgpaCalculator/CgpaTarget/CgpaTarget";
+import CgpaTargetContainer from "../../components/CgpaCalculator/CgpaTarget/containers/CgpaTargetContainer";
 
 type Props = {};
 
@@ -52,12 +52,11 @@ const CgpaCalculator = (props: Props) => {
           </Helmet>
           <Box sx={{ mb: 5 }}></Box> {/* offset navbar */}
           {/* code starts here */}
-          <CgpaTarget />
           <Grid
             container
             spacing={4}
             sx={{
-              mt: 17,
+              mt: 6,
             }}
             style={{
               alignItems: "stretch",
@@ -77,6 +76,10 @@ const CgpaCalculator = (props: Props) => {
         </>
       )}
 
+      {/* only active for smaller screens */}
+      <CgpaTargetContainer />
+
+      {/* also handles cgpa target for large screens */}
       <CgpaDisplay />
 
       {loadingStatus === "no_data" && (

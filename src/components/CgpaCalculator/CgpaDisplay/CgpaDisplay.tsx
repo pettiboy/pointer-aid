@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import LockIcon from "@mui/icons-material/Lock";
+import useWindowDimensions from "../../../hooks/useWindowDimentions";
+import CgpaTarget from "../CgpaTarget/CgpaTarget";
 
 type Props = {};
 
@@ -11,6 +13,7 @@ type Props = {};
 
 const CgpaDisplay = (props: Props) => {
   const isKeyboardOpen = useDetectKeyboardOpen();
+  const { width } = useWindowDimensions();
   const theme = useTheme();
 
   const {
@@ -41,7 +44,7 @@ const CgpaDisplay = (props: Props) => {
 
   return (
     <>
-      {!isKeyboardOpen && (
+      {(!isKeyboardOpen || width < 700) && (
         <Paper
           sx={{
             position: "fixed",
@@ -65,7 +68,10 @@ const CgpaDisplay = (props: Props) => {
             <Box
               sx={{
                 flex: 1,
-                borderRight: "1px solid " + theme.palette.primary.main,
+                borderRight:
+                  width < 700
+                    ? "1px solid " + theme.palette.primary.main
+                    : "none",
               }}
             >
               <Box sx={{ display: "flex" }}>
@@ -81,6 +87,19 @@ const CgpaDisplay = (props: Props) => {
                 {currentLockedAverage.toString()}
               </Typography>
             </Box>
+
+            {width > 700 && (
+              <Box
+                sx={{
+                  borderLeft: "1px solid " + theme.palette.primary.main,
+                  borderRight: "1px solid " + theme.palette.primary.main,
+                  px: width > 900 ? 10 : 2,
+                }}
+              >
+                <CgpaTarget />
+              </Box>
+            )}
+
             {/* container for overall CGPA (all semesters considered) */}
             <Box
               sx={{

@@ -1,13 +1,15 @@
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { Box, Typography, TextField, Button } from "@mui/material";
+import React, { useContext, useState } from "react";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import round from "../../../utils/round";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
-import HideOnScroll from "../../utils/HideOnScroll/HideOnScroll";
+import useWindowDimensions from "../../../hooks/useWindowDimentions";
 
 type Props = {};
 
 const CgpaTarget = (props: Props) => {
+  const { width } = useWindowDimensions();
+
   const [cgpaInputState, setCgpaInputState] = useState<string>("");
 
   const { calculateAndRefreshPredictions } = useContext(CgpaCalculatorContext);
@@ -28,46 +30,36 @@ const CgpaTarget = (props: Props) => {
   };
 
   return (
-    <HideOnScroll>
-      <Paper
+    <Box>
+      <Typography variant="subtitle2">Target CGPA</Typography>
+
+      <Box
         sx={{
-          p: 1.5,
-          position: "fixed",
-          zIndex: 1,
-          right: 8,
-          left: 8,
-          mx: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
         }}
       >
-        <Box>
-          <Typography variant="subtitle2">Target CGPA</Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <TextField
-              value={cgpaInputState}
-              onChange={onChangeCgpaInput}
-              inputProps={{
-                inputMode: "decimal",
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={onClickCalculate}
-              endIcon={<SyncAltIcon />}
-              sx={{ ml: 3 }}
-            >
-              Predict
-            </Button>
-          </Box>
-        </Box>
-      </Paper>
-    </HideOnScroll>
+        <TextField
+          value={cgpaInputState}
+          onChange={onChangeCgpaInput}
+          inputProps={{
+            inputMode: "decimal",
+            style: {
+              padding: width > 800 ? "default" : 10,
+            },
+          }}
+        />
+        <Button
+          variant="contained"
+          onClick={onClickCalculate}
+          endIcon={<SyncAltIcon />}
+          sx={{ ml: 3 }}
+        >
+          Predict
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
