@@ -71,7 +71,7 @@ const CgpaCalculator = (props: Props) => {
               </Grid>
             ))}
           </Grid>
-          <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
+          <Credits styles={{ textAlign: "center", mb: 20, mt: 3 }} />
         </>
       )}
 

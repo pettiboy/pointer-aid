@@ -46,13 +46,13 @@ const CgpaDisplay = (props: Props) => {
           is not in focus */}
       <Paper
         sx={{
+          pb: 2,
+          pt: 1,
+
           position: "fixed",
           bottom: 0,
           left: 0,
           width: "100vw",
-          px: 2,
-          pb: 2,
-          pt: 1,
           zIndex: 9,
         }}
       >
@@ -62,11 +62,13 @@ const CgpaDisplay = (props: Props) => {
           <Box
             sx={{
               pb: 2,
+              px: 2,
+
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               borderBottom: !isKeyboardOpen
-                ? "1px solid " + theme.palette.primary.main
+                ? "1px solid " + theme.palette.text.disabled
                 : "none",
             }}
           >
@@ -82,6 +84,8 @@ const CgpaDisplay = (props: Props) => {
           <Box
             sx={{
               pt: 2,
+              px: 2,
+
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
