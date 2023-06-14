@@ -11,7 +11,6 @@ import SgpaContainer from "../../components/CgpaCalculator/SgpaContainer/SgpaCon
 import CgpaDisplay from "../../components/CgpaCalculator/CgpaDisplay/CgpaDisplay";
 import Credits from "../../components/Credits/Credits";
 import cgpaData from "../../data/cgpaData";
-import CgpaTargetContainer from "../../components/CgpaCalculator/CgpaTarget/containers/CgpaTargetContainer";
 
 type Props = {};
 
@@ -76,10 +75,7 @@ const CgpaCalculator = (props: Props) => {
         </>
       )}
 
-      {/* only active for smaller screens */}
-      <CgpaTargetContainer />
-
-      {/* also handles cgpa target for large screens */}
+      {/* also handles cgpa target input field */}
       <CgpaDisplay />
 
       {loadingStatus === "no_data" && (

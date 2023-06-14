@@ -8,9 +8,6 @@ import CgpaTarget from "../CgpaTarget/CgpaTarget";
 
 type Props = {};
 
-// Todo(responsiveness): for large screens make display of CGPA
-//      label and value side by side for both containers
-
 const CgpaDisplay = (props: Props) => {
   const isKeyboardOpen = useDetectKeyboardOpen();
   const { width } = useWindowDimensions();
@@ -44,20 +41,47 @@ const CgpaDisplay = (props: Props) => {
 
   return (
     <>
-      {(!isKeyboardOpen || width < 700) && (
-        <Paper
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            width: "100vw",
-            px: 2,
-            py: 2,
-            zIndex: 9,
-          }}
-        >
+      {/* the complete bottom container should be 
+          if keyboard is open AND cgpa target input 
+          is not in focus */}
+      <Paper
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100vw",
+          px: 2,
+          pb: 2,
+          pt: 1,
+          zIndex: 9,
+        }}
+      >
+        {/* cgpa target for smaller screens
+              stacks on top of display section */}
+        {width <= 700 && (
           <Box
             sx={{
+              pb: 2,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderBottom: !isKeyboardOpen
+                ? "1px solid " + theme.palette.primary.main
+                : "none",
+            }}
+          >
+            <CgpaTarget />
+          </Box>
+        )}
+
+        {/* for smaller screens hide the bottom 
+          display of CGPA's when keyboard is open
+          - checking width ensures that tablets are not
+          affected by this assumption */}
+        {(!isKeyboardOpen || width > 700) && (
+          <Box
+            sx={{
+              pt: 2,
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -68,6 +92,9 @@ const CgpaDisplay = (props: Props) => {
             <Box
               sx={{
                 flex: 1,
+                // right border only requuired in larger screens
+                // as there is no target container in between
+                // handling the borders
                 borderRight:
                   width < 700
                     ? "1px solid " + theme.palette.primary.main
@@ -88,11 +115,14 @@ const CgpaDisplay = (props: Props) => {
               </Typography>
             </Box>
 
+            {/* target container comes in between `current 
+                CGPA` and `total CGPA` for large screens */}
             {width > 700 && (
               <Box
                 sx={{
                   borderLeft: "1px solid " + theme.palette.primary.main,
                   borderRight: "1px solid " + theme.palette.primary.main,
+                  // padding increased for very large screens
                   px: width > 900 ? 10 : 2,
                 }}
               >
@@ -114,8 +144,8 @@ const CgpaDisplay = (props: Props) => {
               </Typography>
             </Box>
           </Box>
-        </Paper>
-      )}
+        )}
+      </Paper>
     </>
   );
 };

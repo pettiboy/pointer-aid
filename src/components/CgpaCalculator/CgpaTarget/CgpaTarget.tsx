@@ -46,7 +46,7 @@ const CgpaTarget = (props: Props) => {
           inputProps={{
             inputMode: "decimal",
             style: {
-              padding: width > 800 ? "default" : 10,
+              padding: width > 800 ? "default" : 8,
             },
           }}
         />
@@ -54,7 +54,7 @@ const CgpaTarget = (props: Props) => {
           variant="contained"
           onClick={onClickCalculate}
           endIcon={<SyncAltIcon />}
-          sx={{ ml: 3 }}
+          sx={{ ml: 3, minWidth: 120 }}
         >
           Predict
         </Button>

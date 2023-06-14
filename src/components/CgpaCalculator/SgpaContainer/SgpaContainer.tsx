@@ -1,4 +1,4 @@
-import { Paper, Typography, Box, Slider, useTheme } from "@mui/material";
+import { Paper, Typography, Box, Slider } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
@@ -17,7 +17,6 @@ const fallbackDefaultValues: GpaLocalStorageType = {
   fix: false,
 };
 
-// todo(priority): save data to local storage
 // todo(suggession): minimise container when locked to save space
 
 const SgpaContainer = ({ id, title, weightage }: Props) => {
@@ -26,7 +25,7 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
     localStorage.getItem(`${college}_${branch}_${id}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
-  const theme = useTheme();
+
   const { width } = useWindowDimensions();
   const isSmallDevice = width < 600;
 
@@ -74,9 +73,7 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
   }, [value, lockedState]);
 
   return (
-    <Paper
-      className="sgpa-paper-container"
-    >
+    <Paper className="sgpa-paper-container">
       <Box
         sx={{
           display: "flex",
