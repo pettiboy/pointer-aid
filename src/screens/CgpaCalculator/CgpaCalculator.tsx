@@ -2,7 +2,6 @@ import {
   Box,
   CircularProgress,
   Unstable_Grid2 as Grid,
-  Paper,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -13,8 +12,6 @@ import CgpaDisplay from "../../components/CgpaCalculator/CgpaDisplay/CgpaDisplay
 import Credits from "../../components/Credits/Credits";
 import cgpaData from "../../data/cgpaData";
 import CgpaTargetContainer from "../../components/CgpaCalculator/CgpaTarget/containers/CgpaTargetContainer";
-import CgpaTarget from "../../components/CgpaCalculator/CgpaTarget/CgpaTarget";
-import useWindowDimensions from "../../hooks/useWindowDimentions";
 
 type Props = {};
 
@@ -25,7 +22,6 @@ const CgpaCalculator = (props: Props) => {
     CgpaCalculatorStructureType[] | null
   >(null);
   const [loadingStatus, setLoadingStatus] = useState<StatusType>("loading");
-  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setLoadingStatus("loading");
@@ -66,12 +62,6 @@ const CgpaCalculator = (props: Props) => {
               alignItems: "stretch",
             }}
           >
-            {width < 700 && (
-              <Grid key={1} xs={12} sm={6} md={4} lg={4} xl={4}>
-                <CgpaTargetContainer />
-              </Grid>
-            )}
-
             {calculatorData.map((data) => (
               <Grid key={data.semesterId} xs={12} sm={6} md={4} lg={4} xl={4}>
                 <SgpaContainer
@@ -85,6 +75,9 @@ const CgpaCalculator = (props: Props) => {
           <Credits styles={{ textAlign: "center", mb: 10, mt: 3 }} />
         </>
       )}
+
+      {/* only active for smaller screens */}
+      <CgpaTargetContainer />
 
       {/* also handles cgpa target for large screens */}
       <CgpaDisplay />
