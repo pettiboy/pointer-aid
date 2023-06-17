@@ -12,6 +12,7 @@ import calculatorStructure from "../../data/calculatorStructure";
 import { useNavigate } from "react-router-dom";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import Credits from "../../components/Credits/Credits";
+import cgpaData from "../../data/cgpaData";
 
 type Props = {};
 
@@ -31,6 +32,12 @@ const KjsceHome = (props: Props) => {
   const [selectedSemester, setSelectedSemester] = useState<string>("");
   const [semesterLoadingStatus, setSemesterLoadingStatus] =
     useState<StatusType>("loaded");
+
+  const [openYear, setOpenYear] = useState(false);
+  const [allYears, setAllYears] = useState<string[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [yearLoadingStatus, setYearLoadingStatus] =
+    useState<StatusType>("loading");
 
   useEffect(() => {
     setBranchLoadingStatus("loading");
@@ -55,6 +62,30 @@ const KjsceHome = (props: Props) => {
     }
 
     setBranchLoadingStatus("loaded");
+  }, []);
+
+  useEffect(() => {
+    setYearLoadingStatus("loading");
+
+    const years = getAllYears();
+    setAllYears(years);
+
+    // if year in localStorage is present in `years`
+    // then set it as selectedYear and close year dropdown
+    // else get user to select year from dropdown
+
+    const selectedYearFromLocalStorage = localStorage.getItem("selectedYear");
+
+    if (selectedYearFromLocalStorage) {
+      if (years.includes(selectedYearFromLocalStorage)) {
+        setSelectedYear(selectedYearFromLocalStorage);
+        setOpenYear(false);
+      }
+    } else {
+      setOpenYear(true);
+    }
+
+    setYearLoadingStatus("loaded");
   }, []);
 
   useEffect(() => {
@@ -92,6 +123,7 @@ const KjsceHome = (props: Props) => {
 
     localStorage.setItem("selectedBranch", selectedBranch);
     localStorage.setItem("selectedSemester", selectedSemester);
+    localStorage.setItem("selectedYear", selectedYear);
 
     navigate(
       `/kjsce/${selectedBranch.toLowerCase()}/sem${
@@ -156,6 +188,46 @@ const KjsceHome = (props: Props) => {
     setOpenSemesters(false);
   };
 
+  const onChangeYear = (
+    e: React.SyntheticEvent<Element, Event>,
+    val: string | null
+  ) => {
+    if (!val) return;
+    setOpenYear(false);
+    setSelectedYear(val);
+  };
+  const onOpenYear = () => {
+    setOpenYear(true);
+  };
+  const onCloseYear = () => {
+    setOpenYear(false);
+  };
+  const getAllYears = () => {
+    if (allYears.length < 1) {
+      const years = Object.keys(cgpaData)
+        .map(
+          (key) => `${parseInt(key.split("_")[2]) - 4} - ${key.split("_")[2]}`
+        )
+        .filter((v, i, a) => a.indexOf(v) === i); // ensure unique values
+      return years;
+    } else {
+      return allYears;
+    }
+  };
+  const onPressOpenCGPA = () => {
+    if (selectedBranch.length < 1 || selectedYear.length < 1) return;
+
+    localStorage.setItem("selectedBranch", selectedBranch);
+    localStorage.setItem("selectedSemester", selectedSemester);
+    localStorage.setItem("selectedYear", selectedYear);
+
+    navigate(
+      `/kjsce/${selectedBranch.toLowerCase()}/${
+        selectedYear.split(" - ")[1]
+      }/cgpa`
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -168,8 +240,41 @@ const KjsceHome = (props: Props) => {
     >
       <Box sx={{ minWidth: "50vw" }}>
         <Grid container spacing={2}>
+          {/*Academic Year*/}
+          <Grid item xs={12} md={4}>
+            <Autocomplete
+              fullWidth
+              open={openYear}
+              value={selectedYear}
+              autoSelect
+              onChange={onChangeYear}
+              onOpen={onOpenYear}
+              onClose={onCloseYear}
+              options={allYears}
+              loading={yearLoadingStatus === "loading"}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Graduating Year"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {yearLoadingStatus === "loading" ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                    style: { textTransform: "uppercase" },
+                  }}
+                />
+              )}
+            />
+          </Grid>
+
           {/* branch */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Autocomplete
               fullWidth
               open={openBranches}
@@ -202,7 +307,7 @@ const KjsceHome = (props: Props) => {
           </Grid>
 
           {/* semester */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Autocomplete
               fullWidth
               open={openSemesters}
@@ -235,7 +340,7 @@ const KjsceHome = (props: Props) => {
           </Grid>
 
           {/* button */}
-          <Grid item xs={12}>
+          <Grid item md={6} xs={12}>
             <Button
               disabled={
                 selectedBranch.length === 0 || selectedSemester.length === 0
@@ -245,7 +350,20 @@ const KjsceHome = (props: Props) => {
               size="large"
               fullWidth
             >
-              Open
+              SGPA Calculator
+            </Button>
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <Button
+              disabled={
+                selectedBranch.length === 0 || selectedYear.length === 0
+              }
+              onClick={onPressOpenCGPA}
+              variant="contained"
+              size="large"
+              fullWidth
+            >
+              CGPA Calculator
             </Button>
           </Grid>
         </Grid>
