@@ -22,7 +22,7 @@ const router = [
 
   // cgpa calculator
   {
-    path: "/:college/:branch/cgpa",
+    path: "/:college/:branch/:graduatingYear/cgpa",
     element: <CgpaCalculator />,
   },
 ];

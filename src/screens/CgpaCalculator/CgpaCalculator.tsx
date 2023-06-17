@@ -15,7 +15,7 @@ import cgpaData from "../../data/cgpaData";
 type Props = {};
 
 const CgpaCalculator = (props: Props) => {
-  const { college, branch } = useParams();
+  const { college, branch, graduatingYear } = useParams();
 
   const [calculatorData, setCalculatorData] = useState<
     CgpaCalculatorStructureType[] | null
@@ -25,7 +25,7 @@ const CgpaCalculator = (props: Props) => {
   useEffect(() => {
     setLoadingStatus("loading");
 
-    const givenKey = `${college}_${branch}`;
+    const givenKey = `${college}_${branch}_${graduatingYear}`;
     if (givenKey in cgpaData) {
       // update data for calculator
       setCalculatorData(cgpaData[givenKey]);
