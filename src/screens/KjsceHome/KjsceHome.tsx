@@ -40,6 +40,11 @@ const KjsceHome = (props: Props) => {
   const [yearLoadingStatus, setYearLoadingStatus] =
     useState<StatusType>("loading");
 
+  const [cgpaSupportedBranches, setCgpaSupportedBranches] = useState<string[]>(
+    []
+  );
+  const [shouldCgpaBeDisabled, setShouldCgpaBeDisabled] = useState(false);
+
   useEffect(() => {
     setBranchLoadingStatus("loading");
 
@@ -69,6 +74,9 @@ const KjsceHome = (props: Props) => {
     setYearLoadingStatus("loading");
     const years = getAllYears();
     setAllYears(years);
+
+    const branches = getAllCgpaSupportedBranches();
+    setCgpaSupportedBranches(branches);
 
     // if year in localStorage is present in `years`
     // then set it as selectedYear and close year dropdown
@@ -110,6 +118,14 @@ const KjsceHome = (props: Props) => {
         }
       } else {
         setOpenSemesters(true);
+      }
+
+      // handles `disabled` state for `cgpa calculator` button
+      // if cgpaData supports selectedBranch then enable cgpa calculator button
+      if (cgpaSupportedBranches.includes(selectedBranch.toLowerCase())) {
+        setShouldCgpaBeDisabled(false);
+      } else {
+        setShouldCgpaBeDisabled(true);
       }
 
       setSemesterLoadingStatus("loaded");
@@ -183,12 +199,28 @@ const KjsceHome = (props: Props) => {
     if (!val) return;
     setOpenSemesters(false);
     setSelectedSemester(val);
+    const calculatedYear = semesterToAcademicYear(val);
+    const yearRange = `${calculatedYear} - ${calculatedYear + 4}`;
+    setSelectedYear(yearRange);
   };
   const onOpenSemester = () => {
     setOpenSemesters(true);
   };
   const onCloseSemester = () => {
     setOpenSemesters(false);
+  };
+
+  const getAllYears = () => {
+    if (allYears.length < 1) {
+      const years = Object.keys(cgpaData)
+        .map(
+          (key) => `${parseInt(key.split("_")[2]) - 4} - ${key.split("_")[2]}`
+        )
+        .filter((v, i, a) => a.indexOf(v) === i); // ensure unique values
+      return years;
+    } else {
+      return allYears;
+    }
   };
 
   const onChangeYear = (
@@ -205,18 +237,18 @@ const KjsceHome = (props: Props) => {
   const onCloseYear = () => {
     setOpenYear(false);
   };
-  const getAllYears = () => {
-    if (allYears.length < 1) {
-      const years = Object.keys(cgpaData)
-        .map(
-          (key) => `${parseInt(key.split("_")[2]) - 4} - ${key.split("_")[2]}`
-        )
+
+  const getAllCgpaSupportedBranches = () => {
+    if (cgpaSupportedBranches.length < 1) {
+      const supportedBranches = Object.keys(cgpaData)
+        .map((key) => key.split("_")[1])
         .filter((v, i, a) => a.indexOf(v) === i); // ensure unique values
-      return years;
+      return supportedBranches;
     } else {
-      return allYears;
+      return cgpaSupportedBranches;
     }
   };
+
   const onPressOpenCGPA = () => {
     if (selectedBranch.length < 1 || selectedYear.length < 1) return;
 
@@ -359,7 +391,9 @@ const KjsceHome = (props: Props) => {
           <Grid item md={6} xs={12}>
             <Button
               disabled={
-                selectedBranch.length === 0 || selectedYear.length === 0
+                selectedBranch.length === 0 ||
+                selectedYear.length === 0 ||
+                shouldCgpaBeDisabled
               }
               onClick={onPressOpenCGPA}
               variant="contained"
