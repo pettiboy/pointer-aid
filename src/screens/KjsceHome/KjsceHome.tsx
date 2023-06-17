@@ -67,7 +67,6 @@ const KjsceHome = (props: Props) => {
 
   useEffect(() => {
     setYearLoadingStatus("loading");
-
     const years = getAllYears();
     setAllYears(years);
 
@@ -82,12 +81,10 @@ const KjsceHome = (props: Props) => {
         setSelectedYear(selectedYearFromLocalStorage);
         setOpenYear(false);
       }
-    } else {
-      setOpenYear(true);
     }
 
     setYearLoadingStatus("loaded");
-  }, []);
+  }, [selectedYear]);
 
   useEffect(() => {
     console.log("selectedBranch changed", selectedBranch);
@@ -354,7 +351,7 @@ const KjsceHome = (props: Props) => {
               size="large"
               fullWidth
             >
-              SGPA Calculator
+              Semester Calculator (SGPA)
             </Button>
           </Grid>
           <Grid item md={6} xs={12}>
@@ -367,7 +364,7 @@ const KjsceHome = (props: Props) => {
               size="large"
               fullWidth
             >
-              CGPA Calculator
+              Overall Pointer Calculator (CGPA)
             </Button>
           </Grid>
         </Grid>
