@@ -84,7 +84,7 @@ const KjsceHome = (props: Props) => {
     }
 
     setYearLoadingStatus("loaded");
-  }, [selectedYear]);
+  }, []);
 
   useEffect(() => {
     console.log("selectedBranch changed", selectedBranch);
@@ -170,6 +170,11 @@ const KjsceHome = (props: Props) => {
 
     return semesters;
   };
+  useEffect(() => {
+    const year = semesterToAcademicYear(selectedSemester);
+    console.log(`${year} - ${year + 4}`);
+    setSelectedYear(`${year} - ${year + 4}`);
+  }, [selectedSemester]);
 
   const onChangeSemester = (
     e: React.SyntheticEvent<Element, Event>,
@@ -178,9 +183,6 @@ const KjsceHome = (props: Props) => {
     if (!val) return;
     setOpenSemesters(false);
     setSelectedSemester(val);
-    const year = semesterToAcademicYear(val);
-    console.log(`${year} - ${year + 4}`);
-    setSelectedYear(`${year} - ${year + 4}`);
   };
   const onOpenSemester = () => {
     setOpenSemesters(true);
