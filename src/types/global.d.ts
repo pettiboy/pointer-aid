@@ -47,6 +47,7 @@ declare global {
     semesterId: string;
     semesterName: string;
     maxCredits: number;
+    warningText?: string;
   }
 
   /**

@@ -1,5 +1,5 @@
-const compsWeightsSVU2020 = [21, 22, 21, 20, 18, 18, 16, 12];
-const itWeightsSVU2020 = [21, 22, 21, 20, 18, 18, 16, 12];
+const compsWeightsSVU2020 = [21, 20, 22, 21, 22, 23, 18, 14];
+const itWeightsSVU2020 = [21, 20, 22, 22, 22, 22, 19, 13];
 
 const cgpaData: Record<string, CgpaCalculatorStructureType[]> = {
   // comps
