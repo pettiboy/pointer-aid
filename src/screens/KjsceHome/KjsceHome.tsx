@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import Credits from "../../components/Credits/Credits";
 import cgpaData from "../../data/cgpaData";
+import semesterToAcademicYear from "../../utils/semesterToAcademicYear";
 
 type Props = {};
 
@@ -180,6 +181,9 @@ const KjsceHome = (props: Props) => {
     if (!val) return;
     setOpenSemesters(false);
     setSelectedSemester(val);
+    const year = semesterToAcademicYear(val);
+    console.log(`${year} - ${year + 4}`)
+    setSelectedYear(`${year} - ${year + 4}`)
   };
   const onOpenSemester = () => {
     setOpenSemesters(true);
