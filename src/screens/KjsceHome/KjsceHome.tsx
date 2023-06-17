@@ -182,8 +182,8 @@ const KjsceHome = (props: Props) => {
     setOpenSemesters(false);
     setSelectedSemester(val);
     const year = semesterToAcademicYear(val);
-    console.log(`${year} - ${year + 4}`)
-    setSelectedYear(`${year} - ${year + 4}`)
+    console.log(`${year} - ${year + 4}`);
+    setSelectedYear(`${year} - ${year + 4}`);
   };
   const onOpenSemester = () => {
     setOpenSemesters(true);
@@ -244,39 +244,6 @@ const KjsceHome = (props: Props) => {
     >
       <Box sx={{ minWidth: "50vw" }}>
         <Grid container spacing={2}>
-          {/*Academic Year*/}
-          <Grid item xs={12} md={4}>
-            <Autocomplete
-              fullWidth
-              open={openYear}
-              value={selectedYear}
-              autoSelect
-              onChange={onChangeYear}
-              onOpen={onOpenYear}
-              onClose={onCloseYear}
-              options={allYears}
-              loading={yearLoadingStatus === "loading"}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Graduating Year"
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: (
-                      <React.Fragment>
-                        {yearLoadingStatus === "loading" ? (
-                          <CircularProgress color="inherit" size={20} />
-                        ) : null}
-                        {params.InputProps.endAdornment}
-                      </React.Fragment>
-                    ),
-                    style: { textTransform: "uppercase" },
-                  }}
-                />
-              )}
-            />
-          </Grid>
-
           {/* branch */}
           <Grid item xs={12} md={4}>
             <Autocomplete
@@ -331,6 +298,39 @@ const KjsceHome = (props: Props) => {
                     endAdornment: (
                       <React.Fragment>
                         {semesterLoadingStatus === "loading" ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                    style: { textTransform: "uppercase" },
+                  }}
+                />
+              )}
+            />
+          </Grid>
+
+          {/*Academic Year*/}
+          <Grid item xs={12} md={4}>
+            <Autocomplete
+              fullWidth
+              open={openYear}
+              value={selectedYear}
+              autoSelect
+              onChange={onChangeYear}
+              onOpen={onOpenYear}
+              onClose={onCloseYear}
+              options={allYears}
+              loading={yearLoadingStatus === "loading"}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Graduating Year"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {yearLoadingStatus === "loading" ? (
                           <CircularProgress color="inherit" size={20} />
                         ) : null}
                         {params.InputProps.endAdornment}
