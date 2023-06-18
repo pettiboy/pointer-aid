@@ -1,4 +1,4 @@
-import { Paper, Typography, Box, Slider } from "@mui/material";
+import { Paper, Typography, Box, Slider, Alert } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
@@ -10,6 +10,8 @@ type Props = {
   id: string;
   title: string;
   weightage: number;
+  warningText?: string;
+  supportsOetOehm?: boolean;
 };
 
 const fallbackDefaultValues: GpaLocalStorageType = {
@@ -19,7 +21,13 @@ const fallbackDefaultValues: GpaLocalStorageType = {
 
 // todo(suggession): minimise container when locked to save space
 
-const SgpaContainer = ({ id, title, weightage }: Props) => {
+const SgpaContainer = ({
+  id,
+  title,
+  weightage,
+  warningText,
+  supportsOetOehm,
+}: Props) => {
   const { college, branch } = useParams();
   const defaultValues: GpaLocalStorageType = JSON.parse(
     localStorage.getItem(`${college}_${branch}_${id}`) ||
@@ -108,11 +116,14 @@ const SgpaContainer = ({ id, title, weightage }: Props) => {
           disabled={true}
         />
       </Box>
+      {warningText && (
+        <Box sx={{ mt: 2 }}>
+          <Alert variant="outlined" severity="info">
+            {warningText}
+          </Alert>
+        </Box>
+      )}
       <Box sx={{ mt: isSmallDevice ? 1 : 2 }}>
-        {/* <Typography> */}
-        {/* SGPA: {parseFloat(value)} */}
-        {/* todo: add an info icon showing what is SGPA */}
-        {/* </Typography> */}
         <Slider
           min={40}
           max={100}

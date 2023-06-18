@@ -67,6 +67,8 @@ const CgpaCalculator = (props: Props) => {
                   id={data.semesterId}
                   title={data.semesterName}
                   weightage={data.maxCredits}
+                  warningText={data.warningText}
+                  supportsOetOehm={data.supportsOetOehm}
                 />
               </Grid>
             ))}
