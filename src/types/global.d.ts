@@ -48,6 +48,7 @@ declare global {
     semesterName: string;
     maxCredits: number;
     warningText?: string;
+    supportsOetOehm?: boolean;
   }
 
   /**

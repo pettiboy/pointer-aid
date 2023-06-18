@@ -1,7 +1,7 @@
 const compsWeightsSVU2020 = [21, 20, 22, 21, 22, 23, 18, 14];
 const itWeightsSVU2020 = [21, 20, 22, 22, 22, 22];
 
-const defaultWarningText = `Awaiting updated syllabus structure.`;
+const defaultWarningText = `Awaiting updated syllabus.`;
 
 const kjsce_comps_svu = compsWeightsSVU2020.map((weight, i) => ({
   semesterId: (i + 1).toString(),
