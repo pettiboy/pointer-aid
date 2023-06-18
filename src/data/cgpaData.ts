@@ -3,11 +3,13 @@ const itWeightsSVU2020 = [21, 20, 22, 22, 22, 22];
 
 const defaultWarningText = `Awaiting updated syllabus.`;
 
-const kjsce_comps_svu = compsWeightsSVU2020.map((weight, i) => ({
-  semesterId: (i + 1).toString(),
-  semesterName: `Semester ${i + 1}`,
-  maxCredits: weight,
-}));
+const kjsce_comps_svu = [
+  ...compsWeightsSVU2020.map((weight, i) => ({
+    semesterId: (i + 1).toString(),
+    semesterName: `Semester ${i + 1}`,
+    maxCredits: weight,
+  })),
+];
 
 const kjsce_it_svu = [
   ...itWeightsSVU2020.map((weight, i) => ({
@@ -20,12 +22,16 @@ const kjsce_it_svu = [
     semesterName: "Semester 7",
     maxCredits: 19,
     warningText: defaultWarningText,
+    supportsOet: true,
+    supportsOehm: false,
   },
   {
     semesterId: "8",
     semesterName: "Semester 8",
     maxCredits: 13,
     warningText: defaultWarningText,
+    supportsOet: true,
+    supportsOehm: false,
   },
 ];
 

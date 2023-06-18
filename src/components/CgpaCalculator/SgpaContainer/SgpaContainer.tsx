@@ -1,4 +1,13 @@
-import { Paper, Typography, Box, Slider, Alert } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Box,
+  Slider,
+  Alert,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
@@ -11,7 +20,8 @@ type Props = {
   title: string;
   weightage: number;
   warningText?: string;
-  supportsOetOehm?: boolean;
+  supportsOet?: boolean;
+  supportsOehm?: boolean;
 };
 
 const fallbackDefaultValues: GpaLocalStorageType = {
@@ -26,7 +36,8 @@ const SgpaContainer = ({
   title,
   weightage,
   warningText,
-  supportsOetOehm,
+  supportsOet,
+  supportsOehm,
 }: Props) => {
   const { college, branch } = useParams();
   const defaultValues: GpaLocalStorageType = JSON.parse(
@@ -43,9 +54,15 @@ const SgpaContainer = ({
   const [value, setValue] = useState<string>(defaultValues.value);
   const [lockedState, setLockedState] = useState(defaultValues.fix);
 
+  // handle weights
+  const [weight, setWeight] = useState<number>(weightage);
+
+  const [oetChecked, setOetChecked] = useState(false);
+  const [oehmChecked, setOehmChecked] = useState(false);
+
   useEffect(() => {
-    addToAverage(id, parseFloat(value), weightage, lockedState);
-  }, [value]);
+    addToAverage(id, parseFloat(value), weight, lockedState);
+  }, [value, weight]);
 
   useEffect(() => {
     const predictedValue = getPredictionFor(id);
@@ -53,22 +70,6 @@ const SgpaContainer = ({
       setValue(predictedValue.toString());
     }
   }, [refreshRequestPrediction]);
-
-  const onChangeLockState = (checked: boolean) => {
-    setLockedState(checked);
-
-    // add to average preventing refresh of cgpa display
-    // this is to just send the updarted lock state to the context
-    addToAverage(id, parseFloat(value), weightage, checked, true);
-  };
-
-  const onChangeSlider = (
-    _e: Event,
-    value: number | number[],
-    _activeThumb: number
-  ) => {
-    setValue(((value as number) / 10).toString());
-  };
 
   useEffect(() => {
     localStorage.setItem(
@@ -79,6 +80,46 @@ const SgpaContainer = ({
       })
     );
   }, [value, lockedState]);
+
+  const onChangeLockState = (checked: boolean) => {
+    setLockedState(checked);
+
+    // add to average preventing refresh of cgpa display
+    // this is to just send the updarted lock state to the context
+    addToAverage(id, parseFloat(value), weight, checked, true);
+  };
+
+  const onChangeSlider = (
+    _e: Event,
+    value: number | number[],
+    _activeThumb: number
+  ) => {
+    setValue(((value as number) / 10).toString());
+  };
+
+  const handleOetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+
+    setOetChecked(checked);
+
+    if (checked) {
+      setWeight((prev) => prev + 2);
+    } else {
+      setWeight((prev) => prev - 2);
+    }
+  };
+
+  const handleOehmChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+
+    setOehmChecked(checked);
+
+    if (checked) {
+      setWeight((prev) => prev + 2);
+    } else {
+      setWeight((prev) => prev - 2);
+    }
+  };
 
   return (
     <Paper className="sgpa-paper-container">
@@ -110,12 +151,44 @@ const SgpaContainer = ({
         <SgpaTextField
           label="credits"
           inputProps={{
-            value: weightage.toString(),
+            value: weight.toString(),
           }}
           onChangeCallback={(_: string) => {}}
           disabled={true}
         />
       </Box>
+
+      {(supportsOet || supportsOehm) && (
+        <FormGroup>
+          <Box sx={{ display: "flex", mt: 1, ml: 1 }}>
+            {supportsOet && (
+              <FormControlLabel
+                control={
+                  <Switch
+                    size={isSmallDevice ? "small" : "medium"}
+                    checked={oetChecked}
+                    onChange={handleOetChange}
+                  />
+                }
+                label="OET"
+              />
+            )}
+            {supportsOehm && (
+              <FormControlLabel
+                control={
+                  <Switch
+                    size={isSmallDevice ? "small" : "medium"}
+                    checked={oehmChecked}
+                    onChange={handleOehmChange}
+                  />
+                }
+                label="OEHM"
+              />
+            )}
+          </Box>
+        </FormGroup>
+      )}
+
       {warningText && (
         <Box sx={{ mt: 2 }}>
           <Alert variant="outlined" severity="info">

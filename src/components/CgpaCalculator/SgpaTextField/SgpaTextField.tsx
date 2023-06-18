@@ -38,9 +38,9 @@ const SgpaTextField = ({
   // checks for errors and
   // updates local to reflect changes
   useEffect(() => {
-    if (disabled) return;
-
-    checkErrors(Number(parentValue));
+    if (!disabled) {
+      checkErrors(Number(parentValue));
+    }
 
     if (value !== parentValue) {
       setValue(parentValue);
