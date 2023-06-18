@@ -55,6 +55,7 @@ const CgpaDisplay = (props: Props) => {
           width: "100vw",
           zIndex: 9,
         }}
+        elevation={5}
       >
         {/* cgpa target for smaller screens
               stacks on top of display section */}
@@ -101,7 +102,7 @@ const CgpaDisplay = (props: Props) => {
                 // handling the borders
                 borderRight:
                   width < 700
-                    ? "1px solid " + theme.palette.primary.main
+                    ? "1px solid " + theme.palette.text.disabled
                     : "none",
               }}
             >
@@ -124,8 +125,8 @@ const CgpaDisplay = (props: Props) => {
             {width > 700 && (
               <Box
                 sx={{
-                  borderLeft: "1px solid " + theme.palette.primary.main,
-                  borderRight: "1px solid " + theme.palette.primary.main,
+                  borderLeft: "1px solid " + theme.palette.text.disabled,
+                  borderRight: "1px solid " + theme.palette.text.disabled,
                   // padding increased for very large screens
                   px: width > 900 ? 10 : 2,
                 }}
