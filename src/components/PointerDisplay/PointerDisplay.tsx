@@ -22,6 +22,7 @@ const PointerDisplay = ({ pointer }: Props) => {
             py: 2,
             zIndex: 9,
           }}
+          elevation={5}
         >
           {pointer ? (
             <Box
