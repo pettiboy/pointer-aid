@@ -55,7 +55,9 @@ const SgpaContainer = ({
   const [lockedState, setLockedState] = useState(defaultValues.fix);
 
   // handle weights
-  const [weight, setWeight] = useState<number>(weightage);
+  const defaultWeight =
+    weightage - (supportsOet ? 2 : 0) - (supportsOehm ? 2 : 0);
+  const [weight, setWeight] = useState<number>(defaultWeight);
 
   const [oetChecked, setOetChecked] = useState(false);
   const [oehmChecked, setOehmChecked] = useState(false);
