@@ -6,13 +6,14 @@ import {
   Alert,
   FormGroup,
   FormControlLabel,
+  Grid,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import SgpaTextField from "../SgpaTextField/SgpaTextField";
 import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import LockSwitch from "../../LockSwitch/LockSwitch";
 import useWindowDimensions from "../../../hooks/useWindowDimentions";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 
 type Props = {
@@ -27,6 +28,8 @@ type Props = {
 const fallbackDefaultValues: GpaLocalStorageType = {
   value: "9.0",
   fix: false,
+  oet: false,
+  oehm: false,
 };
 
 // todo(suggession): minimise container when locked to save space
@@ -40,8 +43,9 @@ const SgpaContainer = ({
   supportsOehm,
 }: Props) => {
   const { college, branch } = useParams();
+  const [urls, setUrls] = useSearchParams();
   const defaultValues: GpaLocalStorageType = JSON.parse(
-    localStorage.getItem(`${college}_${branch}_${id}`) ||
+    localStorage.getItem(`cgpa_${college}_${branch}_${id}`) ||
       JSON.stringify(fallbackDefaultValues)
   );
 
@@ -59,8 +63,15 @@ const SgpaContainer = ({
     weightage - (supportsOet ? 2 : 0) - (supportsOehm ? 2 : 0);
   const [weight, setWeight] = useState<number>(defaultWeight);
 
-  const [oetChecked, setOetChecked] = useState(false);
-  const [oehmChecked, setOehmChecked] = useState(false);
+  const [oetChecked, setOetChecked] = useState(defaultValues.oet);
+  const [oehmChecked, setOehmChecked] = useState(defaultValues.oehm);
+
+  useEffect(() => {
+    const currentSemester = parseInt(urls.get("semester") || "0");
+    if (parseInt(id) <= currentSemester && currentSemester !== 0) {
+      setLockedState(true);
+    }
+  }, [urls.get("semester")]);
 
   useEffect(() => {
     addToAverage(id, parseFloat(value), weight, lockedState);
@@ -75,13 +86,15 @@ const SgpaContainer = ({
 
   useEffect(() => {
     localStorage.setItem(
-      `${college}_${branch}_${id}`,
+      `cgpa_${college}_${branch}_${id}`,
       JSON.stringify({
         value: value,
         fix: lockedState,
+        oet: oetChecked,
+        oehm: oehmChecked,
       })
     );
-  }, [value, lockedState]);
+  }, [value, lockedState, oetChecked, oehmChecked]);
 
   const onChangeLockState = (checked: boolean) => {
     setLockedState(checked);
@@ -162,24 +175,31 @@ const SgpaContainer = ({
 
       {(supportsOet || supportsOehm) && (
         <FormGroup>
-          <Box sx={{ display: "flex", mt: 1, ml: 1 }}>
+          <Grid container sx={{ mt: 1, ml: 1 }}>
             {supportsOet && (
-              <FormControlLabel
-                control={
-                  <Checkbox checked={oetChecked} onChange={handleOetChange} />
-                }
-                label={"OET " + (oetChecked ? "offline" : "online")}
-              />
+              <Grid item xs={6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={oetChecked} onChange={handleOetChange} />
+                  }
+                  label={"OET " + (oetChecked ? "offline" : "online")}
+                />
+              </Grid>
             )}
             {supportsOehm && (
-              <FormControlLabel
-                control={
-                  <Checkbox checked={oehmChecked} onChange={handleOehmChange} />
-                }
-                label={"OEHM " + (oehmChecked ? "offline" : "online")}
-              />
+              <Grid item xs={6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={oehmChecked}
+                      onChange={handleOehmChange}
+                    />
+                  }
+                  label={"OEHM " + (oehmChecked ? "offline" : "online")}
+                />
+              </Grid>
             )}
-          </Box>
+          </Grid>
         </FormGroup>
       )}
 

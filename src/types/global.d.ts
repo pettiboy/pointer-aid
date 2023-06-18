@@ -109,6 +109,8 @@ interface PointerTw {
 interface SGPA {
   value: string;
   fix: boolean;
+  oet: boolean;
+  oehm: boolean;
 }
 
 export {};
