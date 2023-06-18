@@ -23,7 +23,7 @@ const kjsce_it_svu = [
     maxCredits: 19,
     warningText: defaultWarningText,
     supportsOet: true,
-    supportsOehm: false,
+    supportsOehm: true,
   },
   {
     semesterId: "8",

@@ -4,7 +4,6 @@ import {
   Box,
   Slider,
   Alert,
-  Switch,
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
@@ -14,6 +13,7 @@ import { CgpaCalculatorContext } from "../../../context/CgpaCalculatorContext";
 import LockSwitch from "../../LockSwitch/LockSwitch";
 import useWindowDimensions from "../../../hooks/useWindowDimentions";
 import { useParams } from "react-router-dom";
+import Checkbox from "@mui/material/Checkbox";
 
 type Props = {
   id: string;
@@ -164,25 +164,17 @@ const SgpaContainer = ({
             {supportsOet && (
               <FormControlLabel
                 control={
-                  <Switch
-                    size={isSmallDevice ? "small" : "medium"}
-                    checked={oetChecked}
-                    onChange={handleOetChange}
-                  />
+                  <Checkbox checked={oetChecked} onChange={handleOetChange} />
                 }
-                label="OET"
+                label={"OET " + (oetChecked ? "offline" : "online")}
               />
             )}
             {supportsOehm && (
               <FormControlLabel
                 control={
-                  <Switch
-                    size={isSmallDevice ? "small" : "medium"}
-                    checked={oehmChecked}
-                    onChange={handleOehmChange}
-                  />
+                  <Checkbox checked={oehmChecked} onChange={handleOehmChange} />
                 }
-                label="OEHM"
+                label={"OEHM " + (oehmChecked ? "offline" : "online")}
               />
             )}
           </Box>
