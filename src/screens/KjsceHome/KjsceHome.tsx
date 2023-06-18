@@ -260,7 +260,7 @@ const KjsceHome = (props: Props) => {
     navigate(
       `/kjsce/${selectedBranch.toLowerCase()}/${
         selectedYear.split(" - ")[1]
-      }/cgpa`
+      }/cgpa?semester=${selectedSemester.split(" ")[1]}`
     );
   };
 
