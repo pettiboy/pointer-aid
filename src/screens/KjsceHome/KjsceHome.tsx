@@ -187,6 +187,7 @@ const KjsceHome = (props: Props) => {
     return semesters;
   };
   useEffect(() => {
+    if (selectedSemester.length < 1) return;
     const year = semesterToAcademicYear(selectedSemester);
     console.log(`${year} - ${year + 4}`);
     setSelectedYear(`${year} - ${year + 4}`);
