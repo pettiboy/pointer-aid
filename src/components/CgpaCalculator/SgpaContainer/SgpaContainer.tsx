@@ -44,6 +44,9 @@ const SgpaContainer = ({
 }: Props) => {
   const { college, branch } = useParams();
   const [urls, setUrls] = useSearchParams();
+  const data = JSON.parse(
+    localStorage.getItem(`cgpa_${college}_${branch}_${id}`) || "{}"
+  );
   const defaultValues: GpaLocalStorageType = JSON.parse(
     localStorage.getItem(`cgpa_${college}_${branch}_${id}`) ||
       JSON.stringify(fallbackDefaultValues)
@@ -66,12 +69,17 @@ const SgpaContainer = ({
   const [oetChecked, setOetChecked] = useState(defaultValues.oet);
   const [oehmChecked, setOehmChecked] = useState(defaultValues.oehm);
 
+  /* This `useEffect` hook is setting the initial lock state of the SGPA container based on the current
+  semester and whether the "fix" property is present in the local storage data for the container. It
+  runs only once on mount, as the dependency array is empty. */
   useEffect(() => {
     const currentSemester = parseInt(urls.get("semester") || "0");
-    if (parseInt(id) <= currentSemester && currentSemester !== 0) {
+    const isFixNotPresent = !data.hasOwnProperty("fix");
+    const isIdLessThanOrEqualToSemester = parseInt(id) <= currentSemester;
+    if (isIdLessThanOrEqualToSemester && isFixNotPresent) {
       setLockedState(true);
     }
-  }, [urls.get("semester")]);
+  }, []);
 
   useEffect(() => {
     addToAverage(id, parseFloat(value), weight, lockedState);
