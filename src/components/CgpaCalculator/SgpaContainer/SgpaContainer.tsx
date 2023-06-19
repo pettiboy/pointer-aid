@@ -43,8 +43,9 @@ const SgpaContainer = ({
   supportsOehm,
 }: Props) => {
   const { college, branch } = useParams();
-  const [urls, setUrls] = useSearchParams();
+  const [urls] = useSearchParams();
   const currentSemester = parseInt(urls.get("semester") || "0");
+
   const data = JSON.parse(
     localStorage.getItem(
       `cgpa_${college}_${branch}_${id}_${currentSemester}`
@@ -88,6 +89,12 @@ const SgpaContainer = ({
   }, [value, weight]);
 
   useEffect(() => {
+    // add to average preventing refresh of cgpa display
+    // this is to just send the updated lock state to the context
+    addToAverage(id, parseFloat(value), weight, lockedState, true);
+  }, [lockedState]);
+
+  useEffect(() => {
     const predictedValue = getPredictionFor(id);
     if (predictedValue !== -1) {
       setValue(predictedValue.toString());
@@ -114,10 +121,6 @@ const SgpaContainer = ({
         fix: checked,
       })
     );
-
-    // add to average preventing refresh of cgpa display
-    // this is to just send the updarted lock state to the context
-    addToAverage(id, parseFloat(value), weight, checked, true);
   };
 
   const onChangeSlider = (
