@@ -24,14 +24,17 @@ root.render(
 );
 
 serviceWorkerRegistration.register({
-  onUpdate: (e) => {
-    const { waiting: { postMessage = null } = {} as any, update } = e || {};
-    if (postMessage) {
-      postMessage({ type: "SKIP_WAITING" });
+  onUpdate: (registration) => {
+    const waitingServiceWorker = registration.waiting;
+    if (waitingServiceWorker) {
+      waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
+
+      waitingServiceWorker.addEventListener("statechange", (event) => {
+        if ((event.target as ServiceWorker).state === "activated") {
+          window.location.reload();
+        }
+      });
     }
-    update().then(() => {
-      window.location.reload();
-    });
   },
 });
 
