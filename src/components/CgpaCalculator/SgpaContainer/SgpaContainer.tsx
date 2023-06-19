@@ -44,8 +44,11 @@ const SgpaContainer = ({
 }: Props) => {
   const { college, branch } = useParams();
   const [urls, setUrls] = useSearchParams();
+  const currentSemester = parseInt(urls.get("semester") || "0");
   const data = JSON.parse(
-    localStorage.getItem(`cgpa_${college}_${branch}_${id}`) || "{}"
+    localStorage.getItem(
+      `cgpa_${college}_${branch}_${id}_${currentSemester}`
+    ) || "{}"
   );
   const defaultValues: GpaLocalStorageType = JSON.parse(
     localStorage.getItem(`cgpa_${college}_${branch}_${id}`) ||
@@ -59,7 +62,7 @@ const SgpaContainer = ({
     useContext(CgpaCalculatorContext);
 
   const [value, setValue] = useState<string>(defaultValues.value);
-  const [lockedState, setLockedState] = useState(defaultValues.fix);
+  const [lockedState, setLockedState] = useState(data.fix);
 
   // handle weights
   const defaultWeight =
@@ -73,7 +76,6 @@ const SgpaContainer = ({
   semester and whether the "fix" property is present in the local storage data for the container. It
   runs only once on mount, as the dependency array is empty. */
   useEffect(() => {
-    const currentSemester = parseInt(urls.get("semester") || "0");
     const isFixNotPresent = !data.hasOwnProperty("fix");
     const isIdLessThanOrEqualToSemester = parseInt(id) <= currentSemester;
     if (isIdLessThanOrEqualToSemester && isFixNotPresent) {
@@ -97,15 +99,21 @@ const SgpaContainer = ({
       `cgpa_${college}_${branch}_${id}`,
       JSON.stringify({
         value: value,
-        fix: lockedState,
         oet: oetChecked,
         oehm: oehmChecked,
       })
     );
-  }, [value, lockedState, oetChecked, oehmChecked]);
+  }, [value, oetChecked, oehmChecked]);
 
   const onChangeLockState = (checked: boolean) => {
     setLockedState(checked);
+
+    localStorage.setItem(
+      `cgpa_${college}_${branch}_${id}_${currentSemester}`,
+      JSON.stringify({
+        fix: checked,
+      })
+    );
 
     // add to average preventing refresh of cgpa display
     // this is to just send the updarted lock state to the context
