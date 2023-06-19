@@ -190,7 +190,7 @@ const SgpaContainer = ({
                   control={
                     <Checkbox checked={oetChecked} onChange={handleOetChange} />
                   }
-                  label={"OET " + (oetChecked ? "offline" : "online")}
+                  label={"OET online"}
                 />
               </Grid>
             )}
@@ -203,7 +203,7 @@ const SgpaContainer = ({
                       onChange={handleOehmChange}
                     />
                   }
-                  label={"OEHM " + (oehmChecked ? "offline" : "online")}
+                  label={"OEHM online"}
                 />
               </Grid>
             )}
