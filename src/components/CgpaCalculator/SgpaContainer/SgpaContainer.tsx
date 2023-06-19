@@ -65,13 +65,15 @@ const SgpaContainer = ({
   const [value, setValue] = useState<string>(defaultValues.value);
   const [lockedState, setLockedState] = useState(data.fix);
 
-  // handle weights
-  const defaultWeight =
-    weightage - (supportsOet ? 2 : 0) - (supportsOehm ? 2 : 0);
-  const [weight, setWeight] = useState<number>(defaultWeight);
-
   const [oetChecked, setOetChecked] = useState(defaultValues.oet);
   const [oehmChecked, setOehmChecked] = useState(defaultValues.oehm);
+
+  // handle weights
+  const defaultWeight =
+    weightage -
+    (supportsOet && !oetChecked ? 2 : 0) -
+    (supportsOehm && !oehmChecked ? 2 : 0);
+  const [weight, setWeight] = useState<number>(defaultWeight);
 
   /* This `useEffect` hook is setting the initial lock state of the SGPA container based on the current
   semester and whether the "fix" property is present in the local storage data for the container. It
