@@ -95,8 +95,6 @@ const KjsceHome = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log("selectedBranch changed", selectedBranch);
-
     setSelectedSemester("");
     if (selectedBranch.length > 0) {
       setSemesterLoadingStatus("loading");
@@ -188,8 +186,8 @@ const KjsceHome = (props: Props) => {
   };
   useEffect(() => {
     if (selectedSemester.length < 1) return;
+
     const year = semesterToAcademicYear(selectedSemester);
-    console.log(`${year} - ${year + 4}`);
     setSelectedYear(`${year} - ${year + 4}`);
   }, [selectedSemester]);
 
