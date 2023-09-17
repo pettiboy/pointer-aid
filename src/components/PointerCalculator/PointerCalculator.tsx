@@ -14,6 +14,7 @@ import Pointer110_75 from "../PointerContainers/Pointer110_75";
 import Pointer200 from "../PointerContainers/Pointer200";
 import Pointer300 from "../PointerContainers/Pointer300";
 import Pointer301 from "../PointerContainers/Pointer301";
+import Pointer040 from "../PointerContainers/Pointer040";
 
 interface Props extends PointerCalculatorStructureType {
   handleInputChange: (name: string, value: number) => void;
@@ -98,6 +99,13 @@ const PointerCalculator = ({
                 onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
               />
             ),
+          "040": (
+            <Pointer040
+              subjectCode={subjectCode}
+              subject={subjectName}
+              onUpdateCallback={(cg) => handleInputChange(subjectCode, cg)}
+            />
+          ),
           "102": (
             <Pointer102
               subjectCode={subjectCode}

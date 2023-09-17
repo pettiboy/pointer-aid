@@ -1130,6 +1130,164 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       creditDistribution: "020",
     },
   ],
+  kjsce_mech_sem5: [
+    {
+      subjectName: "Theory of Machines-II",
+      subjectCode: "TOM2",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Energy Conversion-I",
+      subjectCode: "EC1",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Mechatronics",
+      subjectCode: "MTRX",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-I",
+      subjectCode: "DE1",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Open Elective Technical",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Open Elective Humanities",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Theory of Machines-II Laboratory",
+      subjectCode: "TOM2LAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Energy Conversion-I Laboratory",
+      subjectCode: "EC1LAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Mechatronics Laboratory",
+      subjectCode: "MTRXLAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Industrial Electronics Laboratory",
+      subjectCode: "IELAB",
+      creditDistribution: "011",
+    },
+    {
+      subjectName: "Departmental Elective-I Laboratory",
+      subjectCode: "DE1LAB",
+      creditDistribution: "010",
+    },
+  ],
+  kjsce_mech_sem6: [
+    {
+      subjectName: "Elements of Machine Design",
+      subjectCode: "EMD",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Energy Conversion-II",
+      subjectCode: "EC2",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Computer Aided Engineering",
+      subjectCode: "CAE",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-II",
+      subjectCode: "DE2",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Open Elective Technical",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Open Elective Management",
+      subjectCode: "OEHM",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Elements of Machine Design Laboratory",
+      subjectCode: "EMDLAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Energy Conversion-II Laboratory",
+      subjectCode: "EC2LAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Computer Aided Engineering Laboratory",
+      subjectCode: "CAELAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Departmental Elective-II Laboratory",
+      subjectCode: "DE2LAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Mini Project",
+      subjectCode: "MP",
+      creditDistribution: "020",
+      maxMarks: 50,
+      structureType: "b",
+    },
+  ],
+  kjsce_mech_sem7: [
+    {
+      subjectName: "Industrial Engineering and Management",
+      subjectCode: "IEM",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-III",
+      subjectCode: "DE3",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-IV",
+      subjectCode: "DE4",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Open Elective Technical",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Project - I",
+      subjectCode: "PI",
+      creditDistribution: "040",
+    },
+    {
+      subjectName: "Industrial Engineering and Management Laboratory",
+      subjectCode: "IEMLAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Departmental Elective-III Laboratory",
+      subjectCode: "DE3LAB",
+      creditDistribution: "010",
+    },
+    {
+      subjectName: "Departmental Elective-IV Laboratory",
+      subjectCode: "DE4LAB",
+      creditDistribution: "010",
+    },
+  ],
 };
 
 export default calculatorStructure;
