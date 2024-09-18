@@ -1021,6 +1021,46 @@ const calculatorStructure: Record<string, PointerCalculatorStructureType[]> = {
       structureType: "b",
     },
   ],
+  kjsce_it_sem7:[
+    {
+      subjectName: "Software Testing and Quality Assurance",
+      subjectCode: "STQA",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-III",
+      subjectCode: "DEIII",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Departmental Elective-IV",
+      subjectCode: "DEIV",
+      creditDistribution: "300",
+    },
+    {
+      subjectName: "Open Elective Technical",
+      subjectCode: "OET",
+      creditDistribution: "200",
+    },
+    {
+      subjectName: "Project - I",
+      subjectCode: "PI",
+      creditDistribution: "040",
+    },
+    {
+      subjectName: "Software Testing and Quality Assurance Laboratory",
+      subjectCode: "STQALab",
+      creditDistribution: "010",
+    }, {
+      subjectName: "Departmental Elective-III Lab",
+      subjectCode: "DEIIILab",
+      creditDistribution: "010",
+    }, {
+      subjectName: "Departmental Elective-IV Lab",
+      subjectCode: "DEIVLab",
+      creditDistribution: "010",
+    }
+  ],
 
   // MECH
   kjsce_mech_sem1: kjsce_groupp_sem1,
