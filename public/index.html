@@ -233,6 +233,16 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script type="module">
+      const isDev =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+      if (isDev) {
+        import(
+          "https://unpkg.com/fixdog/dist/fixdog.esm.js?projectId=bc35d587-034c-40de-93a5-09fc6f33cb62"
+        );
+      }
+    </script>
     <title>Pointer Aid</title>
   </head>
   <body>
