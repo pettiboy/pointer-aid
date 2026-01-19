@@ -234,6 +234,16 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Pointer Aid</title>
+    <script type="module">
+      if (
+        window.location.host.includes("localhost") ||
+        window.location.host.includes("127.0.0.1")
+      ) {
+        import(
+          "https://unpkg.com/fixdog/dist/fixdog.esm.js?projectId=30196743-879a-4443-8f71-81f07b8e11cf"
+        );
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
